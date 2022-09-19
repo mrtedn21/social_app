@@ -32,7 +32,6 @@ services:
       - type: bind
         source: ./logs/
         target: /app/logs/
-    #command: tail -F anything
 
 volumes:
   postgres:
