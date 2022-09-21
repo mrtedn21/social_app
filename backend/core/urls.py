@@ -5,6 +5,7 @@ from drf_yasg.views import get_schema_view
 from rest_framework import routers
 from rest_framework import permissions
 
+from auth.views import AuthView
 from person.views import PersonViewSet
 
 schema_view = get_schema_view(
@@ -25,7 +26,7 @@ router.register(r'persons', PersonViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/auth/', AuthView.as_view(), name='auth-token'),
     path('admin/', admin.site.urls),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
