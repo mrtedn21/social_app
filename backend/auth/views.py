@@ -12,12 +12,10 @@ class AuthView(generics.CreateAPIView):
     queryset = User.objects.all()
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-
         user = authenticate(
             request,
-            username=serializer.initial_data['username'],
-            password=serializer.initial_data['password'],
+            username=request.data.get('username'),
+            password=request.data.get('password'),
         )
 
         if user:
