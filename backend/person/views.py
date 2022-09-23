@@ -29,6 +29,7 @@ class PersonFilter(FilterSet):
 
 
 class PersonViewSet(viewsets.ModelViewSet):
+    http_method_names = ('post', 'get')
     permission_classes = (permissions.IsAuthenticated,)
     queryset = Person.objects.all().prefetch_related('friends')
     serializer_class = PersonSerializer
