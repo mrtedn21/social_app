@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_filters',
     'rest_framework.authtoken',
     'drf_yasg',
     'person.apps.PersonConfig',
@@ -138,8 +139,14 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication'
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 30
+    'PAGE_SIZE': 30,
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
+
+DEFAULT_TEXT_FILTER_LOOKUPS = (
+    'iexact',
+    'icontains',
+)
 
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {

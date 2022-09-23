@@ -1,11 +1,14 @@
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+from django_filters.rest_framework import DjangoFilterBackend, FilterSet
 from drf_yasg.openapi import (
     TYPE_INTEGER,
     Schema,
     TYPE_OBJECT,
 )
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework import filters
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework.decorators import action
@@ -15,10 +18,23 @@ from person.models import Person
 from person.serializers import PersonSerializer
 
 
+class PersonFilter(FilterSet):
+    class Meta:
+        model = Person
+        fields = {
+            'first_name': settings.DEFAULT_TEXT_FILTER_LOOKUPS,
+            'last_name': settings.DEFAULT_TEXT_FILTER_LOOKUPS,
+            'birth_date': settings.DEFAULT_TEXT_FILTER_LOOKUPS,
+        }
+
+
 class PersonViewSet(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = Person.objects.all().prefetch_related('friends')
     serializer_class = PersonSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    filter_backends = (filters.SearchFilter, DjangoFilterBackend)
+    filterset_class = PersonFilter
+    search_fields = ('first_name', 'last_name')
 
     @swagger_auto_schema(
         request_body=Schema(
