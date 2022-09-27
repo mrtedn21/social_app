@@ -87,7 +87,7 @@ DATABASES = {
         'NAME': os.getenv('POSTGRES_DB'),
         'USER': os.getenv('POSTGRES_USER'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-        'HOST': 'postgres',
+        'HOST': 'social_db',
         'PORT': 5432,
         'CONN_MAX_AGE': 600,
     }
@@ -147,6 +147,12 @@ DEFAULT_TEXT_FILTER_LOOKUPS = (
     'iexact',
     'icontains',
 )
+
+CELERY_BROKER_URL = "redis://social_redis:6379"
+CELERY_RESULT_BACKEND = "redis://social_redis:6379"
+CELERY_TIMEZONE = "Asia/Novosibirsk"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
 
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
