@@ -24,6 +24,8 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
+      - EMAIL_HOST_USER=${EMAIL_HOST_USER}
+      - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
     depends_on:
       - social_db
     ports:
@@ -46,7 +48,9 @@ services:
     build:
       context: backend/
       dockerfile: ./celery.Dockerfile
-    #command: tail -F anything
+    environment:
+      - EMAIL_HOST_USER=${EMAIL_HOST_USER}
+      - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
     depends_on:
       - social_db
       - social_redis

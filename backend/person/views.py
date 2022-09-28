@@ -37,11 +37,6 @@ class PersonViewSet(viewsets.ModelViewSet):
     filterset_class = PersonFilter
     search_fields = ('first_name', 'last_name')
 
-    def list(self, request, *args, **kwargs):
-        from .tasks import test_task
-        test_task.delay()
-        return super().list(request, *args, **kwargs)
-
     @swagger_auto_schema(
         request_body=Schema(
             type=TYPE_OBJECT,

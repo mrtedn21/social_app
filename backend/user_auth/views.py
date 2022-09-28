@@ -5,7 +5,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK
 
-from auth.serializers import AuthUserSerializer, RegisterUserSerializer
+from user_auth.serializers import AuthUserSerializer, RegisterUserSerializer
+from user_auth.tasks import send_email
 
 
 class AuthViewSet(viewsets.ModelViewSet):
@@ -40,4 +41,5 @@ class RegisterViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         user = User.objects.create_user(**serializer.data)
         token, _ = Token.objects.get_or_create(user=user)
+        send_email.delay('test', 'some text')
         return Response(token.key, status=HTTP_200_OK)
