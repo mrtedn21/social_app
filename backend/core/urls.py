@@ -22,9 +22,9 @@ schema_view = get_schema_view(
 )
 
 router = routers.DefaultRouter()
-router.register(r'persons', PersonViewSet)
-router.register(r'auth', AuthViewSet)
-router.register(r'register', RegisterViewSet)
+router.register(r'persons', PersonViewSet, basename='persons')
+router.register(r'auth', AuthViewSet, basename='auth')
+router.register(r'register', RegisterViewSet, basename='register')
 
 urlpatterns = [
     path('api/', include(router.urls)),

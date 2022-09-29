@@ -55,9 +55,9 @@ services:
       - social_db
       - social_redis
 
-  social_mail:
-    image: bytemark/smtp
-    restart: always
+  #social_mail:
+  #  image: bytemark/smtp
+  #  restart: always
 
 volumes:
   social_db:
