@@ -42,9 +42,12 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework.authtoken',
     'drf_yasg',
-    'user_auth.apps.UserAuthConfig',
-    'person.apps.PersonConfig',
+
+    # user apps
     'core.apps.CoreConfig',
+    'message.apps.MessageConfig',
+    'person.apps.PersonConfig',
+    'user_auth.apps.UserAuthConfig',
 ]
 
 # TODO to understand all middleware and disable them if useless
@@ -118,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Novosibirsk'
 
 USE_I18N = True
 

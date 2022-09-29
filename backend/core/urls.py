@@ -5,8 +5,9 @@ from drf_yasg.views import get_schema_view
 from rest_framework import routers
 from rest_framework import permissions
 
-from user_auth.views import AuthViewSet, RegisterViewSet
+from message.views import ChatViewSet, MessageViewSet
 from person.views import PersonViewSet
+from user_auth.views import AuthViewSet, RegisterViewSet
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -22,8 +23,10 @@ schema_view = get_schema_view(
 )
 
 router = routers.DefaultRouter()
-router.register(r'persons', PersonViewSet, basename='persons')
 router.register(r'auth', AuthViewSet, basename='auth')
+router.register(r'chats', ChatViewSet, basename='chats')
+router.register(r'messages', MessageViewSet, basename='messages')
+router.register(r'persons', PersonViewSet, basename='persons')
 router.register(r'register', RegisterViewSet, basename='register')
 
 urlpatterns = [
