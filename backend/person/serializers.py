@@ -18,11 +18,11 @@ class CitySerializer(serializers.ModelSerializer):
 
 
 class CountrySerializer(serializers.ModelSerializer):
-    city_set = CitySerializer(many=True)
+    cities = CitySerializer(many=True)
 
     class Meta:
         model = Country
-        fields = ('pk', 'name', 'city_set')
+        fields = ('pk', 'name', 'cities')
 
 
 class GenderSerializer(serializers.ModelSerializer):

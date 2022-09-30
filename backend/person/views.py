@@ -64,7 +64,7 @@ class PersonViewSet(viewsets.ModelViewSet):
 
 
 class CountyViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Country.objects.all().prefetch_related('city_set')
+    queryset = Country.objects.all().prefetch_related('cities')
     serializer_class = CountrySerializer
     permission_classes = (permissions.IsAuthenticated,)
 
