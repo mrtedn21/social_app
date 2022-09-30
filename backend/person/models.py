@@ -4,12 +4,34 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
+class Country(models.Model):
+    name = models.CharField(max_length=64)
+
+
+class City(models.Model):
+    name = models.CharField(max_length=64)
+    country = models.ForeignKey(Country, on_delete=models.PROTECT)
+
+
+class Gender(models.Model):
+    name = models.CharField(max_length=64)
+
+
+class Language(models.Model):
+    name = models.CharField(max_length=64)
+
+
 class Person(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     friends = models.ManyToManyField('self', blank=True, symmetrical=True)
+
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
     birth_date = models.DateField()
+    gender = models.ForeignKey(Gender, on_delete=models.SET_NULL, null=True)
+    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
+    languages = models.ManyToManyField(Language, blank=True)
+
     submit_email = models.BooleanField(default=False)
     uuid = models.UUIDField(default=uuid4)
 
