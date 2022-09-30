@@ -17,6 +17,7 @@ from person.filters import PersonFilter
 from person.models import Person, Country, Gender, Language
 from person.serializers import (
     PersonDetailSerializer,
+    PersonEditSerializer,
     PersonListSerializer,
     GenderSerializer,
     LanguageSerializer,
@@ -35,6 +36,8 @@ class PersonViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == 'retrieve':
             return PersonDetailSerializer
+        elif self.action in ('update', 'partial_update'):
+            return PersonEditSerializer
         else:
             return PersonListSerializer
 
