@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from person.models import Person
+from person.models import Person, Country, Gender, Language, City
 
 
 class PersonListSerializer(serializers.ModelSerializer):
@@ -10,10 +10,12 @@ class PersonListSerializer(serializers.ModelSerializer):
 
 
 class PersonDetailSerializer(serializers.ModelSerializer):
+    friends = PersonListSerializer(many=True)
+
     class Meta:
         model = Person
         fields = (
-            'user',
+            'pk',
             'friends',
             'first_name',
             'last_name',
@@ -22,3 +24,29 @@ class PersonDetailSerializer(serializers.ModelSerializer):
             'city',
             'languages',
         )
+
+
+class CitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = ('pk', 'name')
+
+
+class CountrySerializer(serializers.ModelSerializer):
+    city_set = CitySerializer(many=True)
+
+    class Meta:
+        model = Country
+        fields = ('pk', 'name', 'city_set')
+
+
+class GenderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Gender
+        fields = ('pk', 'name')
+
+
+class LanguageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Language
+        fields = ('pk', 'name')

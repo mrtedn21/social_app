@@ -6,7 +6,12 @@ from rest_framework import routers
 from rest_framework import permissions
 
 from message.views import ChatViewSet, MessageViewSet
-from person.views import PersonViewSet
+from person.views import (
+    PersonViewSet,
+    GenderViewSet,
+    LanguageViewSet,
+    CountyViewSet,
+)
 from user_auth.views import AuthViewSet, RegisterViewSet
 
 schema_view = get_schema_view(
@@ -25,6 +30,9 @@ schema_view = get_schema_view(
 router = routers.DefaultRouter()
 router.register(r'auth', AuthViewSet, basename='auth')
 router.register(r'chats', ChatViewSet, basename='chats')
+router.register(r'countries', CountyViewSet, basename='country')
+router.register(r'genders', GenderViewSet, basename='genders')
+router.register(r'languages', LanguageViewSet, basename='languages')
 router.register(r'messages', MessageViewSet, basename='messages')
 router.register(r'persons', PersonViewSet, basename='persons')
 router.register(r'register', RegisterViewSet, basename='register')
