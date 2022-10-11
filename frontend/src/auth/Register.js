@@ -26,7 +26,7 @@ class Login extends React.Component {
 
     async clickHandle(event) {
         event.preventDefault()
-        let response = await fetch('http://localhost:8000/api/auth/', {
+        let response = await fetch('http://localhost:8000/api/register/', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -34,10 +34,15 @@ class Login extends React.Component {
             body: JSON.stringify({
                 username: this.state.username,
                 password: this.state.password,
+                email: this.state.email,
+                first_name: this.state.first_name,
+                last_name: this.state.last_name,
+                birth_date: this.state.birth_date,
             }),
         })
             .then(response => response.json())
-            .then(data => document.cookie = 'token=' + data.token)
+            .then(data => console.log(data))
+            //.then(data => document.cookie = 'token=' + data.token)
     }
 
     render() {
@@ -60,8 +65,8 @@ class Login extends React.Component {
                     <input type="text" placeholder="Last name"
                            name="last_name" onChange={this.inputHandle}/>
 
-                    <input type="text" placeholder="Birth date"
-                           name="birth_date" onChange={this.inputHandle}/>
+                    <input type="date" name="birth_date" onChange={this.inputHandle}
+                           min="1900-01-01" max="2022-12-31"/>
 
                     <div>
                         <input type="submit" onClick={this.clickHandle} value="Register"/>

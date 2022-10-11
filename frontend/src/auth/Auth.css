@@ -16,12 +16,12 @@
   font-family: 'Raleway', sans-serif;
   font-size: 20px;
 }
-.auth-form input[type=text], input[type=password] {
+.auth-form input[type=text], input[type=password], input[type=date] {
   padding: 6px;
   border: none;
   box-shadow: 5px 5px 10px #e7e7e7;
 }
-.auth-form input[type=text]:focus, input[type=password]:focus {
+.auth-form input[type=text]:focus, input[type=password]:focus, input[type=date]:focus {
   outline: none;
 }
 .auth-form input[type=submit], a {

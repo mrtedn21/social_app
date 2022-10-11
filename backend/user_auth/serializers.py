@@ -16,7 +16,7 @@ class RegistrationSerializer(serializers.Serializer):
     email = serializers.EmailField(max_length=64)
     first_name = serializers.CharField(max_length=64)
     last_name = serializers.CharField(max_length=64)
-    birth_date = serializers.DateTimeField()
+    birth_date = serializers.DateField()
 
     def create(self, validated_data):
         user = User.objects.create_user(
