@@ -1,6 +1,5 @@
-.auth-container>p {
+.auth-container p {
   margin-top: 40px;
-  font-family: 'Raleway', sans-serif;
   font-size: 24px;
 }
 
@@ -12,22 +11,28 @@
 .auth-form>* {
   width: 300px;
   margin: 6px auto;
-  padding: 6px;
+}
+.auth-form * {
   font-family: 'Raleway', sans-serif;
   font-size: 20px;
 }
-.auth-form>input[type=text], input[type=password] {
+.auth-form input[type=text], input[type=password] {
+  padding: 6px;
   border: none;
   box-shadow: 5px 5px 10px #e7e7e7;
 }
-.auth-form>input[type=text]:focus, input[type=password]:focus {
+.auth-form input[type=text]:focus, input[type=password]:focus {
   outline: none;
 }
-.auth-form>input[type=submit] {
+.auth-form input[type=submit], a {
   border: none;
+  margin: 6px 10px;
+  padding: 6px 25px;
   border-radius: 30px;
   background: rgb(200, 255, 0);
+  text-decoration: none;
+  cursor: default;
 }
-.auth-form>input[type=submit]:hover {
+.auth-form input[type=submit]:hover, a:hover {
   background: rgb(195, 248, 0);
 }
