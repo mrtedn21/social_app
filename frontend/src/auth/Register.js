@@ -1,4 +1,4 @@
-import './Login.css';
+import './Auth.css';
 import React from 'react';
 
 
@@ -8,6 +8,10 @@ class Login extends React.Component {
         this.state = {
             username: '',
             password: '',
+            email: '',
+            first_name: '',
+            last_name: '',
+            birth_date: '',
         }
 
         this.inputHandle = this.inputHandle.bind(this)
@@ -39,18 +43,30 @@ class Login extends React.Component {
     render() {
         return (
             <div className="auth-container">
-                <p>Authorization page</p>
+                <p>Registration</p>
                 <form className="auth-form">
-                    <input type="text" placeholder="username"
+                    <input type="text" placeholder="Email"
+                           name="email" onChange={this.inputHandle}/>
+
+                    <input type="text" placeholder="Username"
                            name="username" onChange={this.inputHandle}/>
 
-                    <input type="password" placeholder="password"
+                    <input type="password" placeholder="Password"
                            name="password" onChange={this.inputHandle}/>
 
+                    <input type="text" placeholder="First name"
+                           name="first_name" onChange={this.inputHandle}/>
+
+                    <input type="text" placeholder="Last name"
+                           name="last_name" onChange={this.inputHandle}/>
+
+                    <input type="text" placeholder="Birth date"
+                           name="birth_date" onChange={this.inputHandle}/>
+
                     <div>
-                        <input type="submit" onClick={this.clickHandle} value="Login"/>
+                        <input type="submit" onClick={this.clickHandle} value="Register"/>
                         or
-                        <a href="register">Register</a>
+                        <a href="login">Login</a>
                     </div>
                 </form>
             </div>
