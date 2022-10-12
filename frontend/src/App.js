@@ -8,11 +8,13 @@ import {
 import './App.css';
 import Login from "./auth/Login";
 import Register from "./auth/Register";
+import RegisterSubmit from "./auth/RegisterSubmit";
 
 
 const router = createBrowserRouter([
     {path: '/login', element: <Login />},
     {path: '/register', element: <Register />},
+    {path: '/register/submit', element: <RegisterSubmit />},
 ])
 
 

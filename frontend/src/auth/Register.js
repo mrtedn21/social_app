@@ -26,7 +26,7 @@ class Login extends React.Component {
 
     async clickHandle(event) {
         event.preventDefault()
-        let response = await fetch('http://localhost:8000/api/register/', {
+        await fetch('http://localhost:8000/api/register/', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -42,7 +42,6 @@ class Login extends React.Component {
         })
             .then(response => response.json())
             .then(data => console.log(data))
-            //.then(data => document.cookie = 'token=' + data.token)
     }
 
     render() {

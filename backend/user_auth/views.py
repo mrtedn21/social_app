@@ -1,6 +1,5 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from django.urls import reverse
 from rest_framework import viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
@@ -43,10 +42,9 @@ class RegisterViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         person = serializer.save()
-        url = reverse('register-submit', kwargs={'uuid_param': person.uuid})
 
         text = 'To submit registration, proceed by link in your email'
-        send_email.delay('Submit', f'http://localhost:8000{url}')
+        send_email.delay('Submit', f'http://localhost:3000/register/submit?id={person.uuid}')
         return Response(text, status=HTTP_200_OK)
 
     @action(detail=False, url_path='submit/(?P<uuid_param>[^/.]+)')
