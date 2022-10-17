@@ -46,31 +46,32 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div className="auth-container">
-                <p>Registration</p>
+            <div>
+                <p className="auth-header">Registration</p>
                 <form className="auth-form">
-                    <input type="text" placeholder="Email"
+                    <input type="text" placeholder="Email" className="auth-form-input"
                            name="email" onChange={this.inputHandle}/>
 
-                    <input type="text" placeholder="Username"
+                    <input type="text" placeholder="Username" className="auth-form-input"
                            name="username" onChange={this.inputHandle}/>
 
-                    <input type="password" placeholder="Password"
+                    <input type="password" placeholder="Password" className="auth-form-input"
                            name="password" onChange={this.inputHandle}/>
 
-                    <input type="text" placeholder="First name"
+                    <input type="text" placeholder="First name" className="auth-form-input"
                            name="first_name" onChange={this.inputHandle}/>
 
                     <input type="text" placeholder="Last name"
                            name="last_name" onChange={this.inputHandle}/>
 
                     <input type="date" name="birth_date" onChange={this.inputHandle}
-                           min="1900-01-01" max="2022-12-31"/>
+                           min="1900-01-01" max="2022-12-31" className="auth-form-input"/>
 
                     <div>
-                        <input type="submit" onClick={this.clickHandle} value="Register"/>
+                        <input type="submit" onClick={this.clickHandle}
+                               value="Register" className="auth-form-button"/>
                         or
-                        <a href="login">Login</a>
+                        <a href="login" className="auth-form-button">Login</a>
                     </div>
                 </form>
             </div>

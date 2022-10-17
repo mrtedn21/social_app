@@ -31,9 +31,9 @@ class RegisterSubmit extends React.Component {
 
     render() {
         return (
-            <div className="auth-container">
-                <p>{this.state.submitText}</p>
-                <a href="/">Back to main page</a>
+            <div>
+                <p className="auth-header">{this.state.submitText}</p>
+                <a href="/" className="auth-form-button">Back to main page</a>
             </div>
         )
     }

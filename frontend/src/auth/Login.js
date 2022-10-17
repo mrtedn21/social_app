@@ -38,19 +38,20 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div className="auth-container">
-                <p>Authorization page</p>
+            <div>
+                <p className="auth-header">Authorization page</p>
                 <form className="auth-form">
-                    <input type="text" placeholder="Username"
+                    <input type="text" placeholder="Username" className="auth-form-input"
                            name="username" onChange={this.inputHandle}/>
 
-                    <input type="password" placeholder="Password"
+                    <input type="password" placeholder="Password" className="auth-form-input"
                            name="password" onChange={this.inputHandle}/>
 
                     <div>
-                        <input type="submit" onClick={this.clickHandle} value="Login"/>
+                        <input type="submit" onClick={this.clickHandle}
+                               value="Login" className="auth-form-button"/>
                         or
-                        <a href="register">Register</a>
+                        <a href="register" className="auth-form-button">Register</a>
                     </div>
                 </form>
             </div>
