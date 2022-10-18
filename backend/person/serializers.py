@@ -3,12 +3,6 @@ from rest_framework import serializers
 from person.models import Person, Country, Gender, Language, City
 
 
-class PersonEditSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Person
-        fields = ('first_name', 'last_name', 'birth_date', 'gender', 'city', 'languages')
-
-
 class CitySerializer(serializers.ModelSerializer):
     country = serializers.CharField(source='country.name', required=False)
 
@@ -35,6 +29,12 @@ class LanguageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Language
         fields = ('pk', 'name')
+
+
+class PersonEditSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Person
+        fields = ('first_name', 'last_name', 'birth_date', 'gender', 'city', 'languages')
 
 
 class PersonListSerializer(serializers.ModelSerializer):

@@ -43,12 +43,13 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'drf_yasg',
     'corsheaders',
-
+    'ckeditor',
     # user apps
     'core.apps.CoreConfig',
     'message.apps.MessageConfig',
     'person.apps.PersonConfig',
     'user_auth.apps.UserAuthConfig',
+    'post.apps.PostConfig',
 ]
 
 # TODO to understand all middleware and disable them if useless
@@ -103,18 +104,18 @@ DATABASES = {
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    #{
+    # {
     #    'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    #},
-    #{
+    # },
+    # {
     #    'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    #},
-    #{
+    # },
+    # {
     #    'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    #},
-    #{
+    # },
+    # {
     #    'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    #},
+    # },
 ]
 
 
@@ -141,12 +142,11 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication'
-    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.TokenAuthentication'],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 30,
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'],
 }
 
 DEFAULT_TEXT_FILTER_LOOKUPS = (
@@ -162,11 +162,7 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
-        'api_key': {
-            'type': 'apiKey',
-            'in': 'header',
-            'name': 'Authorization'
-        }
+        'api_key': {'type': 'apiKey', 'in': 'header', 'name': 'Authorization'}
     },
 }
 

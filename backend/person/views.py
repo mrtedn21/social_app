@@ -8,7 +8,6 @@ from drf_yasg.openapi import (
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import filters
 from rest_framework import viewsets
-from rest_framework import permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
@@ -27,7 +26,6 @@ from person.serializers import (
 
 class PersonViewSet(viewsets.ModelViewSet):
     http_method_names = ('post', 'get', 'put', 'patch')
-    permission_classes = (permissions.IsAuthenticated,)
     queryset = Person.objects.all().prefetch_related('friends')
     filter_backends = (filters.SearchFilter, DjangoFilterBackend)
     filterset_class = PersonFilter
@@ -42,12 +40,7 @@ class PersonViewSet(viewsets.ModelViewSet):
             return PersonListSerializer
 
     @swagger_auto_schema(
-        request_body=Schema(
-            type=TYPE_OBJECT,
-            properties={
-                'user_id': Schema(type=TYPE_INTEGER)
-            }
-        )
+        request_body=Schema(type=TYPE_OBJECT, properties={'user_id': Schema(type=TYPE_INTEGER)})
     )
     @action(detail=False, methods=('post',))
     def add_to_friend(self, request):
@@ -66,16 +59,13 @@ class PersonViewSet(viewsets.ModelViewSet):
 class CountyViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Country.objects.all().prefetch_related('cities')
     serializer_class = CountrySerializer
-    permission_classes = (permissions.IsAuthenticated,)
 
 
 class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Language.objects.all()
     serializer_class = LanguageSerializer
-    permission_classes = (permissions.IsAuthenticated,)
 
 
 class GenderViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Gender.objects.all()
     serializer_class = GenderSerializer
-    permission_classes = (permissions.IsAuthenticated,)

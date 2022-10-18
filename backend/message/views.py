@@ -1,5 +1,4 @@
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
 
 from message.models import Chat
 from message.serializers import (
@@ -10,8 +9,6 @@ from message.serializers import (
 
 
 class ChatViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsAuthenticated,)
-
     def get_serializer_class(self):
         if self.action == 'retrieve':
             return ChatDetailSerializer

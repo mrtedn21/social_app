@@ -15,6 +15,7 @@ class AuthViewSet(viewsets.ModelViewSet):
     http_method_names = ('post',)
     serializer_class = AuthUserSerializer
     queryset = User.objects.all()
+    permission_classes = ()
 
     def create(self, request, *args, **kwargs):
         user = authenticate(
@@ -37,6 +38,7 @@ class RegisterViewSet(viewsets.ModelViewSet):
     http_method_names = ('post', 'get')
     serializer_class = RegistrationSerializer
     queryset = User.objects.all()
+    permission_classes = ()
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -58,4 +60,3 @@ class RegisterViewSet(viewsets.ModelViewSet):
         person.save(update_fields=('submit_email',))
         token, _ = Token.objects.get_or_create(user=person.user)
         return Response({'token': token.key}, status=HTTP_200_OK)
-
