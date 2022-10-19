@@ -34,7 +34,7 @@ class LanguageSerializer(serializers.ModelSerializer):
 class PersonEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ('first_name', 'last_name', 'birth_date', 'gender', 'city', 'languages')
+        fields = ('avatar', 'first_name', 'last_name', 'birth_date', 'gender', 'city', 'languages')
 
 
 class PersonListSerializer(serializers.ModelSerializer):
@@ -49,12 +49,19 @@ class PersonDetailSerializer(serializers.ModelSerializer):
     city = CitySerializer()
     gender = GenderSerializer()
 
+    avatar_display = serializers.ImageField()
+    avatar_blurred = serializers.ImageField()
+    avatar_thumbnail = serializers.ImageField()
+
     class Meta:
         model = Person
         fields = (
             'pk',
             'friends',
             'first_name',
+            'avatar_display',
+            'avatar_blurred',
+            'avatar_thumbnail',
             'last_name',
             'birth_date',
             'gender',

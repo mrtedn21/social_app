@@ -3,6 +3,8 @@ from uuid import uuid4
 from django.contrib.auth.models import User
 from django.db import models
 
+from core.models import MultiImageMeta
+
 
 class Country(models.Model):
     name = models.CharField(max_length=64)
@@ -33,9 +35,13 @@ class Language(models.Model):
         return f'Language: {self.name}'
 
 
-class Person(models.Model):
+class Person(models.Model, metaclass=MultiImageMeta):
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     friends = models.ManyToManyField('self', blank=True, symmetrical=True)
+
+    avatar = models.ImageField(upload_to='person_avatars', null=True, blank=True)
+    avatar.crop_thumbnail = True
 
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)

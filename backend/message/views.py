@@ -16,9 +16,11 @@ class ChatViewSet(viewsets.ModelViewSet):
             return ChatListSerializer
 
     def get_queryset(self):
-        current_person = self.request.user.person
-        chats = Chat.objects.filter(participants__in=(current_person,))
-        return chats
+        if hasattr(self.request.user, 'person'):
+            current_person = self.request.user.person
+            return Chat.objects.filter(participants__in=(current_person,))
+        else:
+            return Chat.objects.none()
 
 
 class MessageViewSet(viewsets.ModelViewSet):
@@ -28,4 +30,3 @@ class MessageViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         print('kek')
         return super().create(request, *args, **kwargs)
-
