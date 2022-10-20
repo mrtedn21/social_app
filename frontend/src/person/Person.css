@@ -24,17 +24,25 @@
 .person-main-buttons {
     margin: 25px 0;
 }
-.person-main-button {
+
+.person-chat-button, .person-follow-button {
     display: block;
     border: none;
     margin: 8px 0;
     padding: 4px 25px;
-    background-color: #cfdaec;
     border-radius: 30px;
     text-decoration: none;
     cursor: pointer;
+    width: 120px;
 }
-.person-main-button:hover {
+.person-chat-button {
+    background-color: #9cb9d1;
+}
+.person-follow-button {
+    border: 1px #9cb9d1 solid;
+    background: none;
+}
+.person-chat-button:hover, .person-follow-button:hover {
     background-color: #9cb9d1;
 }
 
@@ -74,6 +82,7 @@
 .person-post-bottom {
     display: flex;
     justify-content: space-between;
+    margin-top: 8px;
 }
 .person-post-date-time {
     font-size: 14px;

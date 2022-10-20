@@ -2,7 +2,7 @@ import './Person.css';
 import React from 'react';
 import { FaComment, FaHeart } from 'react-icons/fa';
 
-import Container from "./Container";
+import Container from "../Container";
 
 
 class Person extends React.Component {
@@ -16,8 +16,8 @@ class Person extends React.Component {
                         <p className="person-name">Bezgin Alexander</p>
                         <p className="person-birth">October 06, 1998</p>
                         <div className="person-main-buttons">
-                            <input type="button" className="person-main-button" value="Open chat"/>
-                            <input type="button" className="person-main-button" value="Follow"/>
+                            <input type="button" className="person-chat-button" value="Open chat"/>
+                            <input type="button" className="person-follow-button" value="Follow"/>
                         </div>
                     </div>
                 </div>

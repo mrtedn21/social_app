@@ -7,7 +7,7 @@ import {
 
 import './App.css';
 import Login from "./auth/Login";
-import Person from "./Person";
+import Person from "./person/Person";
 import Register from "./auth/Register";
 import RegisterSubmit from "./auth/RegisterSubmit";
 

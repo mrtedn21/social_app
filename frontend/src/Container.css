@@ -17,10 +17,11 @@
 }
 
 .main-menu-button {
-    background-color: #cfdaec;
+    background: none;
     text-decoration: none;
     padding: 4px 20px;
     margin: 8px;
+    border: 1px #cfdaec solid;
     border-radius: 30px;
 }
 .main-menu-button:hover {
