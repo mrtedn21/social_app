@@ -8,7 +8,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ('person', 'date_time', 'text', 'likes_count')
+        fields = ('person', 'date_time', 'text', 'likes_count', 'pk')
 
     def get_date_time(self, obj: Post):
         return obj.date_time.strftime('%d.%m.%y %H:%M')
