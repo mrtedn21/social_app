@@ -1,0 +1,31 @@
+.settings-parameter-block {
+    display: flex;
+    flex-direction: row;
+    padding: 2px 0;
+    align-content: stretch;
+    gap: 10px;
+}
+
+.settings-parameter-label {
+    text-align: left;
+    font-weight: 600;
+    font-size: 15px;
+    margin: 0;
+    padding-top: 3px;
+}
+
+.settings-parameter-input {
+    margin: 2px 0 10px;
+    border: 1px #b9b9b9 solid;
+    border-radius: 5px;
+    padding: 5px;
+    background: none;
+}
+.settings-parameter-input:focus {
+    outline: none;
+}
+
+.settings-image-block {
+    display: flex;
+    flex-direction: column;
+}
