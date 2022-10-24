@@ -7,20 +7,19 @@ from drf_yasg.openapi import (
 )
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import filters
+from rest_framework import views
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 
 from person.filters import PersonFilter
-from person.models import Person, Country, Gender, Language
+from person.models import Person
 from person.serializers import (
     PersonDetailSerializer,
     PersonEditSerializer,
     PersonListSerializer,
-    GenderSerializer,
-    LanguageSerializer,
-    CountrySerializer,
+    PersonSettingsSerializer,
 )
 
 
@@ -56,16 +55,7 @@ class PersonViewSet(viewsets.ModelViewSet):
         return Response('Added successfully', HTTP_200_OK)
 
 
-class CountyViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Country.objects.all().prefetch_related('cities')
-    serializer_class = CountrySerializer
-
-
-class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Language.objects.all()
-    serializer_class = LanguageSerializer
-
-
-class GenderViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Gender.objects.all()
-    serializer_class = GenderSerializer
+class PersonSettingsView(views.APIView):
+    def get(self, request, format=None):
+        serializer = PersonSettingsSerializer(Person.objects.none())
+        return Response(serializer.data, status=HTTP_200_OK)

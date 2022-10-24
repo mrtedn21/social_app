@@ -71,3 +71,21 @@ class PersonDetailSerializer(serializers.ModelSerializer):
             'languages',
             'posts',
         )
+
+
+class PersonSettingsSerializer(serializers.Serializer):
+    countries = serializers.SerializerMethodField()
+    languages = serializers.SerializerMethodField()
+    genders = serializers.SerializerMethodField()
+
+    def get_countries(self, obj):
+        countries = Country.objects.all().prefetch_related('cities')
+        return CountrySerializer(countries, many=True, context=self.context).data
+
+    def get_languages(self, obj):
+        languages = Language.objects.all()
+        return LanguageSerializer(languages, many=True, context=self.context).data
+
+    def get_genders(self, obj):
+        genders = Gender.objects.all()
+        return GenderSerializer(genders, many=True, context=self.context).data

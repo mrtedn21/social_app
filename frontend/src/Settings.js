@@ -57,8 +57,15 @@ class Settings extends React.Component {
                     <div className="settings-parameter-block">
                         <div style={{width: '395px'}}>
                             <p className="settings-parameter-label">Language</p>
-                            <select className="settings-parameter-input" style={{width: '100%', maxWidth: '100%'}}>
+                            <select className="settings-parameter-input" style={{width: '100%', maxWidth: '100%'}} multiple>
                                 <option className="settings-parameter-input" value="norsk">norsk</option>
+                                <option className="settings-parameter-input" value="ruzkye">ruzkye</option>
+                                <option className="settings-parameter-input" value="ruzkye">ruzkye</option>
+                                <option className="settings-parameter-input" value="ruzkye">ruzkye</option>
+                                <option className="settings-parameter-input" value="ruzkye">ruzkye</option>
+                                <option className="settings-parameter-input" value="ruzkye">ruzkye</option>
+                                <option className="settings-parameter-input" value="ruzkye">ruzkye</option>
+                                <option className="settings-parameter-input" value="ruzkye">ruzkye</option>
                                 <option className="settings-parameter-input" value="ruzkye">ruzkye</option>
                             </select>
                         </div>
