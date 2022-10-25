@@ -6,10 +6,11 @@ from post.serializers import PostSerializer
 
 class CitySerializer(serializers.ModelSerializer):
     country = serializers.CharField(source='country.name', required=False)
+    country_pk = serializers.CharField(source='country.pk', required=False)
 
     class Meta:
         model = City
-        fields = ('pk', 'name', 'country')
+        fields = ('pk', 'name', 'country', 'country_pk')
 
 
 class CountrySerializer(serializers.ModelSerializer):
