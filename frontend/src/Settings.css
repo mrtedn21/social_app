@@ -8,7 +8,6 @@
 
 .settings-parameter-label {
     text-align: left;
-    font-weight: 600;
     font-size: 15px;
     margin: 0;
     padding-top: 3px;
@@ -16,7 +15,7 @@
 
 .settings-parameter-input {
     margin: 2px 0 10px;
-    border: 1px #b9b9b9 solid;
+    border: 1px #9cb9d1 solid;
     border-radius: 5px;
     padding: 5px;
     background: none;
