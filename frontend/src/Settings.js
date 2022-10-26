@@ -44,11 +44,10 @@ class Settings extends React.Component {
     }
 
     updateAvatar(event) {
-        console.log(event.target)
-        console.log(event.target.files)
-        console.log(event.target.files[0])
-        console.log({avatar: event.target.files[0]})
-        this.setState({avatar: event.target.files[0]})
+        const file = event.target.files[0]
+        this.setState({avatar: file})
+        let avatar_image_element = document.getElementById('person-avatar')
+        avatar_image_element.src = URL.createObjectURL(file)
     }
 
     async updateSettings() {
@@ -88,7 +87,7 @@ class Settings extends React.Component {
                         <div className="settings-image-block">
                             <p className="settings-parameter-label">Avatar</p>
                             <input type="file" className="settings-parameter-input" style={{width: '383px'}} name="avatar" onChange={this.updateAvatar}/>
-                            <img src={this.state.concrete_settings.avatar_thumbnail}
+                            <img src={this.state.concrete_settings.avatar_thumbnail} id="person-avatar"
                                  alt="Avatar" style={{width: '200px', marginBottom: '10px', borderRadius: '10px'}}/>
                         </div>
                     </div>
