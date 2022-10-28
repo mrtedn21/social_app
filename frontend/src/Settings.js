@@ -10,6 +10,7 @@ class Settings extends React.Component {
         this.state = {
             initial_settings: undefined,
             concrete_settings: undefined,
+            cities_for_select: undefined,
 
             first_name: undefined,
             last_name: undefined,
@@ -23,6 +24,7 @@ class Settings extends React.Component {
         this.inputHandle = this.inputHandle.bind(this)
         this.updateSettings = this.updateSettings.bind(this)
         this.updateAvatar = this.updateAvatar.bind(this)
+        this.changeCountry = this.changeCountry.bind(this)
     }
 
     async componentDidMount() {
@@ -34,7 +36,10 @@ class Settings extends React.Component {
         request_url = 'http://localhost:8000/api/persons/1/';
         await fetch(request_url)
             .then(response => response.json())
-            .then(data => this.setState({concrete_settings: data}))
+            .then(data => this.setState({
+                concrete_settings: data,
+                cities_for_select: this.state.initial_settings.countries.filter(country => country.pk.toString() === data.city.country_pk)[0].cities
+            }))
     }
 
     inputHandle(event) {
@@ -58,8 +63,7 @@ class Settings extends React.Component {
         if (this.state.first_name) {formData.append('first_name', this.state.first_name)}
         if (this.state.last_name) {formData.append('last_name', this.state.last_name)}
         if (this.state.gender) {formData.append('gender', this.state.gender)}
-        if (this.state.country) {formData.append('country', this.state.country)}
-        if (this.state.city) {formData.append('city', this.state.city)}
+        if (this.state.city) {formData.append('city', this.state.city.pk === undefined ? this.state.city : this.state.city.pk)}
         if (this.state.languages) {formData.append('languages', this.state.languages)}
 
         await fetch(request_url, {
@@ -68,10 +72,16 @@ class Settings extends React.Component {
         })
             .then(response => {
                 if (response.status === 200) {
-                        alert('data updated!');
-                        window.location.reload();
-                    }
+                    alert('data updated!');
+                    window.location.reload();
+                }
             })
+    }
+
+    changeCountry(event) {
+        const cities = this.state.initial_settings.countries.filter(country => country.pk == event.target.value)[0].cities
+        this.setState({cities_for_select: cities})
+        this.setState({city: cities[0]})
     }
 
     render() {
@@ -79,7 +89,6 @@ class Settings extends React.Component {
             return null;
         }
         const languages_pks = this.state.concrete_settings.languages.map(language => language.pk);
-        const cities = this.state.initial_settings.countries.filter(country => country.pk.toString() === this.state.concrete_settings.city.country_pk)[0].cities
         return (
             <Container>
                 <div>
@@ -118,8 +127,8 @@ class Settings extends React.Component {
                     <div className="settings-parameter-block">
                         <div style={{width: '192px'}}>
                             <p className="settings-parameter-label">Country</p>
-                            <select className="settings-parameter-input" style={{width: '100%', maxWidth: '100%'}}
-                                    value={this.state.country} defaultValue={this.state.concrete_settings.city.country_pk} name="country" onChange={this.inputHandle}>
+                            <select className="settings-parameter-input" style={{width: '100%', maxWidth: '100%'}} onChange={event => {this.inputHandle(event); this.changeCountry(event) }}
+                                    value={this.state.country} defaultValue={this.state.concrete_settings.city.country_pk} name="country">
                                 {this.state.initial_settings.countries.map(
                                     country => <option key={country.pk.toString()}
                                                         value={country.pk}>{country.name}</option>
@@ -130,7 +139,7 @@ class Settings extends React.Component {
                             <p className="settings-parameter-label">City</p>
                             <select className="settings-parameter-input" style={{width: '100%', maxWidth: '100%'}}
                                     defaultValue={this.state.city || this.state.concrete_settings.city.pk} name="city" onChange={this.inputHandle}>
-                                {cities.map(
+                                {this.state.cities_for_select.map(
                                     city => <option key={city.pk.toString()}
                                                         value={city.pk}>{city.name}</option>
                                 )}
