@@ -1,3 +1,4 @@
+from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
 
 from person.models import Person, Country, Gender, Language, City
@@ -34,6 +35,8 @@ class LanguageSerializer(serializers.ModelSerializer):
 
 
 class PersonEditSerializer(serializers.ModelSerializer):
+    avatar = Base64ImageField()
+
     class Meta:
         model = Person
         fields = ('avatar', 'first_name', 'last_name', 'birth_date', 'gender', 'city', 'languages')
