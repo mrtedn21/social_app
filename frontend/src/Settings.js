@@ -1,7 +1,16 @@
 import React from 'react';
+import Select from 'react-select';
 
 import './Settings.css';
 import Container from "./Container";
+
+
+const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+});
 
 
 class Settings extends React.Component {
@@ -48,7 +57,13 @@ class Settings extends React.Component {
         })
     }
 
-    updateAvatar(event) {
+    selectChangeHandle(event, target_name) {
+        this.setState({
+            [target_name]: event
+        })
+    }
+
+    async updateAvatar(event) {
         const file = event.target.files[0]
         this.setState({avatar: file})
         let avatar_image_element = document.getElementById('person-avatar')
@@ -58,17 +73,20 @@ class Settings extends React.Component {
     async updateSettings() {
         const request_url = 'http://localhost:8000/api/persons/1/';
 
-        const formData = new FormData();
-        if (this.state.avatar) {formData.append("avatar", this.state.avatar)}
-        if (this.state.first_name) {formData.append('first_name', this.state.first_name)}
-        if (this.state.last_name) {formData.append('last_name', this.state.last_name)}
-        if (this.state.gender) {formData.append('gender', this.state.gender)}
-        if (this.state.city) {formData.append('city', this.state.city.pk === undefined ? this.state.city : this.state.city.pk)}
-        if (this.state.languages) {formData.append('languages', this.state.languages)}
+        let requestData = {}
+        if (this.state.avatar) {requestData['avatar'] = await toBase64(this.state.avatar)}
+        if (this.state.first_name) {requestData['first_name'] = this.state.first_name}
+        if (this.state.last_name) {requestData['last_name'] = this.state.last_name}
+        if (this.state.gender) {requestData['gender'] = this.state.gender}
+        if (this.state.city) {requestData['city'] = this.state.city.pk === undefined ? this.state.city : this.state.city.pk}
+        if (this.state.languages) {requestData['languages'] = this.state.languages.map(language => Number(language.value))}
 
         await fetch(request_url, {
             method: 'PATCH',
-            body: formData,
+            body: JSON.stringify(requestData),
+            headers: {
+                'Content-Type': 'application/json'
+            },
         })
             .then(response => {
                 if (response.status === 200) {
@@ -88,7 +106,24 @@ class Settings extends React.Component {
         if (!this.state.initial_settings || !this.state.concrete_settings) {
             return null;
         }
-        const languages_pks = this.state.concrete_settings.languages.map(language => language.pk);
+        const languages = this.state.concrete_settings.languages.map(language => ({value: language.pk, label: language.name}));
+
+        const customStyles = {
+            option: (provided) => ({
+                ...provided,
+            }),
+            control: (provided) => ({
+                ...provided,
+                margin: '2px 0 10px',
+                border: '1px #9cb9d1 solid',
+                borderRadius: '5px',
+                background: 'none',
+                ':hover': {
+                    border: '1px #9cb9d1 solid',
+                },
+            }),
+        }
+
         return (
             <Container>
                 <div>
@@ -149,13 +184,9 @@ class Settings extends React.Component {
                     <div className="settings-parameter-block">
                         <div style={{width: '395px'}}>
                             <p className="settings-parameter-label">Language</p>
-                            <select className="settings-parameter-input" style={{width: '100%', maxWidth: '100%'}}
-                                    value={this.state.languages} multiple={true} defaultValue={languages_pks} name="languages" onChange={this.inputHandle}>
-                                {this.state.initial_settings.languages.map(
-                                    language => <option key={language.pk.toString()}
-                                                        value={language.pk}>{language.name}</option>
-                                )}
-                            </select>
+                            <Select styles={customStyles} isMulti name="language" value={this.state.languages || languages}
+                                    onChange={event => this.selectChangeHandle(event, 'languages')}
+                                    options={this.state.initial_settings.languages.map(language => {return {value: language.pk, label: language.name}})} />
                         </div>
                     </div>
                     <div className="settings-parameter-block">
