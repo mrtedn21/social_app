@@ -109,18 +109,28 @@ class Settings extends React.Component {
         const languages = this.state.concrete_settings.languages.map(language => ({value: language.pk, label: language.name}));
 
         const customStyles = {
-            option: (provided) => ({
-                ...provided,
-            }),
             control: (provided) => ({
                 ...provided,
                 margin: '2px 0 10px',
-                border: '1px #9cb9d1 solid',
+                border: 'none',
                 borderRadius: '5px',
-                background: 'none',
+                background: '#edf4fe',
                 ':hover': {
-                    border: '1px #9cb9d1 solid',
+                    border: 'none',
                 },
+            }),
+            option: (provided) => ({
+                ...provided,
+                background: '#edf4fe',
+            }),
+            menu: (provided) => ({
+                ...provided,
+                background: '#edf4fe',
+            }),
+            multiValue: (provided) => ({
+                ...provided,
+                background: 'none',
+                border: '1px #b3b3b3 solid',
             }),
         }
 

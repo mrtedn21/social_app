@@ -14,11 +14,11 @@
 }
 
 .settings-parameter-input {
-    margin: 2px 0 10px;
-    border: 1px #9cb9d1 solid;
+    margin: 2px 0 13px;
     border-radius: 5px;
-    padding: 5px;
-    background: none;
+    padding: 7px 8px;
+    background-color: #edf4fe;
+    border: none;
 }
 .settings-parameter-input:focus {
     outline: none;
@@ -31,12 +31,12 @@
 
 .settings-parameter-button {
     margin: 10px 0 10px;
-    border: 1px #9cb9d1 solid;
+    border: none;
     border-radius: 5px;
-    padding: 5px 10px;
-    background: none;
+    padding: 7px 12px;
+    background-color: #edf4fe;
 }
 .settings-parameter-button:hover {
-    border: 1px #6a8396 solid;
     cursor: pointer;
+    background-color: #e1edff;
 }
