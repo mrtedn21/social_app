@@ -34,7 +34,7 @@ class MultiImageMeta(models.base.ModelBase):
             thumbnail_field_name = f'{field_name}_thumbnail'
             crop_thumbnail = hasattr(field_obj, 'crop_thumbnail')
             dct[thumbnail_field_name] = ImageSpecField(
-                source='avatar',
+                source=field_name,
                 processors=(Thumbnail(width=200, height=200, crop=crop_thumbnail),),
                 format='JPEG',
                 options={'quality': 95},
