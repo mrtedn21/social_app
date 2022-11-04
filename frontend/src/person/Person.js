@@ -1,8 +1,8 @@
 import './Person.css';
 import React from 'react';
-import { FaComment, FaHeart } from 'react-icons/fa';
 
 import Container from "../Container";
+import NewPersonPost from "./NewPersonPost";
 import PersonPost from "./PersonPost";
 import PersonMainData from "./PersonMainData";
 
@@ -37,6 +37,7 @@ class Person extends React.Component {
                             <input type="button" className="person-content-selector" value="Videos"/>
                             <input type="button" className="person-content-selector" value="Music"/>
                         </div>
+                        <NewPersonPost />
                         {posts}
                     </div>
                 </Container>
