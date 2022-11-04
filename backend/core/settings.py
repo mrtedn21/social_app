@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # third party libraries
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,8 +49,9 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'message.apps.MessageConfig',
     'person.apps.PersonConfig',
-    'user_auth.apps.UserAuthConfig',
+    'photo.apps.PhotoConfig',
     'post.apps.PostConfig',
+    'user_auth.apps.UserAuthConfig',
 ]
 
 # TODO to understand all middleware and disable them if useless

@@ -9,6 +9,7 @@ from rest_framework import permissions
 
 from message.views import ChatViewSet, MessageViewSet
 from person.views import PersonViewSet, PersonSettingsView
+from photo.views import PhotoViewSet
 from post.views import PostViewSet
 from user_auth.views import AuthViewSet, RegisterViewSet
 
@@ -30,6 +31,7 @@ router.register(r'auth', AuthViewSet, basename='auth')
 router.register(r'chats', ChatViewSet, basename='chats')
 router.register(r'messages', MessageViewSet, basename='messages')
 router.register(r'persons', PersonViewSet, basename='persons')
+router.register(r'photos', PhotoViewSet, basename='photos')
 router.register(r'posts', PostViewSet, basename='posts')
 router.register(r'register', RegisterViewSet, basename='register')
 
