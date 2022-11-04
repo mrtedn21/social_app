@@ -88,12 +88,7 @@ class Settings extends React.Component {
                 'Content-Type': 'application/json'
             },
         })
-            .then(response => {
-                if (response.status === 200) {
-                    alert('data updated!');
-                    window.location.reload();
-                }
-            })
+            .then(response => window.location.reload())
     }
 
     changeCountry(event) {
