@@ -37,7 +37,7 @@ router.register(r'register', RegisterViewSet, basename='register')
 
 urlpatterns = [
     path('api/', include(router.urls)),
-    path('api/person_settings', PersonSettingsView.as_view()),
+    path('api/person_settings/', PersonSettingsView.as_view()),
     path('admin/', admin.site.urls),
     re_path(
         r'^swagger(?P<format>\.json|\.yaml)$',
