@@ -7,3 +7,11 @@ class Photo(models.Model, metaclass=MultiImageMeta):
     image = models.ImageField(upload_to='photos')
     description = models.TextField(blank=True, null=True)
     date_time = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def person(self):
+        return self.persons.first()
+
+    @property
+    def person_pk(self):
+        return self.person.pk
