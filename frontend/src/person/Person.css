@@ -163,3 +163,15 @@
     cursor: pointer;
     background-color: #e1edff;
 }
+
+.person-photo-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    width: 600px;
+}
+
+.person-photo-image {
+    width: 160px;
+    margin: 5px;
+    box-shadow: 0 0 7px 1px #d9d9d9;
+}

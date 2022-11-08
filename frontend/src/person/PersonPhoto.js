@@ -47,17 +47,23 @@ class PersonPhoto extends React.Component {
                 'Authorization': 'Token ' + token,
             },
         })
-            .then(response => response.json())
-            .then(data => console.log(data))
+            .then(response => window.location.reload())
     }
 
     render() {
         return (
-            <div className="person-photo-form">
-                <input type="file" name="image" onChange={this.changeImage} className="person-photo-input"/>
-                <input type="text" name="description" placeholder="Photo description" className="person-photo-input" onChange={this.inputHandle}/>
-                <input type="button" value="Add photo" className="person-photo-button" onClick={this.photoUpload}/>
-            </div>
+            <div>
+                <div className="person-photo-form">
+                    <input type="file" name="image" onChange={this.changeImage} className="person-photo-input"/>
+                    <input type="text" name="description" placeholder="Photo description" className="person-photo-input" onChange={this.inputHandle}/>
+                    <input type="button" value="Add photo" className="person-photo-button" onClick={this.photoUpload}/>
+                </div>
+                <div className="person-photo-gallery">
+                    {this.props.photos.map(photo =>
+                        <img src={photo.image_thumbnail} alt="Person photo" key={photo.pk.toString()} className="person-photo-image"/>
+                    )}
+                </div>
+            </div> 
         )
     }
 }

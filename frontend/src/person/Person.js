@@ -38,7 +38,7 @@ class Person extends React.Component {
                         <input type="button" className="person-content-selector" value="Videos"/>
                         <input type="button" className="person-content-selector" value="Music"/>
                     </div>
-                    <PersonPhoto />
+                    <PersonPhoto photos={this.state.person.photos}/>
                     {/*<NewPersonPost />*/}
                     {/*{posts}*/}
                 </div>
