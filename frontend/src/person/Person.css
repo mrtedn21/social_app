@@ -52,6 +52,7 @@
 
 .person-content-selectors {
     display: flex;
+    list-style-type: none;
 }
 .person-content-selector {
     border: none;
@@ -65,12 +66,15 @@
 .person-content-selector:hover {
     border-bottom: 4px #094d74 solid;
 }
+.person-content-selector:focus {
+    outline: none;
+}
 .person-content-selector-selected {
     border-bottom: 4px #094d74 solid;
 }
 
 .person-post {
-    width: 450px;
+    width: 441px;
     background-color: #edf4fe;
     margin: 16px 0;
     border-radius: 10px;
@@ -114,7 +118,7 @@
 }
 
 .person-post-form-input {
-    width: 450px;
+    width: 451px;
     background: white;
     border: 1px #c0c0c0 solid;
 }
@@ -167,11 +171,11 @@
 .person-photo-gallery {
     display: flex;
     flex-wrap: wrap;
-    width: 600px;
+    width: 499px;
 }
 
 .person-photo-image {
-    width: 160px;
+    width: 153px;
     margin: 5px;
     box-shadow: 0 0 7px 1px #d9d9d9;
 }

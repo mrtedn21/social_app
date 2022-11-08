@@ -1,6 +1,7 @@
-import './Person.css';
 import React from 'react';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
+import './Person.css';
 import Container from "../Container";
 import NewPersonPost from "./NewPersonPost";
 import PersonPhoto from "./PersonPhoto";
@@ -32,15 +33,22 @@ class Person extends React.Component {
             <Container>
                 <PersonMainData person={this.state.person}/>
                 <div className="person-content">
-                    <div className="person-content-selectors">
-                        <input type="button" className="person-content-selector" value="Posts"/>
-                        <input type="button" className="person-content-selector person-content-selector-selected" value="Photos"/>
-                        <input type="button" className="person-content-selector" value="Videos"/>
-                        <input type="button" className="person-content-selector" value="Music"/>
-                    </div>
-                    <PersonPhoto photos={this.state.person.photos}/>
-                    {/*<NewPersonPost />*/}
-                    {/*{posts}*/}
+                    <Tabs defaultIndex={0}>
+                        <TabList className="person-content-selectors">
+                            <Tab className="person-content-selector">Posts</Tab>
+                            <Tab className="person-content-selector">Photos</Tab>
+                            <Tab className="person-content-selector">Videos</Tab>
+                            <Tab className="person-content-selector">Music</Tab>
+                        </TabList>
+
+                        <TabPanel>
+                            <NewPersonPost />
+                            {posts}
+                        </TabPanel>
+                        <TabPanel>
+                            <PersonPhoto photos={this.state.person.photos}/>
+                        </TabPanel>
+                    </Tabs>
                 </div>
             </Container>
         )
