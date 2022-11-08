@@ -37,7 +37,7 @@ class Settings extends React.Component {
     }
 
     async componentDidMount() {
-        let request_url = 'http://localhost:8000/api/person_settings';
+        let request_url = 'http://localhost:8000/api/person_settings/';
         await fetch(request_url)
             .then(response => response.json())
             .then(data => this.setState({initial_settings: data}))
@@ -104,16 +104,18 @@ class Settings extends React.Component {
         const languages = this.state.concrete_settings.languages.map(language => ({value: language.pk, label: language.name}));
 
         const customStyles = {
-            control: (provided) => ({
+            control: (provided, isFocused) => ({
                 ...provided,
                 margin: '2px 0 10px',
                 border: 'none',
                 borderRadius: '5px',
                 background: '#edf4fe',
+                boxShadow: 'none',
                 ':hover': {
                     border: 'none',
                 },
             }),
+
             option: (provided) => ({
                 ...provided,
                 background: '#edf4fe',

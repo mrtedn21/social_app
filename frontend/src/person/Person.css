@@ -118,6 +118,9 @@
     background: white;
     border: 1px #c0c0c0 solid;
 }
+.person-post-form-input:focus {
+    outline: none;
+}
 
 .person-form-button {
     border: none;
