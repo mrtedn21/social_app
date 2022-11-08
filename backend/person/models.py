@@ -41,7 +41,6 @@ class Person(models.Model, metaclass=MultiImageMeta):
     friends = models.ManyToManyField('self', blank=True, symmetrical=True)
 
     avatar = models.ImageField(upload_to='person_avatars', null=True, blank=True)
-    avatar.crop_thumbnail = True
     photos = models.ManyToManyField(Photo, blank=True, related_name='persons')
 
     first_name = models.CharField(max_length=64)
