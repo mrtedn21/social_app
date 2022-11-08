@@ -20,6 +20,7 @@ class PhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Photo
         fields = (
+            'pk',
             'person_pk',
             'image_display',
             'image_blurred',
