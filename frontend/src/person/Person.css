@@ -131,3 +131,35 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+.person-photo-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 30px;
+}
+.person-photo-form>* {
+    margin-bottom: 15px;
+}
+
+.person-photo-input {
+    border-radius: 5px;
+    padding: 7px 8px;
+    background-color: #edf4fe;
+    border: none;
+    min-width: 330px;
+}
+.person-photo-input:focus {
+    outline: none;
+}
+
+.person-photo-button {
+    border: none;
+    border-radius: 5px;
+    padding: 7px 12px;
+    background-color: #edf4fe;
+}
+.person-photo-button:hover {
+    cursor: pointer;
+    background-color: #e1edff;
+}

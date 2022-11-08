@@ -3,6 +3,7 @@ import React from 'react';
 
 import Container from "../Container";
 import NewPersonPost from "./NewPersonPost";
+import PersonPhoto from "./PersonPhoto";
 import PersonPost from "./PersonPost";
 import PersonMainData from "./PersonMainData";
 
@@ -25,24 +26,24 @@ class Person extends React.Component {
         if (this.state.person === undefined) {
             return null;
         }
-        else {
-            const posts = this.state.person.posts.map(post => <PersonPost post={post} key={post.pk.toString()}/>)
-            return (
-                <Container>
-                    <PersonMainData person={this.state.person}/>
-                    <div className="person-content">
-                        <div className="person-content-selectors">
-                            <input type="button" className="person-content-selector person-content-selector-selected" value="Posts"/>
-                            <input type="button" className="person-content-selector" value="Photos"/>
-                            <input type="button" className="person-content-selector" value="Videos"/>
-                            <input type="button" className="person-content-selector" value="Music"/>
-                        </div>
-                        <NewPersonPost />
-                        {posts}
+
+        const posts = this.state.person.posts.map(post => <PersonPost post={post} key={post.pk.toString()}/>)
+        return (
+            <Container>
+                <PersonMainData person={this.state.person}/>
+                <div className="person-content">
+                    <div className="person-content-selectors">
+                        <input type="button" className="person-content-selector" value="Posts"/>
+                        <input type="button" className="person-content-selector person-content-selector-selected" value="Photos"/>
+                        <input type="button" className="person-content-selector" value="Videos"/>
+                        <input type="button" className="person-content-selector" value="Music"/>
                     </div>
-                </Container>
-            )
-        }
+                    <PersonPhoto />
+                    {/*<NewPersonPost />*/}
+                    {/*{posts}*/}
+                </div>
+            </Container>
+        )
     }
 }
 
