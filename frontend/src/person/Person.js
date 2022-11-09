@@ -13,7 +13,8 @@ class Person extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {person: undefined}
+        this.selectHandle = this.selectHandle.bind(this)
+        this.state = {person: undefined, selectedTabIndex: undefined}
     }
 
     async componentDidMount() {
@@ -23,22 +24,34 @@ class Person extends React.Component {
             .then(data => this.setState({person: data}))
     }
 
+    selectHandle(index, lastIndex, event) {
+        this.setState({selectedTabIndex: index});
+    }
+
     render() {
         if (this.state.person === undefined) {
             return null;
         }
 
         const posts = this.state.person.posts.map(post => <PersonPost post={post} key={post.pk.toString()}/>)
+        const tabNames = ['Posts', 'Photos', 'Videos', 'Music']
+        const tabs = tabNames.map((tabName, index) => {
+            let className = ''
+            if ((this.state.selectedTabIndex === undefined && index === 0) || (this.state.selectedTabIndex === index)) {
+                className = 'person-content-selector person-content-selector-selected'
+            } else {
+                className = 'person-content-selector'
+            }
+            return <Tab className={className}>{tabName}</Tab>
+        })
+
         return (
             <Container>
                 <PersonMainData person={this.state.person}/>
                 <div className="person-content">
-                    <Tabs defaultIndex={0}>
+                    <Tabs onSelect={this.selectHandle}>
                         <TabList className="person-content-selectors">
-                            <Tab className="person-content-selector">Posts</Tab>
-                            <Tab className="person-content-selector">Photos</Tab>
-                            <Tab className="person-content-selector">Videos</Tab>
-                            <Tab className="person-content-selector">Music</Tab>
+                            {tabs}
                         </TabList>
 
                         <TabPanel>
