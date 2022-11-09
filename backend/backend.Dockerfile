@@ -11,6 +11,7 @@ RUN apk add --no-cache \
     libjpeg-turbo zlib libffi cairo libwebp `# для pillow`
 COPY poetry.lock pyproject.toml /app/
 RUN apk add --no-cache --virtual build-deps \
+    vim \
     curl git `# для установки poetry` \
     make gcc g++ `# для сборки пакетов` \
     postgresql-dev `# для psycopg2` \
