@@ -8,6 +8,9 @@ from imagekit.processors import Thumbnail
 from core.processors import Blur
 
 
+null_and_blank = {'blank': True, 'null': True}
+
+
 class MultiImageMeta(models.base.ModelBase):
     def __new__(mcs, name, bases, dct):
         dct_copy = copy(dct)

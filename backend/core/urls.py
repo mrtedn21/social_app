@@ -8,6 +8,7 @@ from rest_framework import routers
 from rest_framework import permissions
 
 from message.views import ChatViewSet, MessageViewSet
+from music.views import MusicViewSet
 from person.views import PersonViewSet, PersonSettingsView
 from photo.views import PhotoViewSet
 from post.views import PostViewSet
@@ -30,6 +31,7 @@ router = routers.DefaultRouter()
 router.register(r'auth', AuthViewSet, basename='auth')
 router.register(r'chats', ChatViewSet, basename='chats')
 router.register(r'messages', MessageViewSet, basename='messages')
+router.register(r'music', MusicViewSet, basename='music')
 router.register(r'persons', PersonViewSet, basename='persons')
 router.register(r'photos', PhotoViewSet, basename='photos')
 router.register(r'posts', PostViewSet, basename='posts')

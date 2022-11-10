@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # user apps
     'core.apps.CoreConfig',
     'message.apps.MessageConfig',
+    'music.apps.MusicConfig',
     'person.apps.PersonConfig',
     'photo.apps.PhotoConfig',
     'post.apps.PostConfig',
