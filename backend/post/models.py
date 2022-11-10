@@ -9,7 +9,5 @@ class Post(models.Model):
     date_time = models.DateTimeField(auto_now_add=True)
     text = RichTextField()
     liked_by = models.ManyToManyField(Person, related_name='liked_posts', blank=True)
-
-    @property
-    def likes_count(self) -> int:
-        return self.liked_by.all().count()
+    # TODO make this field calculated in celery beat task for fast select
+    likes_count = models.PositiveIntegerField(default=0)
