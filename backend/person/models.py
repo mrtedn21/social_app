@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.db import models
 
 from core.models import MultiImageMeta
-from photo.models import Photo
 
 
 class Country(models.Model):
@@ -41,7 +40,6 @@ class Person(models.Model, metaclass=MultiImageMeta):
     friends = models.ManyToManyField('self', blank=True, symmetrical=True)
 
     avatar = models.ImageField(upload_to='person_avatars', null=True, blank=True)
-    photos = models.ManyToManyField(Photo, blank=True, related_name='persons')
 
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)

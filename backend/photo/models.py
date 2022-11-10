@@ -1,17 +1,13 @@
 from django.db import models
 
-from core.models import MultiImageMeta
+from core.models import MultiImageMeta, null_and_blank
+from person.models import Person
 
 
 class Photo(models.Model, metaclass=MultiImageMeta):
+    person = models.ForeignKey(
+        Person, on_delete=models.CASCADE, related_name='photos', **null_and_blank
+    )
     image = models.ImageField(upload_to='photos')
     description = models.TextField(blank=True, null=True)
     date_time = models.DateTimeField(auto_now_add=True)
-
-    @property
-    def person(self):
-        return self.persons.first()
-
-    @property
-    def person_pk(self):
-        return self.person.pk
