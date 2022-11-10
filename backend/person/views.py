@@ -25,6 +25,8 @@ from person.serializers import (
 
 class PersonViewSet(viewsets.ModelViewSet):
     http_method_names = ('post', 'get', 'put', 'patch')
+    # TODO make separate querysets for list and detail
+    # Because for detail needs subqueries but for list no needs
     queryset = Person.objects.all().prefetch_related('friends', 'languages')
     filter_backends = (filters.SearchFilter, DjangoFilterBackend)
     filterset_class = PersonFilter
