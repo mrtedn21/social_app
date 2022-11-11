@@ -1,4 +1,4 @@
-FROM python:3.11-alpine
+FROM python:3.10-alpine
 ENV PYTHONUNBUFFERED 1
 ENV POETRY_VIRTUALENVS_CREATE=false
 ENV PATH="${PATH}:/root/.poetry/bin"
