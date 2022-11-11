@@ -21,7 +21,7 @@ class Album(models.Model, metaclass=MultiImageMeta):
         )
 
 
-class Music(models.Model):
+class Song(models.Model):
     title = models.CharField(max_length=128, **null_and_blank)
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE, **null_and_blank)
     album = models.ForeignKey(Album, on_delete=models.CASCADE, **null_and_blank)
