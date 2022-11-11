@@ -4,6 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import './Person.css';
 import Container from "../Container";
 import NewPersonPost from "./NewPersonPost";
+import PersonMusic from "./PersonMusic";
 import PersonPhoto from "./PersonPhoto";
 import PersonPost from "./PersonPost";
 import PersonMainData from "./PersonMainData";
@@ -60,6 +61,12 @@ class Person extends React.Component {
                         </TabPanel>
                         <TabPanel>
                             <PersonPhoto photos={this.state.person.photos}/>
+                        </TabPanel>
+                        <TabPanel>
+                            <p>vidoses</p>
+                        </TabPanel>
+                        <TabPanel>
+                            <PersonMusic photos={this.state.person.photos}/>
                         </TabPanel>
                     </Tabs>
                 </div>
