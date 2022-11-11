@@ -21,7 +21,7 @@ class PhotoSerializer(serializers.ModelSerializer):
         model = Photo
         fields = (
             'pk',
-            'person_pk',
+            'person_id',
             'image_display',
             'image_blurred',
             'image_thumbnail',
