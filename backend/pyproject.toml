@@ -23,6 +23,8 @@ django-imagekit = "^4.1.0"
 drf-extra-fields = "^3.4.1"
 django-debug-toolbar = "^3.7.0"
 eyed3 = "^0.9.7"
+transliterate = "^1.10.2"
+python-slugify = "^6.1.2"
 
 [build-system]
 requires = ["poetry-core"]
