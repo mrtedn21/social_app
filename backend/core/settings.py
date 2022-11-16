@@ -184,4 +184,7 @@ DEFAULT_FROM_EMAIL = 'default from email'
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 1024**3 * 10
 
+GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
+GOOGLE_SEARCH_ENGINE_ID = os.getenv('GOOGLE_SEARCH_ENGINE_ID')
+
 CORS_ALLOWED_ORIGINS = ['http://localhost:8000', 'http://localhost:3000']
