@@ -16,4 +16,4 @@ class PhotoViewSet(viewsets.ModelViewSet):
             return PhotoSerializer
 
     def perform_create(self, serializer):
-        serializer.save(persons=(self.request.user.person,))
+        serializer.save(person=self.request.user.person)
