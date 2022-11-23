@@ -12,7 +12,7 @@ const toBase64 = file => new Promise((resolve, reject) => {
 class PersonMusic extends React.Component {
 
     async musicUpload(event) {
-        const request_url = 'http://localhost:8000/api/music/'
+        const request_url = 'http://localhost:8000/api/song/'
         const regExp = /token=(\w{40})/g;
         const token = regExp.exec(document.cookie)[1]
         const requestData = {
