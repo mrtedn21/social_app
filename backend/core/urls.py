@@ -1,11 +1,9 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path, re_path
-from drf_yasg import openapi
-from drf_yasg.views import get_schema_view
+from django.urls import include, path
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from rest_framework import routers
-from rest_framework import permissions
 
 from message.views import ChatViewSet, MessageViewSet
 from music.views import SongViewSet
@@ -13,19 +11,6 @@ from person.views import PersonViewSet, PersonSettingsView
 from photo.views import PhotoViewSet
 from post.views import PostViewSet
 from user_auth.views import AuthViewSet, RegisterViewSet
-
-schema_view = get_schema_view(
-    openapi.Info(
-        title="Snippets API",
-        default_version='v1',
-        description="Test description",
-        terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="contact@snippets.local"),
-        license=openapi.License(name="BSD License"),
-    ),
-    public=True,
-    permission_classes=[permissions.AllowAny],
-)
 
 router = routers.DefaultRouter()
 router.register(r'auth', AuthViewSet, basename='auth')
@@ -42,13 +27,10 @@ urlpatterns = [
     path('api/person_settings/', PersonSettingsView.as_view()),
     path('admin/', admin.site.urls),
     path('__debug__/', include('debug_toolbar.urls')),
-    re_path(
-        r'^swagger(?P<format>\.json|\.yaml)$',
-        schema_view.without_ui(cache_timeout=0),
-        name='schema-json',
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path(
+        'api/schema/swagger-ui/',
+        SpectacularSwaggerView.as_view(url_name='schema'),
+        name='swagger-ui',
     ),
-    re_path(
-        r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'
-    ),
-    re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

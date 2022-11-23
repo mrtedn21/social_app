@@ -40,11 +40,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'rest_framework.authtoken',
-    'drf_yasg',
     'corsheaders',
     'ckeditor',
     'debug_toolbar',
     'storages',
+    'drf_spectacular',
     # user apps
     'core.apps.CoreConfig',
     'message.apps.MessageConfig',
@@ -155,6 +155,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 30,
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     # 'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'],
 }
 
@@ -163,17 +164,18 @@ DEFAULT_TEXT_FILTER_LOOKUPS = (
     'icontains',
 )
 
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Social app',
+    'DESCRIPTION': 'Usual social app, but without friends',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
+
 CELERY_BROKER_URL = "redis://social_redis:6379"
 CELERY_RESULT_BACKEND = "redis://social_redis:6379"
 CELERY_TIMEZONE = "Asia/Novosibirsk"
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
-
-SWAGGER_SETTINGS = {
-    'SECURITY_DEFINITIONS': {
-        'api_key': {'type': 'apiKey', 'in': 'header', 'name': 'Authorization'}
-    },
-}
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
