@@ -1,3 +1,5 @@
+from tempfile import NamedTemporaryFile
+
 import eyed3
 import requests
 from django.conf import settings
@@ -10,15 +12,19 @@ from music.models import Song
 
 def fill_song_fields_by_tags(song_pk):
     song = Song.objects.get(id=song_pk)
-    full_path = settings.MEDIA_ROOT + str(song.file)
-    song_file = eyed3.load(full_path)
+    with requests.get(song.file.url, stream=True) as response:
+        response.raise_for_status()
+        with NamedTemporaryFile('wb') as file:
+            for chunk in response.iter_content(chunk_size=8 * 1024):
+                file.write(chunk)
 
-    if song_file is None:
-        song.delete()
-    if not song_file.tag or not song_file.tag.artist:
-        return
+            song_file = eyed3.load(file.name)
+            if song_file is None:
+                song.delete()
+            if not song_file.tag or not song_file.tag.artist:
+                return
+            artist = song_file.tag.artist
 
-    artist = song_file.tag.artist
     artist_en = slugify(artist)
     artist_ru = translit(artist, 'ru')
 
