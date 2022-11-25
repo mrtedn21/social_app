@@ -24,9 +24,8 @@ django-debug-toolbar = "^3.7.0"
 eyed3 = "^0.9.7"
 transliterate = "^1.10.2"
 python-slugify = "^6.1.2"
-django-storages = "^1.13.1"
-boto3 = "^1.26.13"
 drf-spectacular = "^0.24.2"
+django-s3-storage = "^0.13.10"
 
 [build-system]
 requires = ["poetry-core"]
