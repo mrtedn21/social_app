@@ -7,7 +7,7 @@ from django.conf import settings
 from slugify import slugify
 from transliterate import translit
 
-from music.models import Song
+from music.models import Artist, Song
 
 
 def fill_song_fields_by_tags(song_pk):
@@ -21,12 +21,15 @@ def fill_song_fields_by_tags(song_pk):
             song_file = eyed3.load(file.name)
             if song_file is None:
                 song.delete()
+                return
             if not song_file.tag or not song_file.tag.artist:
                 return
-            artist = song_file.tag.artist
+            artist_name = song_file.tag.artist
+            album_name = song_file.tag.album
+            title = song_file.tag.title
 
-    artist_en = slugify(artist)
-    artist_ru = translit(artist, 'ru')
+    artist_en = slugify('artist')
+    artist_ru = translit(artist_name, 'ru')
 
     params = {
         'key': settings.GOOGLE_API_KEY,
@@ -35,8 +38,7 @@ def fill_song_fields_by_tags(song_pk):
     }
     response_en = requests.get('https://www.googleapis.com/customsearch/v1', params=params).json()
     if 'spelling' in response_en:
-        artist_en = response_en['spelling']['correctedQuery']
-        params['q'] = artist_en
+        params['q'] = response_en['spelling']['correctedQuery']
         response_en = requests.get(
             'https://www.googleapis.com/customsearch/v1', params=params
         ).json()
@@ -44,8 +46,7 @@ def fill_song_fields_by_tags(song_pk):
     params['q'] = artist_ru
     response_ru = requests.get('https://www.googleapis.com/customsearch/v1', params=params).json()
     if 'spelling' in response_ru:
-        artist_ru = response_ru['spelling']['correctedQuery']
-        params['q'] = artist_ru
+        params['q'] = response_ru['spelling']['correctedQuery']
         response_ru = requests.get(
             'https://www.googleapis.com/customsearch/v1', params=params
         ).json()
@@ -54,6 +55,13 @@ def fill_song_fields_by_tags(song_pk):
         response_en['searchInformation']['totalResults']
         > response_ru['searchInformation']['totalResults']
     ):
-        return artist_en
+        artist, _ = Artist.objects.get_or_create(name__iexact=artist_en)
     else:
-        return artist_ru
+        artist, _ = Artist.objects.get_or_create(name__iexact=artist_ru)
+
+    album, _ = artist.albums.get_or_create(name=album_name)
+    song.artist = artist
+    song.album = album
+    song.title = title
+    song.save()
+    return artist.name

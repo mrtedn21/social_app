@@ -1,5 +1,6 @@
 from django.db import models
-from django.db.models import Q
+from django.db.models import Q, Index
+from django.db.models.functions import Lower
 
 from core.models import null_and_blank, MultiImageMeta
 
@@ -8,11 +9,15 @@ class Artist(models.Model, metaclass=MultiImageMeta):
     name = models.CharField(max_length=128, **null_and_blank)
     photo = models.ImageField(upload_to='music/artist_photos/', **null_and_blank)
 
+    class Meta:
+        indexes = (Index(Lower('name'), name='artist_lower_name_idx'),)
+
 
 class Album(models.Model, metaclass=MultiImageMeta):
     name = models.CharField(max_length=128, **null_and_blank)
     cover = models.ImageField(upload_to='music/covers/', **null_and_blank)
     year = models.PositiveSmallIntegerField(**null_and_blank)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name='albums', null=True)
 
     class Meta:
         constraints = (
