@@ -37,8 +37,6 @@ class Language(models.Model):
 
 class Person(models.Model, metaclass=MultiImageMeta):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    friends = models.ManyToManyField('self', blank=True, symmetrical=True)
-
     avatar = models.ImageField(upload_to='person_avatars', null=True, blank=True)
 
     first_name = models.CharField(max_length=64)

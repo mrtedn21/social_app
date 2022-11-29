@@ -21,7 +21,7 @@ class PersonViewSet(viewsets.ModelViewSet):
     http_method_names = ('post', 'get', 'put', 'patch')
     # TODO make separate querysets for list and detail
     # Because for detail needs subqueries but for list no needs
-    queryset = Person.objects.all().prefetch_related('friends', 'languages')
+    queryset = Person.objects.all().prefetch_related('languages')
     filter_backends = (filters.SearchFilter, DjangoFilterBackend)
     filterset_class = PersonFilter
     search_fields = ('first_name', 'last_name')
@@ -33,19 +33,6 @@ class PersonViewSet(viewsets.ModelViewSet):
             return PersonEditSerializer
         else:
             return PersonListSerializer
-
-    @action(detail=False, methods=('post',))
-    def add_to_friend(self, request):
-        new_friend_pk = request.data['user_id']
-        new_friend = get_object_or_404(Person, pk=new_friend_pk)
-
-        if new_friend == request.user.person:
-            return Response(
-                'It is so sadly when only one your friend is you',
-                HTTP_400_BAD_REQUEST,
-            )
-        request.user.person.friends.add(new_friend)
-        return Response('Added successfully', HTTP_200_OK)
 
 
 class PersonSettingsView(views.APIView):

@@ -50,7 +50,6 @@ class PersonListSerializer(serializers.ModelSerializer):
 
 
 class PersonDetailSerializer(serializers.ModelSerializer):
-    friends = PersonListSerializer(many=True)
     languages = LanguageSerializer(many=True)
     city = CitySerializer()
     gender = GenderSerializer()
@@ -65,7 +64,6 @@ class PersonDetailSerializer(serializers.ModelSerializer):
         model = Person
         fields = (
             'pk',
-            'friends',
             'first_name',
             'avatar_display',
             'avatar_blurred',
