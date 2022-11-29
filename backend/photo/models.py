@@ -4,7 +4,7 @@ from core.models import MultiImageMeta, null_and_blank
 from person.models import Person
 
 
-class Photo(models.Model, metaclass=MultiImageMeta):
+class PersonPhoto(models.Model, metaclass=MultiImageMeta):
     person = models.ForeignKey(
         Person, on_delete=models.CASCADE, related_name='photos', **null_and_blank
     )

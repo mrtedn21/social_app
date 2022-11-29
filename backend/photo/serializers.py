@@ -1,14 +1,14 @@
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
 
-from photo.models import Photo
+from photo.models import PersonPhoto
 
 
 class PhotoCreateSerializer(serializers.ModelSerializer):
     image = Base64ImageField()
 
     class Meta:
-        model = Photo
+        model = PersonPhoto
         fields = ('image', 'description')
 
 
@@ -18,7 +18,7 @@ class PhotoSerializer(serializers.ModelSerializer):
     image_thumbnail = serializers.ImageField()
 
     class Meta:
-        model = Photo
+        model = PersonPhoto
         fields = (
             'pk',
             'person_id',
