@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_s3_storage',
     # user apps
     'core.apps.CoreConfig',
+    'group.apps.GroupConfig',
     'message.apps.MessageConfig',
     'music.apps.MusicConfig',
     'person.apps.PersonConfig',
