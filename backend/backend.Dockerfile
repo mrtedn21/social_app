@@ -3,13 +3,12 @@ ENV PYTHONUNBUFFERED 1
 ENV POETRY_VIRTUALENVS_CREATE=false
 ENV PATH="${PATH}:/root/.poetry/bin"
 EXPOSE 8000/tcp
-RUN mkdir /app
 WORKDIR /app/
 RUN apk add --no-cache \
     openssl `# для установки зависимостей из git` \
     libpq `# для psycopg2` \
     libjpeg-turbo zlib libffi cairo libwebp `# для pillow`
-COPY poetry.lock pyproject.toml /app/
+COPY poetry.lock pyproject.toml ./
 RUN apk add --no-cache --virtual build-deps \
     vim \
     curl git `# для установки poetry` \
@@ -20,5 +19,6 @@ RUN apk add --no-cache --virtual build-deps \
     && pip3 install poetry==1.1.6 \
     && poetry install --no-root --no-interaction --no-ansi \
     && apk del --no-cache build-deps
-COPY / /app/
-CMD ["python", "backend/manage.py", "migrate_and_run"]
+COPY ./ ./
+WORKDIR backend/
+CMD ["python", "manage.py", "migrate_and_run"]

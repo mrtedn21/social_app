@@ -31,7 +31,6 @@ services:
       - AWS_S3_ENDPOINT_URL=${AWS_S3_ENDPOINT_URL}
       - GOOGLE_API_KEY=${GOOGLE_API_KEY}
       - GOOGLE_SEARCH_ENGINE_ID=${GOOGLE_SEARCH_ENGINE_ID}
-
     depends_on:
       - social_db
     ports:
@@ -70,9 +69,18 @@ services:
       - social_db
       - social_redis
 
-  #social_mail:
-  #  image: bytemark/smtp
-  #  restart: always
+  social_frontend:
+    build:
+      context: frontend/
+      dockerfile: ./frontend.Dockerfile
+    container_name: social_frontend
+    restart: always
+    depends_on:
+      - social_backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app/:cached
 
 volumes:
   social_db:
