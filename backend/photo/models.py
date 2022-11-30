@@ -7,7 +7,7 @@ from person.models import Person
 
 class PersonPhoto(models.Model, metaclass=MultiImageMeta):
     person = models.ForeignKey(
-        Person, on_delete=models.CASCADE, related_name='person_photos', **null_and_blank
+        Person, on_delete=models.CASCADE, related_name='photos', **null_and_blank
     )
     image = models.ImageField(upload_to='photos')
     description = models.TextField(blank=True, null=True)
@@ -16,7 +16,7 @@ class PersonPhoto(models.Model, metaclass=MultiImageMeta):
 
 class GroupPhoto(models.Model, metaclass=MultiImageMeta):
     group = models.ForeignKey(
-        Group, on_delete=models.CASCADE, related_name='group_photos', **null_and_blank
+        Group, on_delete=models.CASCADE, related_name='photos', **null_and_blank
     )
     image = models.ImageField(upload_to='photos')
     description = models.TextField(blank=True, null=True)
