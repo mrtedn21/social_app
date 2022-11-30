@@ -1,4 +1,3 @@
-import './Person.css';
 import React from 'react';
 
 
@@ -13,7 +12,7 @@ class PersonMainData extends React.Component {
     render() {
         return (
             <div className="person-main-data">
-                <img src={this.props.person.avatar_thumbnail} className="person-avatar" alt="avatar"/>
+                <img src={this.props.person.avatar_thumbnail} className="rounded" alt="avatar"/>
                 <div>
                     <p className="person-name">{this.props.person.first_name} {this.props.person.last_name}</p>
                     <p className="person-birth">{this.format_date()}</p>

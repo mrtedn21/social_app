@@ -1,4 +1,3 @@
-import './Person.css';
 import React from 'react';
 import {FaComment, FaHeart} from "react-icons/fa";
 

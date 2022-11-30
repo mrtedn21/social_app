@@ -1,4 +1,3 @@
-import './Person.css';
 import React from 'react';
 
 

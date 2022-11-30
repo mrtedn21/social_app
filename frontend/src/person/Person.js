@@ -1,7 +1,6 @@
 import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-import './Person.css';
 import Container from "../Container";
 import NewPersonPost from "./NewPersonPost";
 import PersonMusic from "./PersonMusic";
