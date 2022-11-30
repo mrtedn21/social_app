@@ -11,16 +11,40 @@ class PersonMainData extends React.Component {
 
     render() {
         return (
-            <div className="person-main-data">
-                <img src={this.props.person.avatar_thumbnail} className="rounded" alt="avatar"/>
-                <div>
-                    <p className="person-name">{this.props.person.first_name} {this.props.person.last_name}</p>
-                    <p className="person-birth">{this.format_date()}</p>
-                    <div className="person-main-buttons">
-                        <input type="button" className="person-chat-button" value="Open chat"/>
-                        <input type="button" className="person-follow-button" value="Follow"/>
+            <div className="row" style={{paddingTop: '20px'}}>
+                <div className="col-3"></div>
+                <div className="col-2">
+                    <img src={this.props.person.avatar_thumbnail} className="img rounded" alt="..."/>
+                </div>
+                <div className="col-3">
+                    <div>
+                        <table className="table">
+                            <tbody>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>{this.props.person.first_name} {this.props.person.last_name}</td>
+                                </tr>
+                                <tr>
+                                    <td>Birthday</td>
+                                    <td>{this.format_date()}</td>
+                                </tr>
+                                <tr>
+                                    <td>City</td>
+                                    <td>{this.props.person.city.country}, {this.props.person.city.name}</td>
+                                </tr>
+                                <tr>
+                                    <td>Languages</td>
+                                    <td>{this.props.person.languages.map(language => language.name).join(', ')}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            <input type="button" className="btn btn-primary" value="Open chat" style={{margin: '5px'}}/>
+                            <input type="button" className="btn btn-primary" value="Follow" style={{margin: '5px'}}/>
+                        </div>
                     </div>
                 </div>
+                <div className="col-4"></div>
             </div>
         )
     }

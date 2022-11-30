@@ -7,12 +7,11 @@ class Container extends React.Component {
             <React.Fragment>
                 <nav className="navbar navbar-expand-lg bg-light">
                     <div className="container-fluid">
-                        <a className="navbar-brand" href="#">My page</a>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Twitter-logo.svg" width="30px" alt=""/>
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item"><a className="nav-link active" aria-current="page" href="#">Messages</a></li>
                                 <li className="nav-item"><a className="nav-link active" aria-current="page" href="#">News</a></li>
-                                <li className="nav-item"><a className="nav-link active" aria-current="page" href="#">Groups</a></li>
                                 <li className="nav-item"><a className="nav-link active" aria-current="page" href="#">Music</a></li>
                                 <li className="nav-item"><a className="nav-link active" aria-current="page" href="#">Photos</a></li>
                                 <li className="nav-item"><a className="nav-link active" aria-current="page" href="#">Videos</a></li>
