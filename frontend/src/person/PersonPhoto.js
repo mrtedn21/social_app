@@ -53,14 +53,22 @@ class PersonPhoto extends React.Component {
     render() {
         return (
             <div>
-                <div className="person-photo-form">
-                    <input type="file" name="image" onChange={this.changeImage} className="person-photo-input"/>
-                    <input type="text" name="description" placeholder="Photo description" className="person-photo-input" onChange={this.inputHandle}/>
-                    <input type="button" value="Add photo" className="person-photo-button" onClick={this.photoUpload}/>
-                </div>
-                <div className="person-photo-gallery">
+                <form style={{textAlign: 'left'}}>
+                    <div style={{marginBottom: '10px'}}>
+                        <label className="form-label">Image</label>
+                        <input type="file" name="image" onChange={this.changeImage} className="form-control"/>
+                    </div>
+                    <div style={{marginBottom: '10px'}}>
+                        <label className="form-label">Description</label>
+                        <input type="text" name="description" className="form-control" onChange={this.inputHandle}/>
+                    </div>
+                    <input type="button" value="Add photo" className="btn btn-primary" onClick={this.photoUpload} style={{marginBottom: '30px'}}/>
+                </form>
+                <div className="row row-cols-3 g-1">
                     {this.props.photos.map(photo =>
-                        <img src={photo.image_thumbnail} alt="Person photo" key={photo.pk.toString()} className="person-photo-image"/>
+                        <div className="col">
+                            <img src={photo.image_thumbnail} alt="Person photo" key={photo.pk.toString()} className="img rounded"/>
+                        </div>
                     )}
                 </div>
             </div> 

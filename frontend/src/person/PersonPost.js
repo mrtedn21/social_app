@@ -5,17 +5,19 @@ import {FaComment, FaHeart} from "react-icons/fa";
 class PersonPost extends React.Component {
     render() {
         return (
-            <div className="person-post">
-                {this.props.post.text}
-                <div className="person-post-bottom">
-                    <div>
-                        <FaComment className="person-comment-icon" />
-                        <FaHeart className="person-heart-icon person-heart-liked" />
-                        <p className="person-like-count">{this.props.post.likes_count}</p>
+            <div className="card" style={{marginTop: '15px', marginBottom: '15px'}}>
+                <div className="card-body">
+                    <p className="card-text" style={{textAlign: 'left'}}>{this.props.post.text}</p>
+                    <div className="row">
+                        <div className="col-2" style={{textAlign: 'left'}}>
+                            <span>{this.props.post.likes_count}</span>
+                            <FaHeart style={{marginLeft: '4px'}}/>
+                        </div>
+                        <div className="col-7"></div>
+                        <div className="col-3">
+                            <p className="card-text">{this.props.post.date_time}</p>
+                        </div>
                     </div>
-                    <p className="person-post-date-time">
-                        {this.props.post.date_time}
-                    </p>
                 </div>
             </div>
         )

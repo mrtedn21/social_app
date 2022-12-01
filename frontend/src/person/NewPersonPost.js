@@ -36,11 +36,12 @@ class PersonPost extends React.Component {
 
     render() {
         return (
-            <div className="person-post-form">
-                <textarea onChange={this.inputHandle} name="text" className="person-post-form-input" value={this.state.text} />
-                <input type="button" value="Create post" onClick={this.createPost}
-                       style={{float: 'right'}} className="person-form-button"/>
-            </div>
+            <form>
+                <textarea name="text" onChange={this.inputHandle} value={this.state.text} style={{marginBottom: '5px'}} className="form-control" aria-label="With textarea" />
+                <div style={{textAlign: 'left'}}>
+                    <input type="button" className="btn btn-primary" onClick={this.createPost} value="Add post" />
+                </div>
+            </form>
         )
     }
 }
