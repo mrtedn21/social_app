@@ -1,5 +1,4 @@
 import React from 'react';
-import Select from 'react-select';
 
 import Container from "./Container";
 
@@ -30,6 +29,7 @@ class Settings extends React.Component {
         }
 
         this.inputHandle = this.inputHandle.bind(this)
+        this.multipleSelectHandle = this.multipleSelectHandle.bind(this)
         this.updateSettings = this.updateSettings.bind(this)
         this.updateAvatar = this.updateAvatar.bind(this)
         this.changeCountry = this.changeCountry.bind(this)
@@ -56,9 +56,9 @@ class Settings extends React.Component {
         })
     }
 
-    selectChangeHandle(event, target_name) {
+    multipleSelectHandle(event){
         this.setState({
-            [target_name]: event
+            [event.target.name]: Array.from(event.target.selectedOptions).map(option => option.value)
         })
     }
 
@@ -78,7 +78,7 @@ class Settings extends React.Component {
         if (this.state.last_name) {requestData['last_name'] = this.state.last_name}
         if (this.state.gender) {requestData['gender'] = this.state.gender}
         if (this.state.city) {requestData['city'] = this.state.city.pk === undefined ? this.state.city : this.state.city.pk}
-        if (this.state.languages) {requestData['languages'] = this.state.languages.map(language => Number(language.value))}
+        if (this.state.languages) {requestData['languages'] = this.state.languages}
 
         await fetch(request_url, {
             method: 'PATCH',
@@ -100,63 +100,30 @@ class Settings extends React.Component {
         if (!this.state.initial_settings || !this.state.concrete_settings) {
             return null;
         }
-        const languages = this.state.concrete_settings.languages.map(language => ({value: language.pk, label: language.name}));
-
-        const customStyles = {
-            control: (provided, isFocused) => ({
-                ...provided,
-                margin: '2px 0 10px',
-                border: 'none',
-                borderRadius: '5px',
-                background: '#edf4fe',
-                boxShadow: 'none',
-                ':hover': {
-                    border: 'none',
-                },
-            }),
-
-            option: (provided) => ({
-                ...provided,
-                background: '#edf4fe',
-            }),
-            menu: (provided) => ({
-                ...provided,
-                background: '#edf4fe',
-            }),
-            multiValue: (provided) => ({
-                ...provided,
-                background: 'none',
-                border: '1px #b3b3b3 solid',
-            }),
-        }
-
         return (
             <Container>
-                <div>
-                    <div className="settings-parameter-block">
-                        <div className="settings-image-block">
-                            <p className="settings-parameter-label">Avatar</p>
-                            <input type="file" className="settings-parameter-input" style={{width: '383px'}} name="avatar" onChange={this.updateAvatar}/>
+                <div className="row">
+                    <div className="col-4"></div>
+                    <div className="col-4">
+                        <div style={{marginBottom: '13px'}}>
+                            <label className="form-label">Avatar</label>
+                            <input type="file" className="form-control" name="avatar" onChange={this.updateAvatar}/>
                             <img src={this.state.concrete_settings.avatar_thumbnail} id="person-avatar"
                                  alt="Avatar" style={{width: '200px', marginBottom: '10px', borderRadius: '10px'}}/>
                         </div>
-                    </div>
-                    <div className="settings-parameter-block">
-                        <div style={{width: '180px', marginRight: '13px'}}>
-                            <p className="settings-parameter-label">First name</p>
-                            <input type="text" value={this.state.first_name} defaultValue={this.state.concrete_settings.first_name} className="settings-parameter-input"
-                                   style={{width: '100%', maxWidth: '100%'}} name="first_name" onChange={this.inputHandle}/>
+                        <div style={{marginBottom: '13px'}}>
+                            <label className="form-label">First name</label>
+                            <input type="text" value={this.state.first_name} defaultValue={this.state.concrete_settings.first_name} className="form-control"
+                                   name="first_name" onChange={this.inputHandle}/>
                         </div>
-                        <div style={{width: '180px'}}>
-                            <p className="settings-parameter-label">Last name</p>
-                            <input type="text" value={this.state.last_name} defaultValue={this.state.concrete_settings.last_name} className="settings-parameter-input"
-                                   style={{width: '100%', maxWidth: '100%'}} name="last_name" onChange={this.inputHandle}/>
+                        <div style={{marginBottom: '13px'}}>
+                            <label className="form-label">Last name</label>
+                            <input type="text" value={this.state.last_name} defaultValue={this.state.concrete_settings.last_name} className="form-control"
+                                   name="last_name" onChange={this.inputHandle}/>
                         </div>
-                    </div>
-                    <div className="settings-parameter-block">
-                        <div style={{width: '395px'}}>
-                            <p className="settings-parameter-label">Gender</p>
-                            <select className="settings-parameter-input" style={{width: '100%', maxWidth: '100%'}}
+                        <div style={{marginBottom: '13px'}}>
+                            <label className="form-label">Gender</label>
+                            <select className="form-control"
                                     value={this.state.gender} defaultValue={this.state.concrete_settings.gender.pk} name="gender" onChange={this.inputHandle}>
                                 {this.state.initial_settings.genders.map(
                                     gender => <option key={gender.pk.toString()}
@@ -164,11 +131,9 @@ class Settings extends React.Component {
                                 )}
                             </select>
                         </div>
-                    </div>
-                    <div className="settings-parameter-block">
-                        <div style={{width: '192px'}}>
-                            <p className="settings-parameter-label">Country</p>
-                            <select className="settings-parameter-input" style={{width: '100%', maxWidth: '100%'}} onChange={event => {this.inputHandle(event); this.changeCountry(event) }}
+                        <div style={{marginBottom: '13px'}}>
+                            <label className="form-label">Country</label>
+                            <select className="form-control" onChange={event => {this.inputHandle(event); this.changeCountry(event) }}
                                     value={this.state.country} defaultValue={this.state.concrete_settings.city.country_pk} name="country">
                                 {this.state.initial_settings.countries.map(
                                     country => <option key={country.pk.toString()}
@@ -176,9 +141,9 @@ class Settings extends React.Component {
                                 )}
                             </select>
                         </div>
-                        <div style={{width: '192px'}}>
-                            <p className="settings-parameter-label">City</p>
-                            <select className="settings-parameter-input" style={{width: '100%', maxWidth: '100%'}}
+                        <div style={{marginBottom: '13px'}}>
+                            <label className="form-label">City</label>
+                            <select className="form-control"
                                     defaultValue={this.state.city || this.state.concrete_settings.city.pk} name="city" onChange={this.inputHandle}>
                                 {this.state.cities_for_select.map(
                                     city => <option key={city.pk.toString()}
@@ -186,18 +151,21 @@ class Settings extends React.Component {
                                 )}
                             </select>
                         </div>
-                    </div>
-                    <div className="settings-parameter-block">
-                        <div style={{width: '395px'}}>
-                            <p className="settings-parameter-label">Language</p>
-                            <Select styles={customStyles} isMulti name="language" value={this.state.languages || languages}
-                                    onChange={event => this.selectChangeHandle(event, 'languages')}
-                                    options={this.state.initial_settings.languages.map(language => {return {value: language.pk, label: language.name}})} />
+                        <div style={{marginBottom: '13px'}}>
+                            <label className="form-label">Languages</label>
+                            <select name="languages" className="form-control" defaultValue={this.state.concrete_settings.languages.map(language => language.pk)}
+                                    onChange={this.multipleSelectHandle} multiple value={this.state.languages}>
+                                {this.state.initial_settings.languages.map(
+                                    language => <option key={language.pk.toString()}
+                                                    value={language.pk}>{language.name}</option>
+                                )}
+                            </select>
+                        </div>
+                        <div>
+                            <input type="button" value="Save settings" className="btn btn-primary" onClick={this.updateSettings}/>
                         </div>
                     </div>
-                    <div className="settings-parameter-block">
-                        <input type="button" value="Save settings" className="settings-parameter-button" onClick={this.updateSettings}/>
-                    </div>
+                    <div className="col-4"></div>
                 </div>
             </Container>
         )
