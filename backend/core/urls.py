@@ -2,9 +2,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework import routers
 
+from group.views import GroupViewSet
 from message.views import ChatViewSet, MessageViewSet
 from music.views import SongViewSet
 from person.views import PersonViewSet, PersonSettingsView
@@ -15,6 +16,7 @@ from user_auth.views import AuthViewSet, RegisterViewSet
 router = routers.DefaultRouter()
 router.register(r'auth', AuthViewSet, basename='auth')
 router.register(r'chats', ChatViewSet, basename='chats')
+router.register(r'groups', GroupViewSet, basename='groups')
 router.register(r'messages', MessageViewSet, basename='messages')
 router.register(r'song', SongViewSet, basename='song')
 router.register(r'persons', PersonViewSet, basename='persons')
