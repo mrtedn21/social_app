@@ -13,8 +13,7 @@ class Container extends React.Component {
                                 <li className="nav-item"><a className="nav-link active" href="#">Messages</a></li>
                                 <li className="nav-item"><a className="nav-link active" href="#">News</a></li>
                                 <li className="nav-item"><a className="nav-link active" href="#">Music</a></li>
-                                <li className="nav-item"><a className="nav-link active" href="#">Photos</a></li>
-                                <li className="nav-item"><a className="nav-link active" href="#">Videos</a></li>
+                                <li className="nav-item"><a className="nav-link active" href="#">Groups</a></li>
                                 <li className="nav-item"><a className="nav-link active" href="http://localhost:3000/settings/">Settings</a></li>
                             </ul>
                             <form className="d-flex" role="search">
