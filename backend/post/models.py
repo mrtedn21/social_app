@@ -11,3 +11,6 @@ class Post(models.Model):
     liked_by = models.ManyToManyField(Person, related_name='liked_posts', blank=True)
     # TODO make this field calculated in celery beat task for fast select
     likes_count = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ('-pk',)
