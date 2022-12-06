@@ -26,6 +26,8 @@ transliterate = "^1.10.2"
 python-slugify = "^6.1.2"
 drf-spectacular = "^0.24.2"
 django-s3-storage = "^0.13.10"
+channels = "^4.0.0"
+uvicorn = "^0.20.0"
 
 [build-system]
 requires = ["poetry-core"]
