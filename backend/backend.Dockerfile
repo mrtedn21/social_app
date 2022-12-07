@@ -9,13 +9,13 @@ RUN apk add --no-cache \
     libpq `# для psycopg2` \
     libjpeg-turbo zlib libffi cairo libwebp `# для pillow`
 COPY poetry.lock pyproject.toml ./
+RUN pip install --no-cache-dir cryptography==38.0.4
 RUN apk add --no-cache --virtual build-deps \
     vim \
     curl git `# для установки poetry` \
     make gcc g++ `# для сборки пакетов` \
     postgresql-dev `# для psycopg2` \
     libjpeg-turbo-dev zlib-dev libffi-dev cairo-dev libwebp-dev `# для pillow` \
-    && pip install --no-cache-dir cryptography==2.1.4 \
     && pip3 install poetry==1.1.6 \
     && poetry install --no-root --no-interaction --no-ansi \
     && apk del --no-cache build-deps
