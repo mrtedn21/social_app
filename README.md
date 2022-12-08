@@ -1,5 +1,6 @@
 ```bash
 git clone git@github.com:mrtedn21/social_app.git
+cd social_app
 ```
 Then copy .env file to root of project and to backend/core/ directory
 ```bash
