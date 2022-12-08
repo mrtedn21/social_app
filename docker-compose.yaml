@@ -13,33 +13,33 @@ services:
     volumes:
       - social_db:/var/lib/postgresql/data
 
-  social_backend:
-    build:
-      context: backend/
-      dockerfile: ./backend.Dockerfile
-    container_name: social_backend
-    restart: always
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
-      - EMAIL_HOST_USER=${EMAIL_HOST_USER}
-      - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-      - AWS_S3_BUCKET_NAME=${AWS_S3_BUCKET_NAME}
-      - AWS_S3_ENDPOINT_URL=${AWS_S3_ENDPOINT_URL}
-      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
-      - GOOGLE_SEARCH_ENGINE_ID=${GOOGLE_SEARCH_ENGINE_ID}
-    depends_on:
-      - social_db
-    ports:
-      - "8000:8000"
-    volumes:
-      - type: bind
-        source: ./logs/
-        target: /app/logs/
-      - ./:/app/:cached
+        #social_backend:
+        #  build:
+        #    context: backend/
+        #    dockerfile: ./backend.Dockerfile
+        #  container_name: social_backend
+        #  restart: always
+        #  environment:
+        #    - POSTGRES_USER=${POSTGRES_USER}
+        #    - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+        #    - POSTGRES_DB=${POSTGRES_DB}
+        #    - EMAIL_HOST_USER=${EMAIL_HOST_USER}
+        #    - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
+        #    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+        #    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+        #    - AWS_S3_BUCKET_NAME=${AWS_S3_BUCKET_NAME}
+        #    - AWS_S3_ENDPOINT_URL=${AWS_S3_ENDPOINT_URL}
+        #    - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+        #    - GOOGLE_SEARCH_ENGINE_ID=${GOOGLE_SEARCH_ENGINE_ID}
+        #  depends_on:
+        #    - social_db
+        #  ports:
+        #    - "8000:8000"
+        #  volumes:
+        #    - type: bind
+        #      source: ./logs/
+        #      target: /app/logs/
+        #    - ./:/app/:cached
 
   social_redis:
     image: redis:5.0-alpine
@@ -75,8 +75,8 @@ services:
       dockerfile: ./frontend.Dockerfile
     container_name: social_frontend
     restart: always
-    depends_on:
-      - social_backend
+      #depends_on:
+      #  - social_backend
     ports:
       - "3000:3000"
     volumes:
