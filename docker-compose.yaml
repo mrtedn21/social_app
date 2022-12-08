@@ -75,6 +75,7 @@ services:
       dockerfile: ./frontend.Dockerfile
     container_name: social_frontend
     restart: always
+    #command: tail -F anything
       #depends_on:
       #  - social_backend
     ports:
