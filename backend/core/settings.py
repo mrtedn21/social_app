@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ASGI_APPLICATION = "core.asgi.application"
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'drf_spectacular',
     'django_s3_storage',
+    'channels',
     # user apps
     'core.apps.CoreConfig',
     'group.apps.GroupConfig',

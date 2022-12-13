@@ -21,4 +21,4 @@ RUN pip3 install poetry==1.1.6 \
     && poetry install --no-root --no-interaction --no-ansi
 COPY ./ ./
 WORKDIR backend/
-CMD ["python", "manage.py", "migrate_and_run"]
+#TODO return migrate running
