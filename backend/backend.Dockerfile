@@ -1,7 +1,7 @@
 FROM python:3.10-alpine
 ENV PYTHONUNBUFFERED 1
 ENV POETRY_VIRTUALENVS_CREATE=false
-ENV PATH="${PATH}:/root/.poetry/bin"
+ENV PATH="${PATH}:/root/.poetry/bin:/root/.cargo/bin"
 EXPOSE 8000/tcp
 WORKDIR /app/
 RUN apk add --no-cache \
@@ -15,10 +15,10 @@ RUN apk add --no-cache --virtual build-deps \
     curl git `# для установки poetry` \
     make gcc g++ `# для сборки пакетов` \
     postgresql-dev `# для psycopg2` \
-    libjpeg-turbo-dev zlib-dev libffi-dev cairo-dev libwebp-dev `# для pillow` \
-    && pip3 install poetry==1.1.6 \
-    && poetry install --no-root --no-interaction --no-ansi \
-    && apk del --no-cache build-deps
+    libjpeg-turbo-dev zlib-dev libffi-dev cairo-dev libwebp-dev `# для pillow`
+RUN curl –proto ‘=https’ –tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+RUN pip3 install poetry==1.1.6 \
+    && poetry install --no-root --no-interaction --no-ansi
 COPY ./ ./
 WORKDIR backend/
 CMD ["python", "manage.py", "migrate_and_run"]
