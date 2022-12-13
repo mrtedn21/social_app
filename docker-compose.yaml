@@ -48,27 +48,27 @@ services:
     volumes:
       - redisdata:/data
 
-  #social_celery:
-  #  container_name: social_celery
-  #  restart: unless-stopped
-  #  build:
-  #    context: backend/
-  #    dockerfile: ./backend.Dockerfile
-  #  environment:
-  #    - POSTGRES_USER=${POSTGRES_USER}
-  #    - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-  #    - POSTGRES_DB=${POSTGRES_DB}
-  #    - EMAIL_HOST_USER=${EMAIL_HOST_USER}
-  #    - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
-  #    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-  #    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-  #    - AWS_S3_BUCKET_NAME=${AWS_S3_BUCKET_NAME}
-  #    - AWS_S3_ENDPOINT_URL=${AWS_S3_ENDPOINT_URL}
-  #    - GOOGLE_API_KEY=${GOOGLE_API_KEY}
-  #    - GOOGLE_SEARCH_ENGINE_ID=${GOOGLE_SEARCH_ENGINE_ID}
-  #  depends_on:
-  #    - social_db
-  #    - social_redis
+  social_celery:
+    container_name: social_celery
+    restart: unless-stopped
+    build:
+      context: backend/
+      dockerfile: ./backend.Dockerfile
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - EMAIL_HOST_USER=${EMAIL_HOST_USER}
+      - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_S3_BUCKET_NAME=${AWS_S3_BUCKET_NAME}
+      - AWS_S3_ENDPOINT_URL=${AWS_S3_ENDPOINT_URL}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - GOOGLE_SEARCH_ENGINE_ID=${GOOGLE_SEARCH_ENGINE_ID}
+    depends_on:
+      - social_db
+      - social_redis
 
   social_frontend:
     build:
