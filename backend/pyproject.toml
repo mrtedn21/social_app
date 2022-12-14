@@ -28,6 +28,7 @@ drf-spectacular = "^0.24.2"
 django-s3-storage = "^0.13.10"
 channels = "^4.0.0"
 uvicorn = {extras = ["standard"], version = "^0.20.0"}
+channels-redis = "^4.0.0"
 
 [build-system]
 requires = ["poetry-core"]

@@ -27,8 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-ASGI_APPLICATION = "core.asgi.application"
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -198,8 +196,18 @@ CORS_ALLOWED_ORIGINS = ['http://localhost:8000', 'http://localhost:3000']
 
 # yandex object storage
 DEFAULT_FILE_STORAGE = "django_s3_storage.storage.S3Storage"
-
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_S3_BUCKET_NAME = os.getenv('AWS_S3_BUCKET_NAME')
 AWS_S3_ENDPOINT_URL = os.getenv('AWS_S3_ENDPOINT_URL')
+
+# channels settings
+ASGI_APPLICATION = "core.asgi.application"
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('social_redis', 6379)],
+        },
+    },
+}
