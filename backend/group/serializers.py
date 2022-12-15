@@ -10,6 +10,8 @@ class GroupCreateSerializer(serializers.ModelSerializer):
             'avatar',
             'name',
             'slug',
+            'short_description',
+            'long_description',
         )
 
 
@@ -25,5 +27,6 @@ class GroupListSerializer(serializers.ModelSerializer):
             'avatar_display',
             'avatar_blurred',
             'name',
-            'slug',
+            'short_description',
+            'long_description',
         )
