@@ -19,7 +19,7 @@ services:
       dockerfile: ./backend.Dockerfile
     container_name: social_backend
     restart: always
-    command: python -m uvicorn core.asgi:application --host 0.0.0.0
+    command: python -m uvicorn core.asgi:application --host 0.0.0.0 --reload
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
