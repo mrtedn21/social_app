@@ -31,7 +31,8 @@ class PersonPost extends React.Component {
                 'Authorization': 'Token ' + token,
             },
         })
-            .then(window.location.reload())
+            .then(response => response.json())
+            .then(data => window.location.reload())
     }
 
     render() {
