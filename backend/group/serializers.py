@@ -31,6 +31,7 @@ class GroupListSerializer(serializers.ModelSerializer):
             'short_description',
             'long_description',
             'theme_name',
+            'followers_count',
         )
 
     def get_theme_name(self, group):
