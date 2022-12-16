@@ -20,6 +20,7 @@ class Group(models.Model, metaclass=MultiImageMeta):
     slug = models.SlugField(max_length=64)
     theme = models.ForeignKey(GroupTheme, on_delete=models.CASCADE)
     followers = models.ManyToManyField(Person, blank=True)
+    followers_count = models.PositiveIntegerField(default=0, help_text='Auto calculated field')
     created_date = models.DateField(auto_now_add=True)
 
     def __str__(self):

@@ -5,7 +5,7 @@ from group.serializers import GroupCreateSerializer, GroupListSerializer
 
 
 class GroupViewSet(viewsets.ModelViewSet):
-    queryset = Group.objects.all()
+    queryset = Group.objects.all().select_related('theme')
 
     def get_serializer_class(self):
         if self.action == 'create':

@@ -19,6 +19,7 @@ class GroupListSerializer(serializers.ModelSerializer):
     avatar_thumbnail = serializers.ImageField()
     avatar_display = serializers.ImageField()
     avatar_blurred = serializers.ImageField()
+    theme_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Group
@@ -29,4 +30,8 @@ class GroupListSerializer(serializers.ModelSerializer):
             'name',
             'short_description',
             'long_description',
+            'theme_name',
         )
+
+    def get_theme_name(self, group):
+        return group.theme.name
