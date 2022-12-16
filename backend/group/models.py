@@ -8,6 +8,9 @@ class GroupTheme(models.Model):
     name = models.CharField(max_length=64)
     slug = models.SlugField(max_length=64)
 
+    def __str__(self):
+        return f'Group theme: {self.name}'
+
 
 class Group(models.Model, metaclass=MultiImageMeta):
     avatar = models.ImageField(upload_to='group/avatar')
@@ -18,3 +21,6 @@ class Group(models.Model, metaclass=MultiImageMeta):
     theme = models.ForeignKey(GroupTheme, on_delete=models.CASCADE, null=True)
     followers = models.ManyToManyField(Person, blank=True)
     created_date = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Group: {self.name}'

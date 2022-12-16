@@ -14,3 +14,6 @@ class Post(models.Model):
 
     class Meta:
         ordering = ('-pk',)
+
+    def __str__(self):
+        return f'Post: {self.text}'

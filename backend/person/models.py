@@ -18,7 +18,7 @@ class City(models.Model):
     country = models.ForeignKey(Country, on_delete=models.PROTECT, related_name='cities')
 
     def __str__(self):
-        return f'City: {self.name}, Country: {self.country.name}'
+        return f'City: {self.name}'
 
 
 class Gender(models.Model):
