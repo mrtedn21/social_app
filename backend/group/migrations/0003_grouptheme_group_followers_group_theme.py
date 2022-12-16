@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='group',
             name='theme',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='group.grouptheme'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='group.grouptheme'),
         ),
     ]
 
