@@ -6,8 +6,12 @@ class GroupList extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {groups: undefined}
-        this.state = {specs: undefined}
+        this.state = {
+            groups: undefined,
+            specs: undefined,
+        }
+
+        this.selectThemeHandle = this.selectThemeHandle.bind(this)
     }
 
     async componentDidMount() {
@@ -18,6 +22,12 @@ class GroupList extends React.Component {
         await fetch('http://localhost:8000/api/groups/specs/')
             .then(response => response.status === 200 ? response.json() : undefined)
             .then(data => this.setState({specs: data}))
+    }
+
+    async selectThemeHandle(event) {
+        await fetch('http://localhost:8000/api/groups/?theme_slug=' + event.target.value)
+            .then(response => response.status === 200 ? response.json() : undefined)
+            .then(data => this.setState({groups: data.results}))
     }
 
     render() {
@@ -45,10 +55,9 @@ class GroupList extends React.Component {
             </div>
         ))
 
-        console.log(this.state.specs)
         const theme_filters = this.state.specs.find(element => element.name === 'theme_slug').values.map( theme => (
                 <div className="form-check">
-                    <input className="form-check-input" type="radio" name="flexRadioDefault" value={theme.slug}/>
+                    <input className="form-check-input" type="radio" name="flexRadioDefault" value={theme.slug} onChange={this.selectThemeHandle}/>
                     <label className="form-check-label">{theme.name}</label>
                 </div>
             )
