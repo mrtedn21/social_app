@@ -12,6 +12,7 @@ class GroupList extends React.Component {
         }
 
         this.selectThemeHandle = this.selectThemeHandle.bind(this)
+        this.clearFilters = this.clearFilters.bind(this)
     }
 
     async componentDidMount() {
@@ -26,6 +27,12 @@ class GroupList extends React.Component {
 
     async selectThemeHandle(event) {
         await fetch('http://localhost:8000/api/groups/?theme_slug=' + event.target.value)
+            .then(response => response.status === 200 ? response.json() : undefined)
+            .then(data => this.setState({groups: data.results}))
+    }
+
+    async clearFilters(event) {
+        await fetch('http://localhost:8000/api/groups/')
             .then(response => response.status === 200 ? response.json() : undefined)
             .then(data => this.setState({groups: data.results}))
     }
@@ -75,6 +82,8 @@ class GroupList extends React.Component {
                     <div className="col-2" style={{marginTop: '15px'}}>
                         <div>Theme filters</div>
                         {theme_filters}
+                        <input type="button" className="btn btn-success" value="Clear filters"
+                               style={{marginTop: '10px'}} onClick={this.clearFilters}/>
                     </div>
                     <div className="col-2"></div>
                 </div>
