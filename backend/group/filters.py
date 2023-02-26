@@ -18,5 +18,10 @@ class GroupFilter(FacetsFilterSet):
 
     @staticmethod
     def theme_slug_specs():
-        themes = Group.objects.all().values('theme__name', 'theme__slug').distinct()
+        themes = (
+            Group.objects.all()
+            .values('theme__name', 'theme__slug')
+            .order_by('theme__name')
+            .distinct()
+        )
         return [{'slug': theme['theme__slug'], 'name': theme['theme__name']} for theme in themes]
