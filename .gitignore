@@ -4,3 +4,4 @@ static/
 .idea/
 db.sqlite3
 .env
+logs
