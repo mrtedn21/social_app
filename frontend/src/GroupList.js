@@ -82,7 +82,7 @@ class GroupList extends React.Component {
                     <div className="col-2" style={{marginTop: '15px'}}>
                         <div>Theme filters</div>
                         {theme_filters}
-                        <input type="button" className="btn btn-success" value="Clear filters"
+                        <input type="button" className="btn btn-outline-primary" value="Clear filters"
                                style={{marginTop: '10px'}} onClick={this.clearFilters}/>
                     </div>
                     <div className="col-2"></div>
