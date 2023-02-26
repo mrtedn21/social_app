@@ -7,6 +7,7 @@ import {
 import GroupList from "./GroupList"
 import Login from "./auth/Login";
 import Person from "./person/Person";
+import Group from "./person/Group";
 import Register from "./auth/Register";
 import RegisterSubmit from "./auth/RegisterSubmit";
 import Settings from "./Settings";
@@ -15,6 +16,7 @@ import Settings from "./Settings";
 const router = createBrowserRouter([
     {path: '/', element: <Person />},
     {path: '/groups', element: <GroupList />},
+    {path: '/groups/:slug', element: <Group />},
     {path: '/login', element: <Login />},
     {path: '/register', element: <Register />},
     {path: '/register/submit', element: <RegisterSubmit />},
