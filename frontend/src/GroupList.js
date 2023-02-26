@@ -7,17 +7,21 @@ class GroupList extends React.Component {
         super(props);
 
         this.state = {groups: undefined}
+        this.state = {specs: undefined}
     }
 
     async componentDidMount() {
-        const request_url = 'http://localhost:8000/api/groups';
-        await fetch(request_url)
+        await fetch('http://localhost:8000/api/groups/')
             .then(response => response.status === 200 ? response.json() : undefined)
             .then(data => this.setState({groups: data.results}))
+
+        await fetch('http://localhost:8000/api/groups/specs/')
+            .then(response => response.status === 200 ? response.json() : undefined)
+            .then(data => this.setState({specs: data}))
     }
 
     render() {
-        if (this.state.groups === undefined) {
+        if ((this.state.groups === undefined) || (this.state.specs === undefined)) {
             return null;
         }
 
@@ -41,6 +45,15 @@ class GroupList extends React.Component {
             </div>
         ))
 
+        console.log(this.state.specs)
+        const theme_filters = this.state.specs.find(element => element.name === 'theme_slug').values.map( theme => (
+                <div className="form-check">
+                    <input className="form-check-input" type="radio" name="flexRadioDefault" value={theme.slug}/>
+                    <label className="form-check-label">{theme.name}</label>
+                </div>
+            )
+        )
+
         return (
             <Container>
                 <div className="row" style={{marginTop: '15px'}}>
@@ -52,16 +65,7 @@ class GroupList extends React.Component {
                     </div>
                     <div className="col-2" style={{marginTop: '15px'}}>
                         <div>Theme filters</div>
-
-                        <div className="form-check">
-                            <input className="form-check-input" type="radio" name="flexRadioDefault"/>
-                            <label className="form-check-label">Default radio</label>
-                        </div>
-                        <div class="form-check">
-                            <input className="form-check-input" type="radio" name="flexRadioDefault"/>
-                            <label className="form-check-label">Default checked radio</label>
-                        </div>
-
+                        {theme_filters}
                     </div>
                     <div className="col-2"></div>
                 </div>
