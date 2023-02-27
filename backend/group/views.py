@@ -11,6 +11,7 @@ from group.serializers import GroupCreateSerializer, GroupListSerializer
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all().select_related('theme')
     filterset_class = GroupFilter
+    lookup_field = 'slug'
 
     def get_serializer_class(self):
         if self.action == 'create':

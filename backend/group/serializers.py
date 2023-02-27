@@ -32,7 +32,9 @@ class GroupListSerializer(serializers.ModelSerializer):
             'long_description',
             'theme_name',
             'followers_count',
+            'slug',
         )
+        lookup_field = 'slug'
 
     def get_theme_name(self, group):
         return group.theme.name
