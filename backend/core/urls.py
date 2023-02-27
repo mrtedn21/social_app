@@ -10,7 +10,7 @@ from message.views import ChatViewSet, MessageViewSet
 from music.views import SongViewSet
 from person.views import PersonViewSet, PersonSettingsView
 from photo.views import PhotoViewSet
-from post.views import PostViewSet
+from post.views import PersonPostViewSet
 from user_auth.views import AuthViewSet, RegisterViewSet
 
 router = routers.DefaultRouter()
@@ -21,7 +21,7 @@ router.register(r'messages', MessageViewSet, basename='messages')
 router.register(r'song', SongViewSet, basename='song')
 router.register(r'persons', PersonViewSet, basename='persons')
 router.register(r'photos', PhotoViewSet, basename='photos')
-router.register(r'posts', PostViewSet, basename='posts')
+router.register(r'person_posts', PersonPostViewSet, basename='person_posts')
 router.register(r'register', RegisterViewSet, basename='register')
 
 urlpatterns = (

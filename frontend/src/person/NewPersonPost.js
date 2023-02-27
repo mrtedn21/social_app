@@ -17,7 +17,7 @@ class PersonPost extends React.Component {
     }
 
     async createPost() {
-        const request_url = 'http://localhost:8000/api/posts/';
+        const request_url = 'http://localhost:8000/api/person_posts/';
         const requestData = {text: this.state.text}
 
         const regExp = /token=(\w{40})/g;

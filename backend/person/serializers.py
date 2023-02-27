@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 from person.models import Person, Country, Gender, Language, City
 from photo.serializers import PhotoSerializer
-from post.serializers import PostSerializer
+from post.serializers import PersonPostSerializer
 
 
 class CitySerializer(serializers.ModelSerializer):
@@ -53,7 +53,7 @@ class PersonDetailSerializer(serializers.ModelSerializer):
     languages = LanguageSerializer(many=True)
     city = CitySerializer()
     gender = GenderSerializer()
-    posts = PostSerializer(many=True)
+    posts = PersonPostSerializer(many=True)
     photos = PhotoSerializer(many=True)
 
     avatar_display = serializers.ImageField()
