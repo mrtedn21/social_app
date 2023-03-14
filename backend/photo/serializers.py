@@ -12,7 +12,7 @@ class PhotoCreateSerializer(serializers.ModelSerializer):
         fields = ('image', 'description')
 
 
-class PhotoSerializer(serializers.ModelSerializer):
+class PersonPhotoSerializer(serializers.ModelSerializer):
     image_display = serializers.ImageField()
     image_blurred = serializers.ImageField()
     image_thumbnail = serializers.ImageField()
@@ -22,6 +22,24 @@ class PhotoSerializer(serializers.ModelSerializer):
         fields = (
             'pk',
             'person_id',
+            'image_display',
+            'image_blurred',
+            'image_thumbnail',
+            'description',
+            'date_time',
+        )
+
+
+class GroupPhotoSerializer(serializers.ModelSerializer):
+    image_display = serializers.ImageField()
+    image_blurred = serializers.ImageField()
+    image_thumbnail = serializers.ImageField()
+
+    class Meta:
+        model = PersonPhoto
+        fields = (
+            'pk',
+            'group_id',
             'image_display',
             'image_blurred',
             'image_thumbnail',

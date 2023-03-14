@@ -5,7 +5,7 @@ from rest_framework.status import HTTP_200_OK
 
 from group.filters import GroupFilter
 from group.models import Group
-from group.serializers import GroupCreateSerializer, GroupListSerializer
+from group.serializers import GroupCreateSerializer, GroupListSerializer, GroupRetrieveSerializer
 
 
 class GroupViewSet(viewsets.ModelViewSet):
@@ -16,6 +16,8 @@ class GroupViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == 'create':
             return GroupCreateSerializer
+        elif self.action == 'retrieve':
+            return GroupRetrieveSerializer
         else:
             return GroupListSerializer
 

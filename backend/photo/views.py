@@ -2,7 +2,7 @@ from rest_framework import viewsets
 
 from photo.filters import PhotoFilter
 from photo.models import PersonPhoto
-from photo.serializers import PhotoSerializer, PhotoCreateSerializer
+from photo.serializers import PersonPhotoSerializer, PhotoCreateSerializer
 
 
 class PhotoViewSet(viewsets.ModelViewSet):
@@ -13,7 +13,7 @@ class PhotoViewSet(viewsets.ModelViewSet):
         if self.action == 'create':
             return PhotoCreateSerializer
         else:
-            return PhotoSerializer
+            return PersonPhotoSerializer
 
     def perform_create(self, serializer):
         serializer.save(person=self.request.user.person)

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from post.models import PersonPost
+from post.models import GroupPost, PersonPost
 
 
 class PersonPostCreateSerializer(serializers.ModelSerializer):
@@ -9,12 +9,21 @@ class PersonPostCreateSerializer(serializers.ModelSerializer):
         fields = ('text',)
 
 
-class PersonPostSerializer(serializers.ModelSerializer):
+class BasePostSerializer(serializers.Serializer):
     date_time = serializers.SerializerMethodField()
 
+    @staticmethod
+    def get_date_time(obj: PersonPost):
+        return obj.date_time.strftime('%d.%m.%y %H:%M')
+
+
+class PersonPostSerializer(BasePostSerializer, serializers.ModelSerializer):
     class Meta:
         model = PersonPost
         fields = ('person', 'date_time', 'text', 'likes_count', 'pk')
 
-    def get_date_time(self, obj: PersonPost):
-        return obj.date_time.strftime('%d.%m.%y %H:%M')
+
+class GroupPostSerializer(BasePostSerializer, serializers.ModelSerializer):
+    class Meta:
+        model = GroupPost
+        fields = ('group', 'date_time', 'text', 'likes_count', 'pk')

@@ -13,6 +13,7 @@ null_and_blank = {'blank': True, 'null': True}
 
 class MultiImageMeta(models.base.ModelBase):
     def __new__(mcs, name, bases, dct):
+        # TODO Оптимизировать pillow чтобы работал быстро
         dct_copy = copy(dct)
         for field_name, field_obj in dct_copy.items():
             if not isinstance(field_obj, models.ImageField):
