@@ -32,9 +32,7 @@ class GroupList extends React.Component {
     }
 
     async clearFilters(event) {
-        await fetch('http://localhost:8000/api/groups/')
-            .then(response => response.status === 200 ? response.json() : undefined)
-            .then(data => this.setState({groups: data.results}))
+        window.location.reload()
     }
 
     render() {
