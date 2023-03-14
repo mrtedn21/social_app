@@ -9,18 +9,20 @@ from group.views import GroupViewSet
 from message.views import ChatViewSet, MessageViewSet
 from music.views import SongViewSet
 from person.views import PersonViewSet, PersonSettingsView
-from photo.views import PhotoViewSet
-from post.views import PersonPostViewSet
+from photo.views import GroupPhotoViewSet, PersonPhotoViewSet
+from post.views import GroupPostViewSet, PersonPostViewSet
 from user_auth.views import AuthViewSet, RegisterViewSet
 
 router = routers.DefaultRouter()
 router.register(r'auth', AuthViewSet, basename='auth')
 router.register(r'chats', ChatViewSet, basename='chats')
 router.register(r'groups', GroupViewSet, basename='groups')
+router.register(r'group_posts', GroupPostViewSet, basename='group_posts')
+router.register(r'group_photos', GroupPhotoViewSet, basename='group_photos')
 router.register(r'messages', MessageViewSet, basename='messages')
 router.register(r'song', SongViewSet, basename='song')
 router.register(r'persons', PersonViewSet, basename='persons')
-router.register(r'photos', PhotoViewSet, basename='photos')
+router.register(r'person_photos', PersonPhotoViewSet, basename='person_photos')
 router.register(r'person_posts', PersonPostViewSet, basename='person_posts')
 router.register(r'register', RegisterViewSet, basename='register')
 

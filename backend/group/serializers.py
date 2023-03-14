@@ -1,8 +1,6 @@
 from rest_framework import serializers
 
 from group.models import Group
-from photo.serializers import GroupPhotoSerializer
-from post.serializers import GroupPostSerializer
 
 
 class GroupCreateSerializer(serializers.ModelSerializer):
@@ -45,9 +43,6 @@ class GroupListSerializer(serializers.ModelSerializer):
 
 
 class GroupRetrieveSerializer(GroupListSerializer):
-    posts = GroupPostSerializer(many=True)
-    photos = GroupPhotoSerializer(many=True)
-
     class Meta:
         model = Group
         fields = (

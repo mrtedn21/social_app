@@ -1,10 +1,11 @@
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
 
-from photo.models import PersonPhoto
+from core.serializers import MultiImageModelSerializer
+from photo.models import GroupPhoto, PersonPhoto
 
 
-class PhotoCreateSerializer(serializers.ModelSerializer):
+class PersonPhotoCreateSerializer(serializers.ModelSerializer):
     image = Base64ImageField()
 
     class Meta:
@@ -12,37 +13,42 @@ class PhotoCreateSerializer(serializers.ModelSerializer):
         fields = ('image', 'description')
 
 
-class PersonPhotoSerializer(serializers.ModelSerializer):
+# TODO use always this MultiImageModelSerializer
+class PersonPhotoDetailSerializer(MultiImageModelSerializer):
+    class Meta:
+        model = PersonPhoto
+        fields = '__all__'
+
+
+class PersonPhotoListSerializer(serializers.ModelSerializer):
+    image_thumbnail = serializers.ImageField()
+
+    class Meta:
+        model = PersonPhoto
+        fields = ('pk', 'image_thumbnail')
+
+
+class GroupPhotoCreateSerializer(serializers.ModelSerializer):
+    image = Base64ImageField()
+
+    class Meta:
+        model = GroupPhoto
+        fields = ('group', 'image', 'description')
+
+
+class GroupPhotoDetailSerializer(serializers.ModelSerializer):
     image_display = serializers.ImageField()
     image_blurred = serializers.ImageField()
     image_thumbnail = serializers.ImageField()
 
     class Meta:
-        model = PersonPhoto
-        fields = (
-            'pk',
-            'person_id',
-            'image_display',
-            'image_blurred',
-            'image_thumbnail',
-            'description',
-            'date_time',
-        )
+        model = GroupPhoto
+        fields = '__all__'
 
 
-class GroupPhotoSerializer(serializers.ModelSerializer):
-    image_display = serializers.ImageField()
-    image_blurred = serializers.ImageField()
+class GroupPhotoListSerializer(serializers.ModelSerializer):
     image_thumbnail = serializers.ImageField()
 
     class Meta:
-        model = PersonPhoto
-        fields = (
-            'pk',
-            'group_id',
-            'image_display',
-            'image_blurred',
-            'image_thumbnail',
-            'description',
-            'date_time',
-        )
+        model = GroupPhoto
+        fields = ('pk', 'image_thumbnail')

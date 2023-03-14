@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
 from post.models import PersonPost
-from post.serializers import PersonPostSerializer, PersonPostCreateSerializer
+from post.serializers import GroupPostSerializer, PersonPostSerializer, PersonPostCreateSerializer
 
 
 class PersonPostViewSet(viewsets.ModelViewSet):
@@ -16,3 +16,8 @@ class PersonPostViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(person=self.request.user.person)
+
+
+class GroupPostViewSet(viewsets.ModelViewSet):
+    queryset = PersonPost.objects.all()
+    serializer_class = GroupPostSerializer
