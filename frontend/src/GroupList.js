@@ -48,7 +48,7 @@ class GroupList extends React.Component {
                     </div>
                     <div className="col-md-6">
                         <div className="card-body" style={{'paddingRight': 0,'paddingLeft': 0}}>
-                            <a href="#" style={{marginBottom: '3px', color: 'black'}}>{group.name}</a>
+                            <a href={group.slug} style={{marginBottom: '3px', color: 'black'}}>{group.name}</a>
                             <p style={{marginTop: '0', marginBottom: '0'}}>{group.theme_name}</p>
                             <p style={{marginTop: '0', marginBottom: '0'}}>{group.followers_count} followers</p>
                         </div>
