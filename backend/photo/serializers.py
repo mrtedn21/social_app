@@ -16,7 +16,7 @@ class PersonPhotoCreateSerializer(serializers.ModelSerializer):
 class PersonPhotoDetailSerializer(MultiImageModelSerializer):
     class Meta:
         model = PersonPhoto
-        fields = '__all__'
+        fields = ('image_blurred', 'image_display', 'description', 'date_time', 'person')
 
 
 class PersonPhotoListSerializer(serializers.ModelSerializer):
