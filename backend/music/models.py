@@ -1,8 +1,7 @@
+from core.models import MultiImageMeta, null_and_blank
 from django.db import models
-from django.db.models import Q, Index
+from django.db.models import Index, Q
 from django.db.models.functions import Lower
-
-from core.models import null_and_blank, MultiImageMeta
 
 
 class Artist(models.Model, metaclass=MultiImageMeta):

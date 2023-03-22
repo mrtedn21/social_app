@@ -1,5 +1,4 @@
 import django_filters
-
 from core.filters import FacetsFilterSet
 from group.models import Group
 

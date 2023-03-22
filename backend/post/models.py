@@ -1,6 +1,5 @@
 from ckeditor.fields import RichTextField
 from django.db import models
-
 from group.models import Group
 from person.models import Person
 

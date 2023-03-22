@@ -1,11 +1,7 @@
-from rest_framework import viewsets
-
 from message.models import Chat
-from message.serializers import (
-    ChatDetailSerializer,
-    ChatListSerializer,
-    MessageSerializer,
-)
+from message.serializers import (ChatDetailSerializer, ChatListSerializer,
+                                 MessageSerializer)
+from rest_framework import viewsets
 
 
 class ChatViewSet(viewsets.ModelViewSet):

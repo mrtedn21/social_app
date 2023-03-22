@@ -1,15 +1,12 @@
-from rest_framework import viewsets
-
 from photo.filters import GroupFilter, PhotoFilter
 from photo.models import GroupPhoto, PersonPhoto
-from photo.serializers import (
-    GroupPhotoCreateSerializer,
-    GroupPhotoDetailSerializer,
-    GroupPhotoListSerializer,
-    PersonPhotoCreateSerializer,
-    PersonPhotoDetailSerializer,
-    PersonPhotoListSerializer,
-)
+from photo.serializers import (GroupPhotoCreateSerializer,
+                               GroupPhotoDetailSerializer,
+                               GroupPhotoListSerializer,
+                               PersonPhotoCreateSerializer,
+                               PersonPhotoDetailSerializer,
+                               PersonPhotoListSerializer)
+from rest_framework import viewsets
 
 
 class PersonPhotoViewSet(viewsets.ModelViewSet):

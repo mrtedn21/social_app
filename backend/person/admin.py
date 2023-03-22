@@ -1,7 +1,5 @@
 from django.contrib import admin
-
-from person.models import Person, Gender, City, Country, Language
-
+from person.models import City, Country, Gender, Language, Person
 
 admin.site.register(Person)
 admin.site.register(Gender)

@@ -1,11 +1,10 @@
 from uuid import uuid1
 
+from core.models import MultiImageMeta, null_and_blank
 from django.db import models
 from django.db.utils import IntegrityError
-from slugify import slugify
-
-from core.models import MultiImageMeta, null_and_blank
 from person.models import Person
+from slugify import slugify
 
 
 class GroupTheme(models.Model):

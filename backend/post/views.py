@@ -1,7 +1,7 @@
-from rest_framework import viewsets
-
 from post.models import PersonPost
-from post.serializers import GroupPostSerializer, PersonPostSerializer, PersonPostCreateSerializer
+from post.serializers import (GroupPostSerializer, PersonPostCreateSerializer,
+                              PersonPostSerializer)
+from rest_framework import viewsets
 
 
 class PersonPostViewSet(viewsets.ModelViewSet):

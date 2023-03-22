@@ -3,14 +3,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-from rest_framework import routers
-
 from group.views import GroupViewSet
 from message.views import ChatViewSet, MessageViewSet
 from music.views import SongViewSet
-from person.views import PersonViewSet, PersonSettingsView
+from person.views import PersonSettingsView, PersonViewSet
 from photo.views import GroupPhotoViewSet, PersonPhotoViewSet
 from post.views import GroupPostViewSet, PersonPostViewSet
+from rest_framework import routers
 from user_auth.views import AuthViewSet, RegisterViewSet
 
 router = routers.DefaultRouter()

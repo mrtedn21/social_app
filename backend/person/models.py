@@ -1,9 +1,8 @@
 from uuid import uuid4
 
+from core.models import MultiImageMeta
 from django.contrib.auth.models import User
 from django.db import models
-
-from core.models import MultiImageMeta
 
 
 class Country(models.Model):

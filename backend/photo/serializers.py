@@ -1,8 +1,7 @@
-from drf_extra_fields.fields import Base64ImageField
-from rest_framework import serializers
-
 from core.serializers import MultiImageModelSerializer
+from drf_extra_fields.fields import Base64ImageField
 from photo.models import GroupPhoto, PersonPhoto
+from rest_framework import serializers
 
 
 class PersonPhotoCreateSerializer(serializers.ModelSerializer):

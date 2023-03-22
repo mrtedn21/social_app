@@ -1,8 +1,7 @@
 from drf_extra_fields.fields import Base64ImageField
-from rest_framework import serializers
-
-from person.models import Person, Country, Gender, Language, City
+from person.models import City, Country, Gender, Language, Person
 from post.serializers import PersonPostSerializer
+from rest_framework import serializers
 
 
 class CitySerializer(serializers.ModelSerializer):

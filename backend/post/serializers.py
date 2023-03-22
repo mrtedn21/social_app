@@ -1,6 +1,5 @@
-from rest_framework import serializers
-
 from post.models import GroupPost, PersonPost
+from rest_framework import serializers
 
 
 class PersonPostCreateSerializer(serializers.ModelSerializer):

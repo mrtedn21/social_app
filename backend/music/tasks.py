@@ -3,11 +3,9 @@ from tempfile import NamedTemporaryFile
 import eyed3
 import requests
 from django.conf import settings
-
+from music.models import Artist, Song
 from slugify import slugify
 from transliterate import translit
-
-from music.models import Artist, Song
 
 
 def fill_song_fields_by_tags(song_pk):

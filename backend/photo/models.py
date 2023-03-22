@@ -1,6 +1,5 @@
-from django.db import models
-
 from core.models import MultiImageMeta, null_and_blank
+from django.db import models
 from group.models import Group
 from person.models import Person
 

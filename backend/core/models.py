@@ -1,12 +1,10 @@
 from copy import copy
 
+from core.processors import Blur
 from django.contrib.auth.models import User
 from django.db import models
 from imagekit.models import ImageSpecField
 from imagekit.processors import Thumbnail
-
-from core.processors import Blur
-
 
 null_and_blank = {'blank': True, 'null': True}
 

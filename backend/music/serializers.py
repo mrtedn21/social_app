@@ -1,7 +1,6 @@
-from rest_framework import serializers
-
 from core.fields import MP3Base64FileField
-from music.models import Artist, Album, Song
+from music.models import Album, Artist, Song
+from rest_framework import serializers
 
 
 class ArtistSerializer(serializers.ModelSerializer):

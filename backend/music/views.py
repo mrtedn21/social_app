@@ -1,10 +1,9 @@
-from rest_framework import viewsets
-from rest_framework.response import Response
-from rest_framework.status import HTTP_201_CREATED
-
 from music.models import Song
 from music.serializers import SongSerializer
 from music.tasks import fill_song_fields_by_tags
+from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework.status import HTTP_201_CREATED
 
 
 class SongViewSet(viewsets.ModelViewSet):

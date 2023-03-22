@@ -1,6 +1,5 @@
 from django.conf import settings
 from django_filters.rest_framework import FilterSet
-
 from person.models import Person
 
 
