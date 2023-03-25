@@ -19,9 +19,7 @@ class PersonPhotoDetailSerializer(MultiImageModelSerializer):
         fields = ('image_blurred', 'image_display', 'description', 'date_time', 'person')
 
 
-class PersonPhotoListSerializer(serializers.ModelSerializer):
-    image_thumbnail = serializers.ImageField()
-
+class PersonPhotoListSerializer(MultiImageModelSerializer):
     class Meta:
         model = PersonPhoto
         fields = ('pk', 'image_thumbnail')
@@ -35,19 +33,13 @@ class GroupPhotoCreateSerializer(serializers.ModelSerializer):
         fields = ('group', 'image', 'description')
 
 
-class GroupPhotoDetailSerializer(serializers.ModelSerializer):
-    image_display = serializers.ImageField()
-    image_blurred = serializers.ImageField()
-    image_thumbnail = serializers.ImageField()
-
+class GroupPhotoDetailSerializer(MultiImageModelSerializer):
     class Meta:
         model = GroupPhoto
-        fields = '__all__'
+        fields = ('image_blurred', 'image_display', 'description', 'date_time', 'group')
 
 
-class GroupPhotoListSerializer(serializers.ModelSerializer):
-    image_thumbnail = serializers.ImageField()
-
+class GroupPhotoListSerializer(MultiImageModelSerializer):
     class Meta:
         model = GroupPhoto
         fields = ('pk', 'image_thumbnail')
