@@ -4,6 +4,10 @@ from photo.models import GroupPhoto, PersonPhoto
 from rest_framework import serializers
 
 
+LIST_IMAGE_FIELDS = ('pk', 'image_thumbnail')
+DETAIL_IMAGE_FIELDS = ('image_blurred', 'image_display', 'description', 'date_time')
+
+
 class PersonPhotoCreateSerializer(serializers.ModelSerializer):
     image = Base64ImageField()
 
@@ -12,17 +16,16 @@ class PersonPhotoCreateSerializer(serializers.ModelSerializer):
         fields = ('image', 'description')
 
 
-# TODO use always this MultiImageModelSerializer
-class PersonPhotoDetailSerializer(MultiImageModelSerializer):
-    class Meta:
-        model = PersonPhoto
-        fields = ('image_blurred', 'image_display', 'description', 'date_time', 'person')
-
-
 class PersonPhotoListSerializer(MultiImageModelSerializer):
     class Meta:
         model = PersonPhoto
-        fields = ('pk', 'image_thumbnail')
+        fields = LIST_IMAGE_FIELDS
+
+
+class PersonPhotoDetailSerializer(MultiImageModelSerializer):
+    class Meta:
+        model = PersonPhoto
+        fields = DETAIL_IMAGE_FIELDS
 
 
 class GroupPhotoCreateSerializer(serializers.ModelSerializer):
@@ -36,10 +39,10 @@ class GroupPhotoCreateSerializer(serializers.ModelSerializer):
 class GroupPhotoDetailSerializer(MultiImageModelSerializer):
     class Meta:
         model = GroupPhoto
-        fields = ('image_blurred', 'image_display', 'description', 'date_time', 'group')
+        fields = DETAIL_IMAGE_FIELDS
 
 
 class GroupPhotoListSerializer(MultiImageModelSerializer):
     class Meta:
         model = GroupPhoto
-        fields = ('pk', 'image_thumbnail')
+        fields = LIST_IMAGE_FIELDS
