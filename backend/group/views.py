@@ -1,7 +1,6 @@
 from group.filters import GroupFilter
 from group.models import Group
-from group.serializers import (GroupCreateSerializer, GroupListSerializer,
-                               GroupRetrieveSerializer)
+from group.serializers import GroupCreateSerializer, GroupListSerializer, GroupDetailSerializer
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -17,7 +16,7 @@ class GroupViewSet(viewsets.ModelViewSet):
         if self.action == 'create':
             return GroupCreateSerializer
         elif self.action == 'retrieve':
-            return GroupRetrieveSerializer
+            return GroupDetailSerializer
         else:
             return GroupListSerializer
 

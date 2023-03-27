@@ -1,5 +1,6 @@
 from group.models import Group
 from rest_framework import serializers
+from core.serializers import MultiImageModelSerializer
 
 
 class GroupCreateSerializer(serializers.ModelSerializer):
@@ -14,10 +15,7 @@ class GroupCreateSerializer(serializers.ModelSerializer):
         )
 
 
-class GroupListSerializer(serializers.ModelSerializer):
-    avatar_thumbnail = serializers.ImageField()
-    avatar_display = serializers.ImageField()
-    avatar_blurred = serializers.ImageField()
+class GroupListSerializer(MultiImageModelSerializer):
     theme_name = serializers.SerializerMethodField()
 
     class Meta:
@@ -41,7 +39,7 @@ class GroupListSerializer(serializers.ModelSerializer):
         return group.theme.name
 
 
-class GroupRetrieveSerializer(GroupListSerializer):
+class GroupDetailSerializer(GroupListSerializer):
     class Meta:
         model = Group
         fields = (
