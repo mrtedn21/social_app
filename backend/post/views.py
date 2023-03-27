@@ -1,6 +1,5 @@
-from post.models import PersonPost
-from post.serializers import (GroupPostSerializer, PersonPostCreateSerializer,
-                              PersonPostSerializer)
+from post.models import GroupPost, PersonPost
+from post.serializers import GroupPostSerializer, PersonPostCreateSerializer, PersonPostSerializer
 from rest_framework import viewsets
 
 
@@ -19,5 +18,5 @@ class PersonPostViewSet(viewsets.ModelViewSet):
 
 
 class GroupPostViewSet(viewsets.ModelViewSet):
-    queryset = PersonPost.objects.all()
+    queryset = GroupPost.objects.all()
     serializer_class = GroupPostSerializer
