@@ -1,6 +1,5 @@
 from drf_extra_fields.fields import Base64ImageField
 from person.models import City, Country, Gender, Language, Person
-from post.serializers import PersonPostSerializer
 from rest_framework import serializers
 from core.serializers import MultiImageModelSerializer
 
@@ -52,7 +51,6 @@ class PersonDetailSerializer(MultiImageModelSerializer):
     languages = LanguageSerializer(many=True)
     city = CitySerializer()
     gender = GenderSerializer()
-    posts = PersonPostSerializer(many=True)
 
     class Meta:
         model = Person
@@ -67,7 +65,6 @@ class PersonDetailSerializer(MultiImageModelSerializer):
             'gender',
             'city',
             'languages',
-            'posts',
         )
 
 
