@@ -14,7 +14,7 @@ import Settings from "./Settings";
 
 
 const router = createBrowserRouter([
-    {path: '/', element: <Person />},
+    {path: '/person/:pk', element: <Person />},
     {path: '/groups', element: <GroupList />},
     {path: '/groups/:slug', element: <Group />},
     {path: '/login', element: <Login />},
