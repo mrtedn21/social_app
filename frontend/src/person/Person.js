@@ -25,6 +25,7 @@ class Person extends React.Component {
         super(props);
 
         this.selectHandle = this.selectHandle.bind(this)
+        this.updateDataForTab = this.updateDataForTab.bind(this)
         let index = Cookies.get(this.COOKIE_TAB_NAME) || 0
         this.state = {person: undefined, selectedTabIndex: Number(index), Posts: undefined, Photos: undefined, Videos: undefined, Music: undefined}
     }
@@ -44,7 +45,10 @@ class Person extends React.Component {
         const tab_request_url = 'http://localhost:8000/api/' + selectedTab.partUrl + '?person_id=' + this.props.params.pk;
         await fetch(tab_request_url)
             .then(response => response.status === 200 ? response.json() : undefined)
-            .then(data => this.setState({[selectedTab.name]: data}))
+            .then(data => {
+                this.setState({[selectedTab.name.toLowerCase()]: data.results})
+            })
+        this.setState({Photos: 'data'})
     }
 
     async componentDidMount() {
@@ -100,8 +104,7 @@ class Person extends React.Component {
                                             <p>posts</p>
                                         </TabPanel>
                                         <TabPanel>
-                                            {/*<PersonPhoto photos={this.state.person.photos}/>*/}
-                                            <div>lol</div>
+                                            <PersonPhoto photos={this.state.photos}/>
                                         </TabPanel>
                                         <TabPanel>
                                             <p>videos</p>

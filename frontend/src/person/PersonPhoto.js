@@ -51,6 +51,9 @@ class PersonPhoto extends React.Component {
     }
 
     render() {
+        if (this.props.photos === undefined) {
+            return
+        }
         return (
             <div>
                 <form style={{textAlign: 'left'}}>
