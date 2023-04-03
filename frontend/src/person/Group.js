@@ -5,8 +5,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Container from "../Container";
 import NewPersonPost from "./NewPersonPost";
 import PersonMusic from "./PersonMusic";
-import PersonPhoto from "./PersonPhoto";
-import PersonPost from "./PersonPost";
+import PersonPhotos from "./PersonPhotos";
+import PersonPosts from "./PersonPosts";
 import GroupMainData from "./GroupMainData";
 import withRouter from "../WithRouter";
 

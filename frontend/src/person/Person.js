@@ -6,8 +6,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Container from "../Container";
 import NewPersonPost from "./NewPersonPost";
 import PersonMusic from "./PersonMusic";
-import PersonPhoto from "./PersonPhoto";
-import PersonPost from "./PersonPost";
+import PersonPhotos from "./PersonPhotos";
+import PersonPosts from "./PersonPosts";
 import PersonMainData from "./PersonMainData";
 import withRouter from "../WithRouter";
 
@@ -101,10 +101,10 @@ class Person extends React.Component {
                                     <div className="card-body">
                                         <TabPanel>
                                             <NewPersonPost />
-                                            <p>posts</p>
+                                            <PersonPosts posts={this.state.posts}/>
                                         </TabPanel>
                                         <TabPanel>
-                                            <PersonPhoto photos={this.state.photos}/>
+                                            <PersonPhotos photos={this.state.photos}/>
                                         </TabPanel>
                                         <TabPanel>
                                             <p>videos</p>

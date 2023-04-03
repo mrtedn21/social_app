@@ -9,7 +9,7 @@ const toBase64 = file => new Promise((resolve, reject) => {
 });
 
 
-class PersonPhoto extends React.Component {
+class PersonPhotos extends React.Component {
     constructor(props) {
         super(props);
 
@@ -79,4 +79,4 @@ class PersonPhoto extends React.Component {
     }
 }
 
-export default PersonPhoto;
+export default PersonPhotos;
