@@ -9,6 +9,7 @@ import PersonMusic from "./PersonMusic";
 import PersonPhotos from "./PersonPhotos";
 import PersonPosts from "./PersonPosts";
 import PersonMainData from "./PersonMainData";
+import PersonVideo from "./PersonVideo";
 import withRouter from "../WithRouter";
 
 
@@ -17,7 +18,7 @@ class Person extends React.Component {
     TAB_NAMES = [
         {name: 'Posts', partUrl: 'person_posts/'},
         {name: 'Photos', partUrl: 'person_photos/'},
-        {name: 'Videos', partUrl: 'person_videos/'},
+        {name: 'Video', partUrl: 'person_videos/'},
         {name: 'Music', partUrl: 'person_music/'},
     ]
 
@@ -106,7 +107,7 @@ class Person extends React.Component {
                                             <PersonPhotos photos={this.state.photos}/>
                                         </TabPanel>
                                         <TabPanel>
-                                            <p>videos</p>
+                                            <PersonVideo video={this.state.video}/>
                                         </TabPanel>
                                         <TabPanel>
                                             <PersonMusic photos={this.state.person.photos}/>
