@@ -31,7 +31,7 @@ class PersonPhotos extends React.Component {
     }
 
     async photoUpload(event) {
-        const request_url = 'http://localhost:8000/api/photos/'
+        const request_url = 'http://localhost:8000/api/person_photos/'
         const regExp = /token=(\w{40})/g;
         const token = regExp.exec(document.cookie)[1]
         const requestData = {
