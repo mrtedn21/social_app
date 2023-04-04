@@ -48,7 +48,6 @@ class Person extends React.Component {
             .then(data => {
                 this.setState({[selectedTab.name.toLowerCase()]: data.results})
             })
-        this.setState({Photos: 'data'})
     }
 
     async componentDidMount() {
