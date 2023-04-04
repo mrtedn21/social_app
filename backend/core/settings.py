@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'photo.apps.PhotoConfig',
     'post.apps.PostConfig',
     'user_auth.apps.UserAuthConfig',
+    'video.apps.VideoConfig',
 ]
 
 # TODO to understand all middleware and disable them if useless
