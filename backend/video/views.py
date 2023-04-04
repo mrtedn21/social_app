@@ -1,8 +1,10 @@
 from video.filters import GroupFilter, PersonFilter
 from video.models import GroupVideo, PersonVideo
 from video.serializers import (
+    GroupVideoCreateSerializer,
     GroupVideoDetailSerializer,
     GroupVideoListSerializer,
+    PersonVideoCreateSerializer,
     PersonVideoDetailSerializer,
     PersonVideoListSerializer,
 )
@@ -16,6 +18,8 @@ class PersonVideoViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == 'retrieve':
             return PersonVideoDetailSerializer
+        elif self.action == 'create':
+            return PersonVideoCreateSerializer
         else:
             return PersonVideoListSerializer
 
@@ -30,5 +34,7 @@ class GroupVideoViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == 'retrieve':
             return GroupVideoDetailSerializer
+        elif self.action == 'create':
+            return GroupVideoCreateSerializer
         else:
             return GroupVideoListSerializer
