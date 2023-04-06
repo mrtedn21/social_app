@@ -2,6 +2,8 @@ from core.models import MultiImageMeta, null_and_blank
 from django.db import models
 from django.db.models import Index, Q
 from django.db.models.functions import Lower
+from person.models import Person
+from group.models import Group
 
 
 class Artist(models.Model, metaclass=MultiImageMeta):
@@ -39,3 +41,13 @@ class Song(models.Model):
 
     def __str__(self):
         return f'Song: {self.title}'
+
+
+class PersonSong(models.Model):
+    song = models.ForeignKey(Song, on_delete=models.CASCADE)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+
+
+class GroupSong(models.Model):
+    song = models.ForeignKey(Song, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)

@@ -112,7 +112,6 @@ class Person extends React.Component {
                                         <TabPanel>
                                             <PersonMusic photos={this.state.person.photos}/>
                                         </TabPanel>
-
                                     </div>
                                 </div>
                             </Tabs>

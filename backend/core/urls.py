@@ -5,7 +5,7 @@ from django.urls import include, path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from group.views import GroupViewSet
 from message.views import ChatViewSet, MessageViewSet
-from music.views import SongViewSet
+from music.views import PersonSongViewSet
 from person.views import PersonSettingsView, PersonViewSet
 from photo.views import GroupPhotoViewSet, PersonPhotoViewSet
 from post.views import GroupPostViewSet, PersonPostViewSet
@@ -24,9 +24,9 @@ router.register(r'messages', MessageViewSet, basename='messages')
 router.register(r'persons', PersonViewSet, basename='persons')
 router.register(r'person_photos', PersonPhotoViewSet, basename='person_photos')
 router.register(r'person_posts', PersonPostViewSet, basename='person_posts')
+router.register(r'person_music', PersonSongViewSet, basename='person_music')
 router.register(r'person_videos', PersonVideoViewSet, basename='person_videos')
 router.register(r'register', RegisterViewSet, basename='register')
-router.register(r'song', SongViewSet, basename='song')
 
 urlpatterns = (
     [

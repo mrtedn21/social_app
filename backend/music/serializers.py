@@ -1,5 +1,5 @@
 from core.fields import MP3Base64FileField
-from music.models import Album, Artist, Song
+from music.models import GroupSong, Album, Artist, Song, PersonSong
 from rest_framework import serializers
 
 
@@ -38,3 +38,14 @@ class SongSerializer(serializers.ModelSerializer):
             'album',
             'file',
         )
+
+
+class PersonSongListSerializer(serializers.ModelSerializer):
+    artist = serializers.CharField(source='song.artist.name')
+    album = serializers.CharField(source='song.album.name')
+    title = serializers.CharField(source='song.title')
+    file = serializers.FileField(source='song.file')
+
+    class Meta:
+        model = PersonSong
+        fields = ('artist', 'album', 'title', 'file', 'person')
