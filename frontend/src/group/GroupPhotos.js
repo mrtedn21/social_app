@@ -1,5 +1,6 @@
 import React from 'react';
 import {FaTrash} from "react-icons/fa";
+import withRouter from "../WithRouter";
 
 
 const toBase64 = file => new Promise((resolve, reject) => {
@@ -78,6 +79,7 @@ class GroupPhotos extends React.Component {
         const requestData = {
             image: await toBase64(this.state.image),
             description: this.state.description,
+            group: this.props.params.slug,
         }
 
         await fetch(request_url, {
@@ -130,4 +132,4 @@ class GroupPhotos extends React.Component {
     }
 }
 
-export default GroupPhotos;
+export default withRouter(GroupPhotos);
