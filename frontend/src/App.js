@@ -7,7 +7,7 @@ import {
 import GroupList from "./GroupList"
 import Login from "./auth/Login";
 import Person from "./person/Person";
-import Group from "./person/Group";
+import Group from "./group/Group";
 import Register from "./auth/Register";
 import RegisterSubmit from "./auth/RegisterSubmit";
 import Settings from "./Settings";
