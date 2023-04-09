@@ -36,7 +36,7 @@ class PhotoFull extends React.Component {
 
         return (
             <div onClick={this.changeVisible} style={{position: 'fixed', backdropFilter: 'blur(3px)', background: 'rgba(190, 190, 190, 0.69)', top: 0, bottom: 0, left: 0, right: 0}}>
-                <img style={{position: 'fixed', top: '100px', left: '400px'}} src={this.props.src} alt="image"/>
+                <img onClick={(event) => event.stopPropagation()} style={{position: 'fixed', top: '100px', left: '400px'}} src={this.props.src} alt="image"/>
                 <FaTrash
                     style={{position: 'fixed', top: '90px', left: '390px'}}
                     onMouseOver={({target})=>target.style.color="red"}
