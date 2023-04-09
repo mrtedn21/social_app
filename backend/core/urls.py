@@ -5,7 +5,7 @@ from django.urls import include, path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from group.views import GroupViewSet
 from message.views import ChatViewSet, MessageViewSet
-from music.views import PersonSongViewSet
+from music.views import GroupSongViewSet, PersonSongViewSet
 from person.views import PersonSettingsView, PersonViewSet
 from photo.views import GroupPhotoViewSet, PersonPhotoViewSet
 from post.views import GroupPostViewSet, PersonPostViewSet
@@ -17,6 +17,7 @@ router = routers.DefaultRouter()
 router.register(r'auth', AuthViewSet, basename='auth')
 router.register(r'chats', ChatViewSet, basename='chats')
 router.register(r'groups', GroupViewSet, basename='groups')
+router.register(r'group_music', GroupSongViewSet, basename='group_music')
 router.register(r'group_photos', GroupPhotoViewSet, basename='group_photos')
 router.register(r'group_posts', GroupPostViewSet, basename='group_posts')
 router.register(r'group_videos', GroupVideoViewSet, basename='group_videos')

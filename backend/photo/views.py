@@ -1,4 +1,4 @@
-from photo.filters import GroupFilter, PhotoFilter
+from photo.filters import GroupPhotoFilter, PersonPhotoFilter
 from photo.models import GroupPhoto, PersonPhoto
 from photo.serializers import (
     GroupPhotoCreateSerializer,
@@ -13,7 +13,7 @@ from rest_framework import viewsets
 
 class PersonPhotoViewSet(viewsets.ModelViewSet):
     queryset = PersonPhoto.objects.all()
-    filterset_class = PhotoFilter
+    filterset_class = PersonPhotoFilter
 
     def get_serializer_class(self):
         if self.action == 'create':
@@ -29,7 +29,7 @@ class PersonPhotoViewSet(viewsets.ModelViewSet):
 
 class GroupPhotoViewSet(viewsets.ModelViewSet):
     queryset = GroupPhoto.objects.all()
-    filterset_class = GroupFilter
+    filterset_class = GroupPhotoFilter
 
     def get_serializer_class(self):
         if self.action == 'create':

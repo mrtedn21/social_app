@@ -1,4 +1,4 @@
-from video.filters import GroupFilter, PersonFilter
+from video.filters import GroupVideoFilter, PersonVideoFilter
 from video.models import GroupVideo, PersonVideo
 from video.serializers import (
     GroupVideoCreateSerializer,
@@ -13,7 +13,7 @@ from rest_framework import viewsets
 
 class PersonVideoViewSet(viewsets.ModelViewSet):
     queryset = PersonVideo.objects.all()
-    filterset_class = PersonFilter
+    filterset_class = PersonVideoFilter
 
     def get_serializer_class(self):
         if self.action == 'retrieve':
@@ -29,7 +29,7 @@ class PersonVideoViewSet(viewsets.ModelViewSet):
 
 class GroupVideoViewSet(viewsets.ModelViewSet):
     queryset = GroupVideo.objects.all()
-    filterset_class = GroupFilter
+    filterset_class = GroupVideoFilter
 
     def get_serializer_class(self):
         if self.action == 'retrieve':

@@ -1,14 +1,17 @@
 from django_filters.rest_framework import FilterSet
 from photo.models import GroupPhoto, PersonPhoto
+from django_filters import filters
 
 
-class PhotoFilter(FilterSet):
+class PersonPhotoFilter(FilterSet):
     class Meta:
         model = PersonPhoto
         fields = ('person_id',)
 
 
-class GroupFilter(FilterSet):
+class GroupPhotoFilter(FilterSet):
+    group_slug = filters.CharFilter(field_name='group__slug')
+
     class Meta:
         model = GroupPhoto
-        fields = ('group_id',)
+        fields = ('group_slug',)

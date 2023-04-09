@@ -1,17 +1,17 @@
 from django_filters.rest_framework import FilterSet
-from post.models import GroupPost, PersonPost
+from music.models import GroupSong, PersonSong
 from django_filters import filters
 
 
-class PersonPostFilter(FilterSet):
+class PersonSongFilter(FilterSet):
     class Meta:
-        model = PersonPost
+        model = PersonSong
         fields = ('person_id',)
 
 
-class GroupPostFilter(FilterSet):
+class GroupSongFilter(FilterSet):
     group_slug = filters.CharFilter(field_name='group__slug')
 
     class Meta:
-        model = GroupPost
+        model = GroupSong
         fields = ('group_slug',)

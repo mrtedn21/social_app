@@ -1,14 +1,17 @@
 from django_filters.rest_framework import FilterSet
 from video.models import GroupVideo, PersonVideo
+from django_filters import filters
 
 
-class PersonFilter(FilterSet):
+class PersonVideoFilter(FilterSet):
     class Meta:
         model = PersonVideo
         fields = ('person_id',)
 
 
-class GroupFilter(FilterSet):
+class GroupVideoFilter(FilterSet):
+    group_slug = filters.CharFilter(field_name='group__slug')
+
     class Meta:
         model = GroupVideo
-        fields = ('group_id',)
+        fields = ('group_slug',)
