@@ -1,4 +1,5 @@
 import React from 'react';
+import {FaTrash} from "react-icons/fa";
 
 
 const toBase64 = file => new Promise((resolve, reject) => {
@@ -15,10 +16,17 @@ class PhotoFull extends React.Component {
 
         this.state = {description: undefined, image: undefined}
         this.changeVisible = this.changeVisible.bind(this)
+        this.deletePhoto = this.deletePhoto.bind(this)
     }
 
     changeVisible() {
         this.props.hideCallback()
+    }
+
+    async deletePhoto(photo_pk) {
+        const tab_request_url = 'http://localhost:8000/api/person_photos/' + photo_pk + '/';
+        await fetch(tab_request_url, {method: 'DELETE'})
+            .then(response => response.status === 204 ? window.location.reload() : undefined)
     }
 
     render() {
@@ -29,6 +37,12 @@ class PhotoFull extends React.Component {
         return (
             <div onClick={this.changeVisible} style={{position: 'fixed', backdropFilter: 'blur(3px)', background: 'rgba(190, 190, 190, 0.69)', top: 0, bottom: 0, left: 0, right: 0}}>
                 <img style={{position: 'fixed', top: '100px', left: '400px'}} src={this.props.src} alt="image"/>
+                <FaTrash
+                    style={{position: 'fixed', top: '90px', left: '390px'}}
+                    onMouseOver={({target})=>target.style.color="red"}
+                    onMouseOut={({target})=>target.style.color="black"}
+                    onClick={() => this.deletePhoto(this.props.pk)}
+                />
             </div>
         )
     }
@@ -39,7 +53,7 @@ class PersonPhotos extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {description: undefined, image: undefined, fullSrc: undefined}
+        this.state = {description: undefined, image: undefined, fullSrc: undefined, fullPk: undefined}
         this.inputHandle = this.inputHandle.bind(this)
         this.photoUpload = this.photoUpload.bind(this)
         this.changeImage = this.changeImage.bind(this)
@@ -79,11 +93,11 @@ class PersonPhotos extends React.Component {
     }
 
     hideFullPhotoCallback() {
-        this.setState({fullSrc: undefined})
+        this.setState({fullSrc: undefined, fullPk: undefined})
     }
 
-    showFullPhoto(src) {
-        this.setState({fullSrc: src})
+    showFullPhoto(src, pk) {
+        this.setState({fullSrc: src, fullPk: pk})
     }
 
     render() {
@@ -107,11 +121,11 @@ class PersonPhotos extends React.Component {
                 <div className="row row-cols-3 g-1">
                     {this.props.photos.map(photo =>
                         <div className="col">
-                            <img onClick={() => this.showFullPhoto(photo.image_display)} src={photo.image_thumbnail} alt="Person photo" key={photo.pk.toString()} className="img rounded" />
+                           <img onClick={() => this.showFullPhoto(photo.image_display, photo.pk)} src={photo.image_thumbnail} alt="Person photo" key={photo.pk.toString()} className="img rounded" />
                         </div>
                     )}
                 </div>
-                <PhotoFull hideCallback={this.hideFullPhotoCallback} src={this.state.fullSrc} />
+                <PhotoFull hideCallback={this.hideFullPhotoCallback} src={this.state.fullSrc} pk={this.state.fullPk}/>
             </div> 
         )
     }

@@ -11,7 +11,6 @@ class PersonPosts extends React.Component {
         this.deletePost = this.deletePost.bind(this)
     }
 
-
     async deletePost(post_pk) {
         const tab_request_url = 'http://localhost:8000/api/person_posts/' + post_pk + '/';
         await fetch(tab_request_url, {method: 'DELETE'})
