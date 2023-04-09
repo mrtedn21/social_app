@@ -43,7 +43,7 @@ class Group extends React.Component {
             return;
         }
 
-        const tab_request_url = 'http://localhost:8000/api/' + selectedTab.partUrl + '?group_id=' + this.props.params.slug;
+        const tab_request_url = 'http://localhost:8000/api/' + selectedTab.partUrl + '?group_slug=' + this.props.params.slug;
         await fetch(tab_request_url)
             .then(response => response.status === 200 ? response.json() : undefined)
             .then(data => {

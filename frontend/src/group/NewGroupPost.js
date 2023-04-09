@@ -1,4 +1,5 @@
 import React from 'react';
+import withRouter from "../WithRouter";
 
 
 class GroupPost extends React.Component {
@@ -18,7 +19,7 @@ class GroupPost extends React.Component {
 
     async createPost() {
         const request_url = 'http://localhost:8000/api/group_posts/';
-        const requestData = {text: this.state.text}
+        const requestData = {text: this.state.text, group: this.props.params.slug}
 
         const regExp = /token=(\w{40})/g;
         const token = regExp.exec(document.cookie)[1]
@@ -47,4 +48,4 @@ class GroupPost extends React.Component {
     }
 }
 
-export default GroupPost;
+export default withRouter(GroupPost);

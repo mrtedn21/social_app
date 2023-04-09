@@ -1,12 +1,16 @@
 from post.models import GroupPost, PersonPost
-from post.serializers import GroupPostSerializer, PersonPostCreateSerializer, PersonPostSerializer
+from post.serializers import (
+    GroupPostSerializer,
+    GroupPostCreateSerializer,
+    PersonPostCreateSerializer,
+    PersonPostSerializer,
+)
 from rest_framework import viewsets
 from post.filters import GroupPostFilter, PersonPostFilter
 
 
 class PersonPostViewSet(viewsets.ModelViewSet):
     queryset = PersonPost.objects.all()
-    serializer_class = PersonPostSerializer
     filterset_class = PersonPostFilter
 
     def get_serializer_class(self):
@@ -21,5 +25,10 @@ class PersonPostViewSet(viewsets.ModelViewSet):
 
 class GroupPostViewSet(viewsets.ModelViewSet):
     queryset = GroupPost.objects.all()
-    serializer_class = GroupPostSerializer
     filterset_class = GroupPostFilter
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return GroupPostCreateSerializer
+        else:
+            return GroupPostSerializer
