@@ -52,6 +52,4 @@ class GroupDetailSerializer(GroupListSerializer):
             'theme_name',
             'followers_count',
             'slug',
-            'posts',
-            'photos',
         )
