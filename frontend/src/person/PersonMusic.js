@@ -73,7 +73,7 @@ class PersonMusic extends React.Component {
                 'Authorization': 'Token ' + token,
             },
         })
-            //.then(response => window.location.reload())
+            .then(response => window.location.reload())
     }
 
     render() {
