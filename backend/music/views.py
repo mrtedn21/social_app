@@ -10,6 +10,9 @@ class PersonSongViewSet(viewsets.ModelViewSet):
     queryset = PersonSong.objects.all().prefetch_related('person', 'song__album', 'song__artist')
     serializer_class = PersonSongListSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(person=self.request.user.person)
+
     # def create(self, request, *args, **kwargs):
     #    serializer = self.get_serializer(data=request.data)
     #    serializer.is_valid(raise_exception=True)

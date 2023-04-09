@@ -110,7 +110,7 @@ class Person extends React.Component {
                                             <PersonVideo video={this.state.video}/>
                                         </TabPanel>
                                         <TabPanel>
-                                            <PersonMusic photos={this.state.person.photos}/>
+                                            <PersonMusic music={this.state.music}/>
                                         </TabPanel>
                                     </div>
                                 </div>
