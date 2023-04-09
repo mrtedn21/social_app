@@ -4,7 +4,7 @@ from photo.models import GroupPhoto, PersonPhoto
 from rest_framework import serializers
 
 
-LIST_IMAGE_FIELDS = ('pk', 'image_thumbnail')
+LIST_IMAGE_FIELDS = ('pk', 'image_thumbnail', 'image_display')
 DETAIL_IMAGE_FIELDS = ('image_blurred', 'image_display', 'description', 'date_time')
 
 
