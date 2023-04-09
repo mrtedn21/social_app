@@ -9,14 +9,42 @@ const toBase64 = file => new Promise((resolve, reject) => {
 });
 
 
-class PersonPhotos extends React.Component {
+class PhotoFull extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {description: undefined, image: undefined}
+        this.changeVisible = this.changeVisible.bind(this)
+    }
+
+    changeVisible() {
+        this.props.hideCallback()
+    }
+
+    render() {
+        if (this.props.src === undefined) {
+            return
+        }
+
+        return (
+            <div onClick={this.changeVisible} style={{position: 'fixed', backdropFilter: 'blur(3px)', background: 'rgba(190, 190, 190, 0.69)', top: 0, bottom: 0, left: 0, right: 0}}>
+                <img style={{position: 'fixed', top: '100px', left: '400px'}} src={this.props.src} alt="image"/>
+            </div>
+        )
+    }
+}
+
+
+class PersonPhotos extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {description: undefined, image: undefined, fullSrc: undefined}
         this.inputHandle = this.inputHandle.bind(this)
         this.photoUpload = this.photoUpload.bind(this)
         this.changeImage = this.changeImage.bind(this)
+        this.hideFullPhotoCallback = this.hideFullPhotoCallback.bind(this)
+        this.showFullPhoto = this.showFullPhoto.bind(this)
     }
 
     inputHandle(event) {
@@ -50,10 +78,19 @@ class PersonPhotos extends React.Component {
             .then(response => window.location.reload())
     }
 
+    hideFullPhotoCallback() {
+        this.setState({fullSrc: undefined})
+    }
+
+    showFullPhoto(src) {
+        this.setState({fullSrc: src})
+    }
+
     render() {
         if (this.props.photos === undefined) {
             return
         }
+        console.log(this.state)
         return (
             <div>
                 <form style={{textAlign: 'left'}}>
@@ -70,10 +107,11 @@ class PersonPhotos extends React.Component {
                 <div className="row row-cols-3 g-1">
                     {this.props.photos.map(photo =>
                         <div className="col">
-                            <img src={photo.image_thumbnail} alt="Person photo" key={photo.pk.toString()} className="img rounded"/>
+                            <img onClick={() => this.showFullPhoto(photo.image_display)} src={photo.image_thumbnail} alt="Person photo" key={photo.pk.toString()} className="img rounded" />
                         </div>
                     )}
                 </div>
+                <PhotoFull hideCallback={this.hideFullPhotoCallback} src={this.state.fullSrc} />
             </div> 
         )
     }
