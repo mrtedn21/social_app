@@ -1,13 +1,54 @@
 import React from 'react';
+import {FaTrash} from "react-icons/fa";
+
+
+class VideoFull extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.changeVisible = this.changeVisible.bind(this)
+        this.deleteVideo = this.deleteVideo.bind(this)
+    }
+
+    changeVisible() {
+        this.props.hideCallback()
+    }
+
+    async deleteVideo(video_pk) {
+        const tab_request_url = 'http://localhost:8000/api/person_videos/' + video_pk + '/';
+        await fetch(tab_request_url, {method: 'DELETE'})
+            .then(response => response.status === 204 ? window.location.reload() : undefined)
+    }
+
+    render() {
+        if (this.props.src === undefined) {
+            return
+        }
+
+        return (
+            <div onClick={this.changeVisible} style={{position: 'fixed', backdropFilter: 'blur(3px)', background: 'rgba(190, 190, 190, 0.69)', top: 0, bottom: 0, left: 0, right: 0}}>
+                <video controls onClick={(event) => event.stopPropagation()} style={{position: 'fixed', top: '100px', left: '400px'}} src={this.props.src} />
+                <FaTrash
+                    style={{position: 'fixed', top: '90px', left: '390px'}}
+                    onMouseOver={({target})=>target.style.color="red"}
+                    onMouseOut={({target})=>target.style.color="black"}
+                    onClick={() => this.deleteVideo(this.props.pk)}
+                />
+            </div>
+        )
+    }
+}
 
 
 class PersonVideo extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {description: undefined, preview: undefined, name: undefined, video: undefined}
+        this.state = {description: undefined, preview: undefined, name: undefined, video: undefined, fullSrc: undefined, fullPk: undefined}
         this.inputHandle = this.inputHandle.bind(this)
         this.videoUpload = this.videoUpload.bind(this)
+        this.showFullVideo = this.showFullVideo.bind(this)
+        this.hideFullVideo = this.hideFullVideo.bind(this)
         this.inputFileHandle = this.inputFileHandle.bind(this)
     }
 
@@ -48,6 +89,14 @@ class PersonVideo extends React.Component {
             .then(response => window.location.reload())
     }
 
+    showFullVideo(src, pk) {
+        this.setState({fullSrc: src, fullPk: pk})
+    }
+
+    hideFullVideo() {
+        this.setState({fullSrc: undefined, fullPk: undefined})
+    }
+
     render() {
         if (this.props.video === undefined) {
             return
@@ -76,11 +125,12 @@ class PersonVideo extends React.Component {
                 <div className="row row-cols-3 g-1">
                     {this.props.video.map(video =>
                         <div className="col">
-                            <img src={video.preview_thumbnail} alt="Person video" key={video.pk.toString()} className="img rounded"/>
+                            <img onClick={() => this.showFullVideo(video.video, video.pk)} src={video.preview_thumbnail} alt="Person video" key={video.pk.toString()} className="img rounded"/>
                         </div>
                     )}
                 </div>
-            </div> 
+                <VideoFull hideCallback={this.hideFullVideo} src={this.state.fullSrc} pk={this.state.fullPk}/>
+            </div>
         )
     }
 }
