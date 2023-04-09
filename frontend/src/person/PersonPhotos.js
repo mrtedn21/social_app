@@ -14,7 +14,6 @@ class PhotoFull extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {description: undefined, image: undefined}
         this.changeVisible = this.changeVisible.bind(this)
         this.deletePhoto = this.deletePhoto.bind(this)
     }

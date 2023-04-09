@@ -3,7 +3,7 @@ from video.models import GroupVideo, PersonVideo
 from rest_framework import serializers
 
 
-LIST_VIDEO_FIELDS = ('pk', 'name', 'preview_thumbnail')
+LIST_VIDEO_FIELDS = ('pk', 'name', 'preview_thumbnail', 'video')
 CREATE_VIDEO_FIELDS = ('name', 'description', 'preview', 'video')
 DETAIL_VIDEO_FIELDS = (
     'name',
