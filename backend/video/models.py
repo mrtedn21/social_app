@@ -16,18 +16,14 @@ class BaseVideo(models.Model, metaclass=MultiImageMeta):
 
 
 class PersonVideo(BaseVideo):
-    person = models.ForeignKey(
-        Person, on_delete=models.CASCADE, related_name='videos', **null_and_blank
-    )
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='videos')
 
     def __str__(self):
         return f'Person video: {self.description}'
 
 
 class GroupVideo(BaseVideo):
-    group = models.ForeignKey(
-        Group, on_delete=models.CASCADE, related_name='videos', **null_and_blank
-    )
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='videos')
 
     def __str__(self):
         return f'Group video: {self.description}'

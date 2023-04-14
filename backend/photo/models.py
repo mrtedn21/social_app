@@ -14,18 +14,14 @@ class BasePhoto(models.Model, metaclass=MultiImageMeta):
 
 
 class PersonPhoto(BasePhoto):
-    person = models.ForeignKey(
-        Person, on_delete=models.CASCADE, related_name='photos', **null_and_blank
-    )
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='photos')
 
     def __str__(self):
         return f'Person photo: {self.description}'
 
 
 class GroupPhoto(BasePhoto):
-    group = models.ForeignKey(
-        Group, on_delete=models.CASCADE, related_name='photos', **null_and_blank
-    )
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='photos')
 
     def __str__(self):
         return f'Group photo: {self.description}'

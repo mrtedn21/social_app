@@ -1,3 +1,4 @@
+from group.models import Group
 from photo.filters import GroupPhotoFilter, PersonPhotoFilter
 from photo.models import GroupPhoto, PersonPhoto
 from photo.serializers import (
@@ -38,3 +39,7 @@ class GroupPhotoViewSet(viewsets.ModelViewSet):
             return GroupPhotoDetailSerializer
         else:
             return GroupPhotoListSerializer
+
+    def perform_create(self, serializer):
+        group = Group.objects.get(slug=self.request.data['group'])
+        serializer.save(group=group)

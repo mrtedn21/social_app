@@ -1,5 +1,6 @@
 import React from 'react';
 import {FaTrash} from "react-icons/fa";
+import withRouter from "../WithRouter";
 
 
 class VideoFull extends React.Component {
@@ -75,6 +76,8 @@ class GroupVideo extends React.Component {
         formData.append('name', this.state.name)
         formData.append('video', this.state.video)
         formData.append('preview', this.state.preview)
+        formData.append('group', this.props.params.slug)
+
 
         console.log(this.state)
 
@@ -135,4 +138,4 @@ class GroupVideo extends React.Component {
     }
 }
 
-export default GroupVideo;
+export default withRouter(GroupVideo);

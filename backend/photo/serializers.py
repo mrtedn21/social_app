@@ -2,7 +2,6 @@ from core.serializers import MultiImageModelSerializer
 from drf_extra_fields.fields import Base64ImageField
 from photo.models import GroupPhoto, PersonPhoto
 from rest_framework import serializers
-from group.models import Group
 
 
 LIST_IMAGE_FIELDS = ('pk', 'image_thumbnail', 'image_display')
@@ -36,14 +35,6 @@ class GroupPhotoCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = GroupPhoto
         fields = ('group', 'image', 'description')
-
-    def create(self, validated_data):
-        group = Group.objects.get(slug=validated_data['group'])
-        description = validated_data.get('description')
-        result_data = {'image': validated_data['image'], 'group': group}
-        if description:
-            result_data['description'] = description
-        return GroupPhoto.objects.create(**result_data)
 
 
 class GroupPhotoDetailSerializer(MultiImageModelSerializer):

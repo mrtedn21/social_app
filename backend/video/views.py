@@ -1,3 +1,4 @@
+from group.models import Group
 from video.filters import GroupVideoFilter, PersonVideoFilter
 from video.models import GroupVideo, PersonVideo
 from video.serializers import (
@@ -38,3 +39,7 @@ class GroupVideoViewSet(viewsets.ModelViewSet):
             return GroupVideoCreateSerializer
         else:
             return GroupVideoListSerializer
+
+    def perform_create(self, serializer):
+        group = Group.objects.get(slug=self.request.data['group'])
+        serializer.save(group=group)

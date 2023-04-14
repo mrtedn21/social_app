@@ -77,7 +77,7 @@ class GroupPhotos extends React.Component {
         const regExp = /token=(\w{40})/g;
         const token = regExp.exec(document.cookie)[1]
         const requestData = {
-            image: await toBase64(this.state.image),
+            image: this.state.image ? await toBase64(this.state.image) : null,
             description: this.state.description,
             group: this.props.params.slug,
         }

@@ -18,7 +18,7 @@ DETAIL_VIDEO_FIELDS = (
 class PersonVideoCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = PersonVideo
-        fields = ('person',) + CREATE_VIDEO_FIELDS
+        fields = CREATE_VIDEO_FIELDS
 
 
 class PersonVideoDetailSerializer(MultiImageModelSerializer):
@@ -34,6 +34,8 @@ class PersonVideoListSerializer(MultiImageModelSerializer):
 
 
 class GroupVideoCreateSerializer(serializers.ModelSerializer):
+    group = serializers.CharField()
+
     class Meta:
         model = GroupVideo
         fields = ('group',) + CREATE_VIDEO_FIELDS
