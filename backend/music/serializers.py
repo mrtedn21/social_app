@@ -77,6 +77,15 @@ class GroupSongListSerializer(BaseSongListSerializer):
         model = PersonSong
         fields = ('pk', 'artist', 'album', 'title', 'file', 'group')
 
+
+class GroupSongCreateSerializer(BaseSongListSerializer):
+    group = serializers.CharField()
+
+    class Meta:
+        model = PersonSong
+        fields = ('pk', 'artist', 'album', 'title', 'file', 'group')
+
     def create(self, validated_data):
         song = super().base_create(validated_data)
-        return GroupSong.objects.create(song=song, group=validated_data['group'])
+        group = Group.objects.get(slug=validated_data['group'])
+        return GroupSong.objects.create(song=song, group=group)

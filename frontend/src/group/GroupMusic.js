@@ -1,4 +1,5 @@
 import React from 'react';
+import withRouter from "../WithRouter";
 
 
 const toBase64 = file => new Promise((resolve, reject) => {
@@ -63,6 +64,7 @@ class GroupMusic extends React.Component {
         formData.append('album', this.state.album)
         formData.append('title', this.state.title)
         formData.append('file', this.state.file)
+        formData.append('group', this.props.params.slug)
 
         console.log(this.state)
 
@@ -114,4 +116,4 @@ class GroupMusic extends React.Component {
     }
 }
 
-export default GroupMusic;
+export default withRouter(GroupMusic);

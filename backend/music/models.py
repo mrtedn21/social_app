@@ -56,4 +56,4 @@ class GroupSong(models.Model):
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'Person: {self.group.name}; Song: {self.song.title}'
+        return f'Group: {self.group.name}; Song: {self.song.title}'

@@ -1,5 +1,9 @@
 from music.models import GroupSong, PersonSong
-from music.serializers import GroupSongListSerializer, PersonSongListSerializer
+from music.serializers import (
+    GroupSongCreateSerializer,
+    GroupSongListSerializer,
+    PersonSongListSerializer,
+)
 from music.tasks import fill_song_fields_by_tags
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -27,5 +31,10 @@ class PersonSongViewSet(viewsets.ModelViewSet):
 
 class GroupSongViewSet(viewsets.ModelViewSet):
     queryset = GroupSong.objects.all().prefetch_related('group', 'song__album', 'song__artist')
-    serializer_class = GroupSongListSerializer
     filterset_class = GroupSongFilter
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return GroupSongCreateSerializer
+        else:
+            return GroupSongListSerializer
