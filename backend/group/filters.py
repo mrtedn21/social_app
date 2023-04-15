@@ -6,10 +6,11 @@ from group.models import Group
 class GroupFilter(FacetsFilterSet):
     theme_slug = django_filters.CharFilter(method='theme_slug_filter')
     theme_slug.specs = 'theme_slug_specs'
+    name_like = django_filters.CharFilter(lookup_expr='icontains', field_name='name')
 
     class Meta:
         model = Group
-        fields = ('theme_slug',)
+        fields = ('theme_slug', 'name_like')
 
     @staticmethod
     def theme_slug_filter(queryset, field, value):

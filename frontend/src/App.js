@@ -4,7 +4,7 @@ import {
     RouterProvider,
 } from "react-router-dom"
 
-import GroupList from "./GroupList"
+import GroupList from "./group/GroupList"
 import Login from "./auth/Login";
 import Person from "./person/Person";
 import Group from "./group/Group";

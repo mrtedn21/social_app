@@ -1,5 +1,5 @@
 import React from 'react';
-import Container from "./Container";
+import Container from "../Container";
 
 
 class GroupList extends React.Component {
@@ -13,6 +13,7 @@ class GroupList extends React.Component {
 
         this.selectThemeHandle = this.selectThemeHandle.bind(this)
         this.clearFilters = this.clearFilters.bind(this)
+        this.onSearchEnter = this.onSearchEnter.bind(this)
     }
 
     async componentDidMount() {
@@ -31,8 +32,16 @@ class GroupList extends React.Component {
             .then(data => this.setState({groups: data.results}))
     }
 
-    async clearFilters(event) {
+    clearFilters(event) {
         window.location.reload()
+    }
+
+    async onSearchEnter(event) {
+        if (event.key === 'Enter') {
+            await fetch('http://localhost:8000/api/groups/?name_like=' + event.target.value)
+                .then(response => response.status === 200 ? response.json() : undefined)
+                .then(data => this.setState({groups: data.results}))
+        }
     }
 
     render() {
@@ -74,7 +83,7 @@ class GroupList extends React.Component {
                     <div className="col-3"></div>
                     <div className="col-5">
                         <input type="text" value={this.state.first_name} className="form-control" placeholder="Search"
-                               name="search" onChange={this.inputHandle} style={{margin: '15px 0'}}/>
+                               name="search" onChange={this.inputHandle} style={{margin: '15px 0'}} onKeyPress={this.onSearchEnter}/>
                         {groups}
                     </div>
                     <div className="col-2" style={{marginTop: '15px'}}>
