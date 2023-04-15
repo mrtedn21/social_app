@@ -53,7 +53,7 @@ class GroupList extends React.Component {
             <div className="card mb-3">
                 <div className="row g-0">
                     <div className="col-md-3">
-                        <img src={group.avatar_thumbnail} className="img-fluid rounded" alt="..." width="100px"/>
+                        <img src={group.avatar_thumbnail} className="img-fluid rounded" alt="..." width="106px"/>
                     </div>
                     <div className="col-md-6">
                         <div className="card-body" style={{'paddingRight': 0,'paddingLeft': 0}}>
