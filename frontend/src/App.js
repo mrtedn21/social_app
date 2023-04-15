@@ -11,10 +11,12 @@ import Group from "./group/Group";
 import Register from "./auth/Register";
 import RegisterSubmit from "./auth/RegisterSubmit";
 import Settings from "./Settings";
+import PersonList from "./person/PersonList";
 
 
 const router = createBrowserRouter([
-    {path: '/person/:pk', element: <Person />},
+    {path: '/persons/:pk', element: <Person />},
+    {path: '/persons/', element: <PersonList />},
     {path: '/groups', element: <GroupList />},
     {path: '/groups/:slug', element: <Group />},
     {path: '/login', element: <Login />},

@@ -9,7 +9,6 @@ from person.serializers import (
     PersonSettingsSerializer,
 )
 from rest_framework import filters, views, viewsets
-from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 
@@ -19,9 +18,7 @@ class PersonViewSet(viewsets.ModelViewSet):
     # TODO make separate querysets for list and detail
     # Because for detail needs subqueries but for list no needs
     queryset = Person.objects.all().prefetch_related('languages')
-    filter_backends = (filters.SearchFilter, DjangoFilterBackend)
     filterset_class = PersonFilter
-    search_fields = ('first_name', 'last_name')
 
     def get_serializer_class(self):
         if self.action == 'retrieve':

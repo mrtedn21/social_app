@@ -3,6 +3,7 @@ from uuid import uuid4
 from core.models import MultiImageMeta
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.functions import Concat, Lower
 
 
 class Country(models.Model):
@@ -32,6 +33,11 @@ class Language(models.Model):
 
     def __str__(self):
         return f'Language: {self.name}'
+
+
+person_name_annotation = Lower(
+    Concat('first_name', 'last_name', 'first_name', output_field=models.CharField())
+)
 
 
 class Person(models.Model, metaclass=MultiImageMeta):

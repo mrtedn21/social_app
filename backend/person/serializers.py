@@ -42,9 +42,11 @@ class PersonEditSerializer(serializers.ModelSerializer):
 
 
 class PersonListSerializer(MultiImageModelSerializer):
+    city = CitySerializer()
+
     class Meta:
         model = Person
-        fields = ('pk', 'first_name', 'last_name', 'avatar_thumbnail')
+        fields = ('pk', 'first_name', 'last_name', 'avatar_thumbnail', 'city', 'birth_date')
 
 
 class PersonDetailSerializer(MultiImageModelSerializer):

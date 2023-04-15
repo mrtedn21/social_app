@@ -163,6 +163,7 @@ REST_FRAMEWORK = {
     # 'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'],
 }
 
+# TODO maybe i will not use this, therefore in future it will be deleted
 DEFAULT_TEXT_FILTER_LOOKUPS = (
     'iexact',
     'icontains',
