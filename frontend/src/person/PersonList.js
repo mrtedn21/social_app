@@ -52,7 +52,7 @@ class PersonList extends React.Component {
                     </div>
                     <div className="col-md-6">
                         <div className="card-body" style={{'paddingRight': 0,'paddingLeft': 0}}>
-                            <a href={person.slug} style={{marginBottom: '3px', color: 'black'}}>{person.first_name} {person.las_name}</a>
+                            <a href={person.slug} style={{marginBottom: '3px', color: 'black'}}>{person.first_name} {person.last_name}</a>
                             <p style={{marginTop: '0', marginBottom: '0'}}>{person.city.name}, {person.city.country}</p>
                             <p style={{marginTop: '0', marginBottom: '0'}}>{person.followers_count} followers</p>
                         </div>
