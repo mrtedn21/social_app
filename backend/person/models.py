@@ -4,6 +4,8 @@ from core.models import MultiImageMeta
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.functions import Concat, Lower
+from dateutil.relativedelta import relativedelta
+from django.utils.timezone import now
 
 
 class Country(models.Model):
@@ -56,3 +58,6 @@ class Person(models.Model, metaclass=MultiImageMeta):
 
     def __str__(self):
         return f'Person: {self.first_name} {self.last_name}'
+
+    def get_age(self):
+        return relativedelta(now().date(), self.birth_date).years

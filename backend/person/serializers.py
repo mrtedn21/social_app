@@ -2,6 +2,8 @@ from drf_extra_fields.fields import Base64ImageField
 from person.models import City, Country, Gender, Language, Person
 from rest_framework import serializers
 from core.serializers import MultiImageModelSerializer
+from dateutil.relativedelta import relativedelta
+from django.utils.timezone import now
 
 
 class CitySerializer(serializers.ModelSerializer):
@@ -46,13 +48,14 @@ class PersonListSerializer(MultiImageModelSerializer):
 
     class Meta:
         model = Person
-        fields = ('pk', 'first_name', 'last_name', 'avatar_thumbnail', 'city', 'birth_date')
+        fields = ('pk', 'first_name', 'last_name', 'avatar_thumbnail', 'city')
 
 
 class PersonDetailSerializer(MultiImageModelSerializer):
     languages = LanguageSerializer(many=True)
     city = CitySerializer()
     gender = GenderSerializer()
+    age = serializers.SerializerMethodField()
 
     class Meta:
         model = Person
@@ -67,7 +70,12 @@ class PersonDetailSerializer(MultiImageModelSerializer):
             'gender',
             'city',
             'languages',
+            'age',
         )
+
+    @staticmethod
+    def get_age(person: Person):
+        return person.get_age()
 
 
 class PersonSettingsSerializer(serializers.Serializer):
