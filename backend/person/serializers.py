@@ -45,10 +45,15 @@ class PersonEditSerializer(serializers.ModelSerializer):
 
 class PersonListSerializer(MultiImageModelSerializer):
     city = CitySerializer()
+    age = serializers.SerializerMethodField()
 
     class Meta:
         model = Person
-        fields = ('pk', 'first_name', 'last_name', 'avatar_thumbnail', 'city')
+        fields = ('pk', 'first_name', 'last_name', 'avatar_thumbnail', 'city', 'age')
+
+    @staticmethod
+    def get_age(person: Person):
+        return person.get_age()
 
 
 class PersonDetailSerializer(MultiImageModelSerializer):
