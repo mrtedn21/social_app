@@ -1,5 +1,6 @@
-import './Auth.css';
 import React from 'react';
+import Container from "../Container";
+import Cookies from "js-cookie";
 
 
 class Login extends React.Component {
@@ -8,6 +9,7 @@ class Login extends React.Component {
         this.state = {
             username: '',
             password: '',
+            error: '',
         }
 
         this.inputHandle = this.inputHandle.bind(this)
@@ -32,29 +34,47 @@ class Login extends React.Component {
                 password: this.state.password,
             }),
         })
-            .then(response => response.json())
-            .then(data => document.cookie = 'token=' + data.token)
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json()
+                }
+                else {
+                    this.setState({error: 'Incorrect username or password'})
+                }
+            })
+            .then(data => {
+                Cookies.set('token', data.token)
+                window.location.href = '/persons'
+            })
     }
 
     render() {
         return (
-            <div>
-                <p className="auth-header">Authorization page</p>
-                <form className="auth-form">
-                    <input type="text" placeholder="Username" className="auth-form-input"
-                           name="username" onChange={this.inputHandle}/>
+            <Container>
+                <div className="row" style={{marginTop: '15px'}}>
+                    <div className="col-4"></div>
+                    <div className="col-4">
+                        <h2 className="h2">Authorization page</h2>
+                        { this.state.error === '' ? null : <p style={{color: 'red'}}>{this.state.error}</p>}
 
-                    <input type="password" placeholder="Password" className="auth-form-input"
-                           name="password" onChange={this.inputHandle}/>
+                        <div className="mb-3">
+                            <label htmlFor="exampleFormControlInput1" className="form-label">Username</label>
+                            <input type="username" name="username" className="form-control" id="exampleFormControlInput1" onChange={this.inputHandle}/>
+                        </div>
 
-                    <div>
-                        <input type="submit" onClick={this.clickHandle}
-                               value="Login" className="auth-form-button"/>
-                        or
-                        <a href="register" className="auth-form-button">Register</a>
+                        <div className="mb-3">
+                            <label htmlFor="password_id" className="form-label">Password</label>
+                            <input type="password" name="password" className="form-control" id="password_id" onChange={this.inputHandle}/>
+                        </div>
+
+                        <div style={{display: 'flex', justifyContent: 'space-around'}}>
+                            <input type="submit" onClick={this.clickHandle} value="Login" className="btn btn-primary" />
+                            <a href="register" className="btn btn-primary" >Register</a>
+                        </div>
                     </div>
-                </form>
-            </div>
+                    <div className="col-4"></div>
+                </div>
+            </Container>
         )
     }
 }

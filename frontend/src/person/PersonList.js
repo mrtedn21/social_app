@@ -1,5 +1,6 @@
 import React from 'react';
 import Container from "../Container";
+import Cookies from "js-cookie";
 
 
 class PersonList extends React.Component {
@@ -31,7 +32,11 @@ class PersonList extends React.Component {
     }
 
     async componentDidMount() {
-        await fetch('http://localhost:8000/api/persons/')
+        await fetch('http://localhost:8000/api/persons/', {
+            headers: {
+                'Authorization': 'Token ' + Cookies.get('token'),
+            },
+        })
             .then(response => response.status === 200 ? response.json() : undefined)
             .then(data => this.setState({persons: data.results}))
     }
