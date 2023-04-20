@@ -8,15 +8,37 @@ class PersonList extends React.Component {
 
         this.state = {
             persons: undefined,
+            filters: {
+                age_gt: undefined,
+                age_lt: undefined,
+            },
         }
 
         this.selectThemeHandle = this.selectThemeHandle.bind(this)
         this.clearFilters = this.clearFilters.bind(this)
         this.onSearchEnter = this.onSearchEnter.bind(this)
+        this.inputFilterHandle = this.inputFilterHandle.bind(this)
+        this.supplyFilters = this.supplyFilters.bind(this)
+    }
+
+    inputFilterHandle(event) {
+        let oldState = {}
+        Object.assign(oldState, this.state)
+        oldState.filters[event.target.name] = event.target.value
+        this.setState(oldState)
     }
 
     async componentDidMount() {
         await fetch('http://localhost:8000/api/persons/')
+            .then(response => response.status === 200 ? response.json() : undefined)
+            .then(data => this.setState({persons: data.results}))
+    }
+
+    async supplyFilters() {
+        let filters = this.state.filters
+        // remove filter values with undefined, they are incorrect
+        filters = Object.fromEntries(Object.entries(filters).filter(([filter_name, filter_value]) => filter_value > 1));
+        await fetch('http://localhost:8000/api/persons/?' + new URLSearchParams(filters))
             .then(response => response.status === 200 ? response.json() : undefined)
             .then(data => this.setState({persons: data.results}))
     }
@@ -74,9 +96,19 @@ class PersonList extends React.Component {
                         {persons}
                     </div>
                     <div className="col-2" style={{marginTop: '15px'}}>
-                        <div>Theme filters</div>
-                        <input type="button" className="btn btn-outline-primary" value="Clear filters"
-                               style={{marginTop: '10px'}} onClick={this.clearFilters}/>
+
+                        <div class="mb-3">
+                            <label htmlFor="age_gt_filter" className="form-label">Age greater than</label>
+                            <input type="input" name="age_gt" onInput={this.inputFilterHandle} className="form-control" id="age_gt_filter" />
+                        </div>
+
+                        <div className="mb-3">
+                            <label htmlFor="age_lt_filter" className="form-label">Age lower than</label>
+                            <input type="input" name="age_lt" onInput={this.inputFilterHandle} className="form-control" id="age_lt_filter"/>
+                        </div>
+
+                        <input type="button" className="btn btn-outline-primary" value="Supply filters" style={{marginTop: '10px'}} onClick={this.supplyFilters}/>
+                        <input type="button" className="btn btn-outline-danger" value="Clear filters" style={{marginTop: '10px'}} onClick={this.clearFilters}/>
                     </div>
                     <div className="col-2"></div>
                 </div>
