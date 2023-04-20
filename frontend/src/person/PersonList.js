@@ -11,6 +11,8 @@ class PersonList extends React.Component {
             filters: {
                 age_gt: undefined,
                 age_lt: undefined,
+                country: undefined,
+                city: undefined,
             },
         }
 
@@ -37,7 +39,7 @@ class PersonList extends React.Component {
     async supplyFilters() {
         let filters = this.state.filters
         // remove filter values with undefined, they are incorrect
-        filters = Object.fromEntries(Object.entries(filters).filter(([filter_name, filter_value]) => filter_value > 1));
+        filters = Object.fromEntries(Object.entries(filters).filter(([filter_name, filter_value]) => filter_value !== undefined));
         await fetch('http://localhost:8000/api/persons/?' + new URLSearchParams(filters))
             .then(response => response.status === 200 ? response.json() : undefined)
             .then(data => this.setState({persons: data.results}))
@@ -90,12 +92,16 @@ class PersonList extends React.Component {
             <Container>
                 <div className="row" style={{marginTop: '15px'}}>
                     <div className="col-3"></div>
-                    <div className="col-5">
-                        <input type="text" value={this.state.first_name} className="form-control" placeholder="Search"
-                               name="search" onChange={this.inputHandle} style={{margin: '15px 0'}} onKeyPress={this.onSearchEnter}/>
+                    <div className="col-5" style={{paddingTop: '46px'}}>
                         {persons}
                     </div>
                     <div className="col-2" style={{marginTop: '15px'}}>
+
+                        <div className="mb-3">
+                            <label htmlFor="search_filter" className="form-label">First name, last name</label>
+                            <input type="input" name="search_by_name" onInput={this.inputFilterHandle} className="form-control"
+                                   id="search_filter"/>
+                        </div>
 
                         <div class="mb-3">
                             <label htmlFor="age_gt_filter" className="form-label">Age greater than</label>
@@ -105,6 +111,16 @@ class PersonList extends React.Component {
                         <div className="mb-3">
                             <label htmlFor="age_lt_filter" className="form-label">Age lower than</label>
                             <input type="input" name="age_lt" onInput={this.inputFilterHandle} className="form-control" id="age_lt_filter"/>
+                        </div>
+
+                        <div className="mb-3">
+                            <label htmlFor="country_filter" className="form-label">Country</label>
+                            <input type="input" name="country" onInput={this.inputFilterHandle} className="form-control" id="country_filter"/>
+                        </div>
+
+                        <div className="mb-3">
+                            <label htmlFor="city_filter" className="form-label">City</label>
+                            <input type="input" name="city" onInput={this.inputFilterHandle} className="form-control" id="city_filter"/>
                         </div>
 
                         <input type="button" className="btn btn-outline-primary" value="Supply filters" style={{marginTop: '10px'}} onClick={this.supplyFilters}/>
