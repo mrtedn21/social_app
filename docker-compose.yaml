@@ -3,6 +3,7 @@ services:
   social_db:
     image: postgres:14.1-alpine
     container_name: social_db
+    command: postgres -c "max_connections=300"
     restart: always
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
