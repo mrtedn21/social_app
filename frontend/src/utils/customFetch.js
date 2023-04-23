@@ -35,36 +35,38 @@ async function baseFetch(params) {
 // not required params = {callback_error_response}
 async function customFetchGet(params) {
     await baseFetch({
-        'url': params.url,
-        'method': 'GET',
-        'callback_with_data': params.callback_with_data,
-        'callback_error_response': params.callback_error_response,
+        url: params.url,
+        method: 'GET',
+        callback_with_data: params.callback_with_data,
+        callback_error_response: params.callback_error_response,
     })
 }
 
 
-// required params = {url, callback_with_data}
+// required params = {url, callback_with_data, body}
 // not required params = {callback_error_response, content_type}
 async function customFetchPatch(params) {
     await baseFetch({
-        'url': params.url,
-        'method': 'PATCH',
-        'callback_with_data': params.callback_with_data,
-        'callback_error_response': params.callback_error_response,
-        'content_type': params.content_type,
+        url: params.url,
+        method: 'PATCH',
+        callback_with_data: params.callback_with_data,
+        callback_error_response: params.callback_error_response,
+        content_type: params.content_type,
+        body: params.body,
     })
 }
 
 
-// required params = {url, callback_with_data}
+// required params = {url, callback_with_data, body}
 // not required params = {callback_error_response, content_type}
 async function customFetchPost(params) {
     await baseFetch({
-        'url': params.url,
-        'method': 'POST',
-        'callback_with_data': params.callback_with_data,
-        'callback_error_response': params.callback_error_response,
-        'content_type': params.content_type,
+        url: params.url,
+        method: 'POST',
+        callback_with_data: params.callback_with_data,
+        callback_error_response: params.callback_error_response,
+        content_type: params.content_type,
+        body: params.body,
     })
 }
 
@@ -73,10 +75,10 @@ async function customFetchPost(params) {
 // not required params = {callback_error_response}
 async function customFetchDelete(params) {
     await baseFetch({
-        'url': params.url,
-        'method': 'DELETE',
-        'callback_with_data': params.callback_with_data,
-        'callback_error_response': params.callback_error_response,
+        url: params.url,
+        method: 'DELETE',
+        callback_with_data: params.callback_with_data,
+        callback_error_response: params.callback_error_response,
     })
 }
 
