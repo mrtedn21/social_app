@@ -31,12 +31,16 @@ class VideoFull extends React.Component {
         return (
             <div onClick={this.changeVisible} style={{position: 'fixed', backdropFilter: 'blur(3px)', background: 'rgba(190, 190, 190, 0.69)', top: 0, bottom: 0, left: 0, right: 0}}>
                 <video controls onClick={(event) => event.stopPropagation()} style={{position: 'fixed', top: '100px', left: '400px'}} src={this.props.src} />
-                <FaTrash
-                    style={{position: 'fixed', top: '90px', left: '390px'}}
-                    onMouseOver={({target})=>target.style.color="red"}
-                    onMouseOut={({target})=>target.style.color="black"}
-                    onClick={() => this.deleteVideo(this.props.pk)}
-                />
+                {this.props.can_edit ?
+                    <FaTrash
+                        style={{position: 'fixed', top: '90px', left: '390px'}}
+                        onMouseOver={({target}) => target.style.color = "red"}
+                        onMouseOut={({target}) => target.style.color = "black"}
+                        onClick={() => this.deleteVideo(this.props.pk)}
+                    />
+                    :
+                    null
+                }
             </div>
         )
     }
@@ -98,25 +102,29 @@ class PersonVideo extends React.Component {
         }
         return (
             <div>
-                <form style={{textAlign: 'left'}}>
-                    <div style={{marginBottom: '10px'}}>
-                        <label className="form-label">Name</label>
-                        <input type="text" name="name" className="form-control" onChange={this.inputHandle}/>
-                    </div>
-                    <div style={{marginBottom: '10px'}}>
-                        <label className="form-label">Description</label>
-                        <input type="text" name="description" className="form-control" onChange={this.inputHandle}/>
-                    </div>
-                    <div style={{marginBottom: '10px'}}>
-                        <label className="form-label">Preview</label>
-                        <input type="file" name="preview" onChange={this.inputFileHandle} className="form-control"/>
-                    </div>
-                    <div style={{marginBottom: '10px'}}>
-                        <label className="form-label">Video</label>
-                        <input type="file" name="video" className="form-control" accept="video/*" onChange={this.inputFileHandle}/>
-                    </div>
-                    <input type="button" value="Add video" className="btn btn-primary" onClick={this.videoUpload} style={{marginBottom: '30px'}}/>
-                </form>
+                { this.props.can_edit ?
+                    <form style={{textAlign: 'left'}}>
+                        <div style={{marginBottom: '10px'}}>
+                            <label className="form-label">Name</label>
+                            <input type="text" name="name" className="form-control" onChange={this.inputHandle}/>
+                        </div>
+                        <div style={{marginBottom: '10px'}}>
+                            <label className="form-label">Description</label>
+                            <input type="text" name="description" className="form-control" onChange={this.inputHandle}/>
+                        </div>
+                        <div style={{marginBottom: '10px'}}>
+                            <label className="form-label">Preview</label>
+                            <input type="file" name="preview" onChange={this.inputFileHandle} className="form-control"/>
+                        </div>
+                        <div style={{marginBottom: '10px'}}>
+                            <label className="form-label">Video</label>
+                            <input type="file" name="video" className="form-control" accept="video/*" onChange={this.inputFileHandle}/>
+                        </div>
+                        <input type="button" value="Add video" className="btn btn-primary" onClick={this.videoUpload} style={{marginBottom: '30px'}}/>
+                    </form>
+                    :
+                    null
+                }
                 <div className="row row-cols-3 g-1">
                     {this.props.video.map(video =>
                         <div className="col">
@@ -124,7 +132,7 @@ class PersonVideo extends React.Component {
                         </div>
                     )}
                 </div>
-                <VideoFull hideCallback={this.hideFullVideo} src={this.state.fullSrc} pk={this.state.fullPk}/>
+                <VideoFull can_edit={this.props.can_edit} hideCallback={this.hideFullVideo} src={this.state.fullSrc} pk={this.state.fullPk}/>
             </div>
         )
     }

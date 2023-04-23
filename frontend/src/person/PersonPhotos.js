@@ -39,12 +39,16 @@ class PhotoFull extends React.Component {
         return (
             <div onClick={this.changeVisible} style={{position: 'fixed', backdropFilter: 'blur(3px)', background: 'rgba(190, 190, 190, 0.69)', top: 0, bottom: 0, left: 0, right: 0}}>
                 <img onClick={(event) => event.stopPropagation()} style={{position: 'fixed', top: '100px', left: '400px'}} src={this.props.src} alt="image"/>
-                <FaTrash
-                    style={{position: 'fixed', top: '90px', left: '390px'}}
-                    onMouseOver={({target})=>target.style.color="red"}
-                    onMouseOut={({target})=>target.style.color="black"}
-                    onClick={() => this.deletePhoto(this.props.pk)}
-                />
+                { this.props.can_edit ?
+                    <FaTrash
+                        style={{position: 'fixed', top: '90px', left: '390px'}}
+                        onMouseOver={({target})=>target.style.color="red"}
+                        onMouseOut={({target})=>target.style.color="black"}
+                        onClick={() => this.deletePhoto(this.props.pk)}
+                    />
+                    :
+                    null
+                }
             </div>
         )
     }
@@ -101,20 +105,24 @@ class PersonPhotos extends React.Component {
         if (this.props.photos === undefined) {
             return
         }
-        console.log(this.state)
         return (
             <div>
-                <form style={{textAlign: 'left'}}>
-                    <div style={{marginBottom: '10px'}}>
-                        <label className="form-label">Image</label>
-                        <input type="file" name="image" onChange={this.changeImage} className="form-control"/>
-                    </div>
-                    <div style={{marginBottom: '10px'}}>
-                        <label className="form-label">Description</label>
-                        <input type="text" name="description" className="form-control" onChange={this.inputHandle}/>
-                    </div>
-                    <input type="button" value="Add photo" className="btn btn-primary" onClick={this.photoUpload} style={{marginBottom: '30px'}}/>
-                </form>
+                {this.props.can_edit ?
+                    <form style={{textAlign: 'left'}}>
+                        <div style={{marginBottom: '10px'}}>
+                            <label className="form-label">Image</label>
+                            <input type="file" name="image" onChange={this.changeImage} className="form-control"/>
+                        </div>
+                        <div style={{marginBottom: '10px'}}>
+                            <label className="form-label">Description</label>
+                            <input type="text" name="description" className="form-control" onChange={this.inputHandle}/>
+                        </div>
+                        <input type="button" value="Add photo" className="btn btn-primary" onClick={this.photoUpload}
+                               style={{marginBottom: '30px'}}/>
+                    </form>
+                    :
+                    null
+                }
                 <div className="row row-cols-3 g-1">
                     {this.props.photos.map(photo =>
                         <div className="col">
@@ -122,7 +130,7 @@ class PersonPhotos extends React.Component {
                         </div>
                     )}
                 </div>
-                <PhotoFull hideCallback={this.hideFullPhotoCallback} src={this.state.fullSrc} pk={this.state.fullPk}/>
+                <PhotoFull can_edit={this.props.can_edit} hideCallback={this.hideFullPhotoCallback} src={this.state.fullSrc} pk={this.state.fullPk}/>
             </div> 
         )
     }

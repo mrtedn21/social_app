@@ -29,7 +29,15 @@ class Person extends React.Component {
         this.selectHandle = this.selectHandle.bind(this)
         this.updateDataForTab = this.updateDataForTab.bind(this)
         let index = Cookies.get(this.COOKIE_TAB_NAME) || 0
-        this.state = {person: undefined, selectedTabIndex: Number(index), Posts: undefined, Photos: undefined, Videos: undefined, Music: undefined}
+        this.state = {
+            person: undefined,
+            selectedTabIndex: Number(index),
+            Posts: undefined,
+            Photos: undefined,
+            Videos: undefined,
+            Music: undefined,
+            can_edit: undefined,
+        }
     }
 
     async updateDataForTab(index) {
@@ -59,6 +67,11 @@ class Person extends React.Component {
             callback_with_data: data => this.setState({person: data}),
         })
 
+        await customFetchGet({
+            url: person_request_url + '/can_i_edit',
+            callback_with_data: data => this.setState({can_edit: data.result}),
+        })
+
         await this.updateDataForTab()
     }
 
@@ -70,10 +83,9 @@ class Person extends React.Component {
     }
 
     render() {
-        if (this.state.person === undefined) {
+        if ((this.state.person === undefined) || (this.state.can_edit === undefined)) {
             return null;
         }
-        console.log(this.state)
 
         const tabs = this.TAB_NAMES.map((tab, index) => {
             let className
@@ -102,17 +114,17 @@ class Person extends React.Component {
                                     </TabList>
                                     <div className="card-body">
                                         <TabPanel>
-                                            <NewPersonPost />
-                                            <PersonPosts posts={this.state.posts}/>
+                                            { this.state.can_edit ? <NewPersonPost /> : null }
+                                            <PersonPosts can_edit={this.state.can_edit} posts={this.state.posts}/>
                                         </TabPanel>
                                         <TabPanel>
-                                            <PersonPhotos photos={this.state.photos}/>
+                                            <PersonPhotos can_edit={this.state.can_edit} photos={this.state.photos}/>
                                         </TabPanel>
                                         <TabPanel>
-                                            <PersonVideo video={this.state.video}/>
+                                            <PersonVideo can_edit={this.state.can_edit} video={this.state.video}/>
                                         </TabPanel>
                                         <TabPanel>
-                                            <PersonMusic music={this.state.music}/>
+                                            <PersonMusic can_edit={this.state.can_edit} music={this.state.music}/>
                                         </TabPanel>
                                     </div>
                                 </div>
