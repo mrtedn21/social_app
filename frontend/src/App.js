@@ -12,6 +12,7 @@ import Register from "./auth/Register";
 import RegisterSubmit from "./auth/RegisterSubmit";
 import Settings from "./Settings";
 import PersonList from "./person/PersonList";
+import Chat from "./Chat"
 
 
 const router = createBrowserRouter([
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
     {path: '/register', element: <Register />},
     {path: '/register/submit', element: <RegisterSubmit />},
     {path: '/settings', element: <Settings />},
+    {path: '/chat', element: <Chat />},
 ])
 
 
