@@ -1,4 +1,5 @@
 import React from 'react';
+import {customFetchPost} from "../utils/customFetch";
 
 
 class PersonPost extends React.Component {
@@ -20,19 +21,12 @@ class PersonPost extends React.Component {
         const request_url = 'http://localhost:8000/api/person_posts/';
         const requestData = {text: this.state.text}
 
-        const regExp = /token=(\w{40})/g;
-        const token = regExp.exec(document.cookie)[1]
-
-        await fetch(request_url, {
-            method: 'POST',
+        await customFetchPost({
+            url: request_url,
             body: JSON.stringify(requestData),
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Token ' + token,
-            },
+            callback_with_data: data => window.location.reload(),
+            content_type: 'application/json',
         })
-            .then(response => response.json())
-            .then(data => window.location.reload())
     }
 
     render() {

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Container from "./Container";
+import { customFetchGet, customFetchPatch } from "./utils/customFetch";
 
 
 const toBase64 = file => new Promise((resolve, reject) => {
@@ -36,18 +37,18 @@ class Settings extends React.Component {
     }
 
     async componentDidMount() {
-        let request_url = 'http://localhost:8000/api/person_settings/';
-        await fetch(request_url)
-            .then(response => response.json())
-            .then(data => this.setState({initial_settings: data}))
+        await customFetchGet({
+            url: 'http://localhost:8000/api/person_settings/',
+            callback_with_data: (data) => this.setState({initial_settings: data}),
+        })
 
-        request_url = 'http://localhost:8000/api/persons/1/';
-        await fetch(request_url)
-            .then(response => response.json())
-            .then(data => this.setState({
+        await customFetchGet({
+            url: 'http://localhost:8000/api/persons/1/',
+            callback_with_data: (data) => this.setState({
                 concrete_settings: data,
                 cities_for_select: this.state.initial_settings.countries.filter(country => country.pk.toString() === data.city.country_pk)[0].cities
-            }))
+            })
+        })
     }
 
     inputHandle(event) {
@@ -70,8 +71,6 @@ class Settings extends React.Component {
     }
 
     async updateSettings() {
-        const request_url = 'http://localhost:8000/api/persons/1/';
-
         let requestData = {}
         if (this.state.avatar) {requestData['avatar'] = await toBase64(this.state.avatar)}
         if (this.state.first_name) {requestData['first_name'] = this.state.first_name}
@@ -80,14 +79,12 @@ class Settings extends React.Component {
         if (this.state.city) {requestData['city'] = this.state.city.pk === undefined ? this.state.city : this.state.city.pk}
         if (this.state.languages) {requestData['languages'] = this.state.languages}
 
-        await fetch(request_url, {
-            method: 'PATCH',
+        await customFetchPatch({
+            url: 'http://localhost:8000/api/persons/1/',
+            callback_with_data: (data) => window.location.reload(),
             body: JSON.stringify(requestData),
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            content_type: 'application/json',
         })
-            .then(response => window.location.reload())
     }
 
     changeCountry(event) {

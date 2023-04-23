@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from "../Container";
-import Cookies from "js-cookie";
+import { customFetchGet } from "../utils/customFetch";
 
 
 class PersonList extends React.Component {
@@ -31,23 +31,23 @@ class PersonList extends React.Component {
         this.setState(oldState)
     }
 
+
     async componentDidMount() {
-        await fetch('http://localhost:8000/api/persons/', {
-            headers: {
-                'Authorization': 'Token ' + Cookies.get('token'),
-            },
+        await customFetchGet({
+            url: 'http://localhost:8000/api/persons/',
+            callback_with_data: (data) => this.setState({persons: data.results})
         })
-            .then(response => response.status === 200 ? response.json() : undefined)
-            .then(data => this.setState({persons: data.results}))
     }
 
     async supplyFilters() {
         let filters = this.state.filters
         // remove filter values with undefined, they are incorrect
         filters = Object.fromEntries(Object.entries(filters).filter(([filter_name, filter_value]) => filter_value !== undefined));
-        await fetch('http://localhost:8000/api/persons/?' + new URLSearchParams(filters))
-            .then(response => response.status === 200 ? response.json() : undefined)
-            .then(data => this.setState({persons: data.results}))
+
+        await customFetchGet({
+            url: 'http://localhost:8000/api/persons/?' + new URLSearchParams(filters),
+            callback_with_data: data => this.setState({persons: data.results}),
+        })
     }
 
     async selectThemeHandle(event) {
@@ -62,9 +62,10 @@ class PersonList extends React.Component {
 
     async onSearchEnter(event) {
         if (event.key === 'Enter') {
-            await fetch('http://localhost:8000/api/persons/?search_by_name=' + event.target.value)
-                .then(response => response.status === 200 ? response.json() : undefined)
-                .then(data => this.setState({persons: data.results}))
+            await customFetchGet({
+                url: 'http://localhost:8000/api/persons/?search_by_name=' + event.target.value,
+                callback_with_data: data => this.setState({persons: data.results}),
+            })
         }
     }
 
@@ -81,7 +82,7 @@ class PersonList extends React.Component {
                     </div>
                     <div className="col-md-6">
                         <div className="card-body" style={{'paddingRight': 0,'paddingLeft': 0}}>
-                            <a href={person.pk} style={{marginBottom: '3px', color: 'black'}}>{person.first_name} {person.last_name}</a>
+                            <a href={'persons/' + person.pk} style={{marginBottom: '3px', color: 'black'}}>{person.first_name} {person.last_name}</a>
                             <p style={{marginTop: '0', marginBottom: '0'}}>{person.city.name}, {person.city.country}</p>
                             <p style={{marginTop: '0', marginBottom: '0'}}>Age: {person.age} years</p>
                         </div>

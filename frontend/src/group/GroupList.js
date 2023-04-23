@@ -1,5 +1,6 @@
 import React from 'react';
 import Container from "../Container";
+import {customFetchGet} from "../utils/customFetch";
 
 
 class GroupList extends React.Component {
@@ -17,19 +18,21 @@ class GroupList extends React.Component {
     }
 
     async componentDidMount() {
-        await fetch('http://localhost:8000/api/groups/')
-            .then(response => response.status === 200 ? response.json() : undefined)
-            .then(data => this.setState({groups: data.results}))
-
-        await fetch('http://localhost:8000/api/groups/specs/')
-            .then(response => response.status === 200 ? response.json() : undefined)
-            .then(data => this.setState({specs: data}))
+        await customFetchGet({
+            url: 'http://localhost:8000/api/groups/',
+            callback_with_data: data => this.setState({groups: data.results}),
+        })
+        await customFetchGet({
+            url: 'http://localhost:8000/api/groups/specs/',
+            callback_with_data: data => this.setState({specs: data}),
+        })
     }
 
     async selectThemeHandle(event) {
-        await fetch('http://localhost:8000/api/groups/?theme_slug=' + event.target.value)
-            .then(response => response.status === 200 ? response.json() : undefined)
-            .then(data => this.setState({groups: data.results}))
+        await customFetchGet({
+            url: 'http://localhost:8000/api/groups/?theme_slug=' + event.target.value,
+            callback_with_data: data => this.setState({groups: data.results}),
+        })
     }
 
     clearFilters(event) {
@@ -38,9 +41,10 @@ class GroupList extends React.Component {
 
     async onSearchEnter(event) {
         if (event.key === 'Enter') {
-            await fetch('http://localhost:8000/api/groups/?name_like=' + event.target.value)
-                .then(response => response.status === 200 ? response.json() : undefined)
-                .then(data => this.setState({groups: data.results}))
+            await customFetchGet({
+                url: 'http://localhost:8000/api/groups/?name_like=' + event.target.value,
+                callback_with_data: data => this.setState({groups: data.results}),
+            })
         }
     }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import {FaTrash} from "react-icons/fa";
+import { customFetchPost, customFetchDelete } from "../utils/customFetch";
 
 
 class VideoFull extends React.Component {
@@ -16,8 +17,10 @@ class VideoFull extends React.Component {
 
     async deleteVideo(video_pk) {
         const tab_request_url = 'http://localhost:8000/api/person_videos/' + video_pk + '/';
-        await fetch(tab_request_url, {method: 'DELETE'})
-            .then(response => response.status === 204 ? window.location.reload() : undefined)
+        await customFetchDelete({
+            url: tab_request_url,
+            callback_with_data: data => window.location.reload(),
+        })
     }
 
     render() {
@@ -67,8 +70,6 @@ class PersonVideo extends React.Component {
 
     async videoUpload(event) {
         const request_url = 'http://localhost:8000/api/person_videos/'
-        const regExp = /token=(\w{40})/g;
-        const token = regExp.exec(document.cookie)[1]
 
         let formData = new FormData()
         formData.append('description', this.state.description)
@@ -76,17 +77,11 @@ class PersonVideo extends React.Component {
         formData.append('video', this.state.video)
         formData.append('preview', this.state.preview)
 
-        console.log(this.state)
-
-        await fetch(request_url, {
-            method: 'POST',
+        await customFetchPost({
+            url: request_url,
             body: formData,
-            headers: {
-                //'Content-Type': 'multipart/form-data',
-                'Authorization': 'Token ' + token,
-            },
+            callback_with_data: data => window.location.reload(),
         })
-            .then(response => window.location.reload())
     }
 
     showFullVideo(src, pk) {

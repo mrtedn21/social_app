@@ -1,4 +1,5 @@
 import React from 'react';
+import {customFetchPost} from "../utils/customFetch";
 
 
 const toBase64 = file => new Promise((resolve, reject) => {
@@ -53,10 +54,7 @@ class PersonMusic extends React.Component {
     //}
 
     async songUpload(event) {
-        console.log(this.state)
         const request_url = 'http://localhost:8000/api/person_music/'
-        const regExp = /token=(\w{40})/g;
-        const token = regExp.exec(document.cookie)[1]
 
         let formData = new FormData()
         formData.append('artist', this.state.artist)
@@ -64,16 +62,11 @@ class PersonMusic extends React.Component {
         formData.append('title', this.state.title)
         formData.append('file', this.state.file)
 
-        console.log(this.state)
-
-        await fetch(request_url, {
-            method: 'POST',
+        await customFetchPost({
+            url: request_url,
             body: formData,
-            headers: {
-                'Authorization': 'Token ' + token,
-            },
+            callback_with_data: data => window.location.reload(),
         })
-            .then(response => window.location.reload())
     }
 
     render() {

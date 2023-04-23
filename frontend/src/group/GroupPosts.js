@@ -2,6 +2,7 @@ import React from 'react';
 import {FaComment, FaHeart} from "react-icons/fa";
 import {FaTrash} from "react-icons/fa";
 import Cookies from "js-cookie";
+import {customFetchDelete} from "../utils/customFetch";
 
 
 class GroupPosts extends React.Component {
@@ -13,8 +14,11 @@ class GroupPosts extends React.Component {
 
     async deletePost(post_pk) {
         const tab_request_url = 'http://localhost:8000/api/group_posts/' + post_pk + '/';
-        await fetch(tab_request_url, {method: 'DELETE'})
-            .then(response => response.status === 204 ? window.location.reload() : undefined)
+
+        await customFetchDelete({
+            url: tab_request_url,
+            callback_with_data: data => window.location.reload(),
+        })
     }
 
     render() {

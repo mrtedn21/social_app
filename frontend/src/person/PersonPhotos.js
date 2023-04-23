@@ -1,5 +1,6 @@
 import React from 'react';
 import {FaTrash} from "react-icons/fa";
+import { customFetchDelete, customFetchPost } from "../utils/customFetch";
 
 
 const toBase64 = file => new Promise((resolve, reject) => {
@@ -24,8 +25,10 @@ class PhotoFull extends React.Component {
 
     async deletePhoto(photo_pk) {
         const tab_request_url = 'http://localhost:8000/api/person_photos/' + photo_pk + '/';
-        await fetch(tab_request_url, {method: 'DELETE'})
-            .then(response => response.status === 204 ? window.location.reload() : undefined)
+        await customFetchDelete({
+            url: tab_request_url,
+            callback_with_data: data => window.location.reload(),
+        })
     }
 
     render() {
@@ -73,22 +76,17 @@ class PersonPhotos extends React.Component {
 
     async photoUpload(event) {
         const request_url = 'http://localhost:8000/api/person_photos/'
-        const regExp = /token=(\w{40})/g;
-        const token = regExp.exec(document.cookie)[1]
         const requestData = {
             image: await toBase64(this.state.image),
             description: this.state.description,
         }
 
-        await fetch(request_url, {
-            method: 'POST',
+        await customFetchPost({
+            url: request_url,
             body: JSON.stringify(requestData),
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Token ' + token,
-            },
+            content_type: 'application/json',
+            callback_with_data: data => window.location.reload(),
         })
-            .then(response => window.location.reload())
     }
 
     hideFullPhotoCallback() {

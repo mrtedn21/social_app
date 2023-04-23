@@ -1,6 +1,7 @@
 import React from 'react';
 import {FaTrash} from "react-icons/fa";
 import withRouter from "../WithRouter";
+import { customFetchDelete, customFetchPost } from "../utils/customFetch";
 
 
 const toBase64 = file => new Promise((resolve, reject) => {
@@ -24,9 +25,12 @@ class PhotoFull extends React.Component {
     }
 
     async deletePhoto(photo_pk) {
-        const tab_request_url = 'http://localhost:8000/api/group_photos/' + photo_pk + '/';
-        await fetch(tab_request_url, {method: 'DELETE'})
-            .then(response => response.status === 204 ? window.location.reload() : undefined)
+        const request_url = 'http://localhost:8000/api/group_photos/' + photo_pk + '/';
+
+        await customFetchDelete({
+            url: request_url,
+            callback_with_data: data => window.location.reload(),
+        })
     }
 
     render() {
@@ -74,23 +78,18 @@ class GroupPhotos extends React.Component {
 
     async photoUpload(event) {
         const request_url = 'http://localhost:8000/api/group_photos/'
-        const regExp = /token=(\w{40})/g;
-        const token = regExp.exec(document.cookie)[1]
         const requestData = {
             image: this.state.image ? await toBase64(this.state.image) : null,
             description: this.state.description,
             group: this.props.params.slug,
         }
 
-        await fetch(request_url, {
-            method: 'POST',
+        await customFetchPost({
+            url: request_url,
             body: JSON.stringify(requestData),
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Token ' + token,
-            },
+            callback_with_data: data => window.location.reload(),
+            content_type: 'application/json',
         })
-            .then(response => window.location.reload())
     }
 
     hideFullPhotoCallback() {

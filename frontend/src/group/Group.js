@@ -11,6 +11,7 @@ import GroupPosts from "./GroupPosts";
 import GroupMainData from "./GroupMainData";
 import GroupVideo from "./GroupVideo";
 import withRouter from "../WithRouter";
+import {customFetchGet} from "../utils/customFetch";
 
 
 class Group extends React.Component {
@@ -44,18 +45,19 @@ class Group extends React.Component {
         }
 
         const tab_request_url = 'http://localhost:8000/api/' + selectedTab.partUrl + '?group_slug=' + this.props.params.slug;
-        await fetch(tab_request_url)
-            .then(response => response.status === 200 ? response.json() : undefined)
-            .then(data => {
-                this.setState({[selectedTab.name.toLowerCase()]: data.results})
-            })
+        await customFetchGet({
+            url: tab_request_url,
+            callback_with_data: data => this.setState({[selectedTab.name.toLowerCase()]: data.results}),
+        })
     }
 
     async componentDidMount() {
         const group_request_url = 'http://localhost:8000/api/groups/' + this.props.params.slug;
-        await fetch(group_request_url)
-            .then(response => response.status === 200 ? response.json() : undefined)
-            .then(data => this.setState({group: data}))
+
+        await customFetchGet({
+            url: group_request_url,
+            callback_with_data: data => this.setState({group: data}),
+        })
 
         await this.updateDataForTab()
     }

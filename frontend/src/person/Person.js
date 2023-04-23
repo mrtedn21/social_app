@@ -11,6 +11,7 @@ import PersonPosts from "./PersonPosts";
 import PersonMainData from "./PersonMainData";
 import PersonVideo from "./PersonVideo";
 import withRouter from "../WithRouter";
+import { customFetchPost, customFetchGet } from "../utils/customFetch";
 
 
 class Person extends React.Component {
@@ -44,18 +45,19 @@ class Person extends React.Component {
         }
 
         const tab_request_url = 'http://localhost:8000/api/' + selectedTab.partUrl + '?person_id=' + this.props.params.pk;
-        await fetch(tab_request_url)
-            .then(response => response.status === 200 ? response.json() : undefined)
-            .then(data => {
-                this.setState({[selectedTab.name.toLowerCase()]: data.results})
-            })
+
+        await customFetchGet({
+            url: tab_request_url,
+            callback_with_data: data => this.setState({[selectedTab.name.toLowerCase()]: data.results}),
+        })
     }
 
     async componentDidMount() {
         const person_request_url = 'http://localhost:8000/api/persons/' + this.props.params.pk;
-        await fetch(person_request_url)
-            .then(response => response.status === 200 ? response.json() : undefined)
-            .then(data => this.setState({person: data}))
+        await customFetchGet({
+            url: person_request_url,
+            callback_with_data: data => this.setState({person: data}),
+        })
 
         await this.updateDataForTab()
     }

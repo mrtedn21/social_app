@@ -1,5 +1,6 @@
 import React from 'react';
 import withRouter from "../WithRouter";
+import {customFetchPost} from "../utils/customFetch";
 
 
 class GroupPost extends React.Component {
@@ -21,19 +22,12 @@ class GroupPost extends React.Component {
         const request_url = 'http://localhost:8000/api/group_posts/';
         const requestData = {text: this.state.text, group: this.props.params.slug}
 
-        const regExp = /token=(\w{40})/g;
-        const token = regExp.exec(document.cookie)[1]
-
-        await fetch(request_url, {
-            method: 'POST',
+        await customFetchPost({
+            url: request_url,
             body: JSON.stringify(requestData),
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Token ' + token,
-            },
+            callback_with_data: data => window.location.reload(),
+            content_type: 'application/json',
         })
-            .then(response => response.json())
-            .then(data => window.location.reload())
     }
 
     render() {

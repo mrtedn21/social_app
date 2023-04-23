@@ -53,7 +53,7 @@ class Login extends React.Component {
             <Container>
                 <div className="row" style={{marginTop: '15px'}}>
                     <div className="col-4"></div>
-                    <div className="col-4">
+                    <div className="col-3">
                         <h2 className="h2">Authorization page</h2>
                         { this.state.error === '' ? null : <p style={{color: 'red'}}>{this.state.error}</p>}
 
@@ -72,7 +72,7 @@ class Login extends React.Component {
                             <a href="register" className="btn btn-primary" >Register</a>
                         </div>
                     </div>
-                    <div className="col-4"></div>
+                    <div className="col-5"></div>
                 </div>
             </Container>
         )
