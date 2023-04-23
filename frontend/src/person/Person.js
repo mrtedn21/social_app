@@ -99,7 +99,7 @@ class Person extends React.Component {
 
         return (
             <Container>
-                <PersonMainData person={this.state.person}/>
+                <PersonMainData can_edit={this.state.can_edit} person={this.state.person}/>
                 <div className="person-content">
 
                     <div className="row" style={{marginTop: '30px'}}>

@@ -38,10 +38,16 @@ class PersonMainData extends React.Component {
                                 </tr>
                             </tbody>
                         </table>
-                        <div>
-                            <input type="button" className="btn btn-primary" value="Open chat" style={{margin: '5px'}}/>
-                            <input type="button" className="btn btn-primary" value="Follow" style={{margin: '5px'}}/>
-                        </div>
+                        {this.props.can_edit !== true ?
+                            <div>
+                                <input type="button" className="btn btn-primary" value="Open chat"
+                                       style={{margin: '5px'}}/>
+                                <input type="button" className="btn btn-primary" value="Follow"
+                                       style={{margin: '5px'}}/>
+                            </div>
+                            :
+                            null
+                        }
                     </div>
                 </div>
                 <div className="col-4"></div>
