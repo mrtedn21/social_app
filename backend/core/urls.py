@@ -12,6 +12,7 @@ from post.views import GroupPostViewSet, PersonPostViewSet
 from rest_framework import routers
 from user_auth.views import AuthViewSet, RegisterViewSet
 from video.views import GroupVideoViewSet, PersonVideoViewSet
+from person.views import WhoAmIView
 
 router = routers.DefaultRouter()
 router.register(r'auth', AuthViewSet, basename='auth')
@@ -33,6 +34,7 @@ urlpatterns = (
     [
         path('api/', include(router.urls)),
         path('api/person_settings/', PersonSettingsView.as_view()),
+        path('api/who_am_i/', WhoAmIView.as_view()),
         path('admin/', admin.site.urls),
         path('__debug__/', include('debug_toolbar.urls')),
         path('api/schema/', SpectacularAPIView.as_view(), name='schema'),

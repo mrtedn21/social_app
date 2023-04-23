@@ -30,6 +30,11 @@ class PersonViewSet(viewsets.ModelViewSet):
 
 
 class PersonSettingsView(views.APIView):
-    def get(self, request, format=None):
+    def get(self, request, *args):
         serializer = PersonSettingsSerializer(Person.objects.none())
         return Response(serializer.data, status=HTTP_200_OK)
+
+
+class WhoAmIView(views.APIView):
+    def get(self, request, *args):
+        return Response({'person_pk': request.user.person.pk}, status=HTTP_200_OK)
