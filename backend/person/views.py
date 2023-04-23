@@ -11,6 +11,7 @@ from person.serializers import (
 from rest_framework import filters, views, viewsets
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
+from rest_framework.decorators import action
 
 
 class PersonViewSet(viewsets.ModelViewSet):
@@ -27,6 +28,10 @@ class PersonViewSet(viewsets.ModelViewSet):
             return PersonEditSerializer
         else:
             return PersonListSerializer
+
+    @action(detail=True, methods=('get',))
+    def can_i_edit(self, request, pk):
+        return Response({'result': request.user.person.pk == int(pk)}, HTTP_200_OK)
 
 
 class PersonSettingsView(views.APIView):
