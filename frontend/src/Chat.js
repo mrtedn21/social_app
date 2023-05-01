@@ -9,8 +9,9 @@ class Chat extends React.Component {
     constructor(props) {
         super(props);
 
-        this.text_input_handle =this.text_input_handle.bind(this)
+        this.text_input_handle = this.text_input_handle.bind(this)
         this.text_key_pressed =this.text_key_pressed.bind(this)
+        this.set_chat =this.set_chat.bind(this)
 
         this.state = {
             chats: undefined,
@@ -25,13 +26,18 @@ class Chat extends React.Component {
             url: 'http://localhost:8000/api/chats/',
             callback_with_data: async data => {
                 const selected_id = data.results[0].pk
-                this.setState({chats: data.results, selected_chat_id: selected_id})
-                await customFetchGet({
-                    url: 'http://localhost:8000/api/messages/?chat_id=' + selected_id.toString(),
-                    callback_with_data: data => this.setState({messages: data.results}),
-                })
+                this.setState({chats: data.results})
+                await this.set_chat(selected_id)
             },
         })
+    }
+
+    async set_chat(chat_id) {
+        await customFetchGet({
+            url: 'http://localhost:8000/api/messages/?chat_id=' + chat_id.toString(),
+            callback_with_data: data => this.setState({messages: data.results}),
+        })
+        this.setState({selected_chat_id: chat_id})
     }
 
     text_input_handle(event) {
@@ -73,7 +79,7 @@ class Chat extends React.Component {
                     <div style={{display: 'flex'}}>
                         <img height="60px" style={{display: 'inline-block'}} className="rounded" src="https://social-bucket-mrtedn.storage.yandexcloud.net/social-bucket-mrtedn/CACHE/images/person_avatars/oslo/dabb3f2f563b7dd09dbf9bbce09fb982.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YCAJENz7a58AelGO9p87eZn75%2F20230425%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230425T052828Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=ba49b224f975c9fe199a16ed8d0fe08735a7b4b1d44fb3894fbc08cd63e5030f" alt=""/>
                         <div style={{marginLeft: '9px'}}>
-                            <p style={{marginBottom: '5px', fontWeight: '500'}}>{chat.name}</p>
+                            <p style={{marginBottom: '5px', fontWeight: '500', cursor: 'pointer'}} onClick={async () => this.set_chat(chat.pk)}>{chat.name}</p>
                             <p style={{marginBottom: '5px', fontWeight: '300'}}>I wrote bla bla</p>
                         </div>
                     </div>
