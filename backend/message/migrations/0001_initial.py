@@ -29,6 +29,7 @@ class Migration(migrations.Migration):
                 ('date_time', models.DateTimeField(auto_now_add=True)),
                 ('chat', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='messages', to='message.chat')),
                 ('reply_to_message', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='message.message')),
+                ('created_by', models.ForeignKey(to='person.person', on_delete=models.PROTECT, related_name='messages')),
             ],
         ),
     ]

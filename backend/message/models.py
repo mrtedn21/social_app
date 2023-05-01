@@ -11,9 +11,10 @@ class Chat(models.Model):
 
 
 class Message(models.Model):
+    created_by = models.ForeignKey(Person, on_delete=models.PROTECT, related_name='messages')
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name='messages')
     text = models.TextField()
-    date_time = models.DateTimeField(auto_now_add=True)
+    date_time = models.DateTimeField(auto_now_add=True, db_index=True)
     reply_to_message = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
