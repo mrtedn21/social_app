@@ -40,16 +40,17 @@ class Settings extends React.Component {
 
     async componentDidMount() {
         await customFetchGet({
-            url: 'http://localhost:8000/api/persons/' + Cookies.get('user_pk') + '/',
-            callback_with_data: (data) => this.setState({
-                concrete_settings: data,
-                cities_for_select: this.state.initial_settings.countries.filter(country => country.pk.toString() === data.city.country_pk)[0].cities
-            })
-        })
-
-        await customFetchGet({
             url: 'http://localhost:8000/api/person_settings/',
-            callback_with_data: (data) => this.setState({initial_settings: data}),
+            callback_with_data: async (data) => {
+                this.setState({initial_settings: data})
+                await customFetchGet({
+                    url: 'http://localhost:8000/api/persons/' + Cookies.get('user_pk') + '/',
+                    callback_with_data: (data) => this.setState({
+                        concrete_settings: data,
+                        cities_for_select: this.state.initial_settings.countries.filter(country => country.pk.toString() === data.city.country_pk)[0].cities
+                    })
+                })
+            },
         })
     }
 
@@ -96,6 +97,7 @@ class Settings extends React.Component {
     }
 
     render() {
+        console.log(this.state)
         if (!this.state.initial_settings || !this.state.concrete_settings) {
             return null;
         }
