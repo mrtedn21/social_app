@@ -44,6 +44,7 @@ class Login extends React.Component {
             })
             .then(data => {
                 Cookies.set('token', data.token)
+                Cookies.set('user_pk', data.person_pk)
                 window.location.href = '/persons/' + data.person_pk + '/'
             })
     }

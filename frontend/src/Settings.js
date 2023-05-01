@@ -2,6 +2,7 @@ import React from 'react';
 
 import Container from "./Container";
 import { customFetchGet, customFetchPatch } from "./utils/customFetch";
+import Cookies from "js-cookie";
 
 
 const toBase64 = file => new Promise((resolve, reject) => {
@@ -39,17 +40,11 @@ class Settings extends React.Component {
 
     async componentDidMount() {
         await customFetchGet({
-            url: 'http://localhost:8000/api/who_am_i/',
-            callback_with_data: (data) => {
-                this.setState({person_pk: data.person_pk})
-                customFetchGet({
-                    url: 'http://localhost:8000/api/persons/' + data.person_pk + '/',
-                    callback_with_data: (data) => this.setState({
-                        concrete_settings: data,
-                        cities_for_select: this.state.initial_settings.countries.filter(country => country.pk.toString() === data.city.country_pk)[0].cities
-                    })
-                })
-            },
+            url: 'http://localhost:8000/api/persons/' + Cookies.get('user_pk') + '/',
+            callback_with_data: (data) => this.setState({
+                concrete_settings: data,
+                cities_for_select: this.state.initial_settings.countries.filter(country => country.pk.toString() === data.city.country_pk)[0].cities
+            })
         })
 
         await customFetchGet({
