@@ -2,24 +2,33 @@ import React from 'react';
 import Container from "./Container";
 import withRouter from "./WithRouter";
 import {customFetchGet} from "./utils/customFetch";
+import Cookies from "js-cookie";
 
 
 class Chat extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {chats: undefined}
+        this.state = {chats: undefined, selected_chat_id: undefined, messages: undefined}
     }
 
     async componentDidMount() {
         await customFetchGet({
             url: 'http://localhost:8000/api/chats/',
-            callback_with_data: data => this.setState({chats: data.results}),
+            callback_with_data: async data => {
+                const selected_id = data.results[0].pk
+                this.setState({chats: data.results, selected_chat_id: selected_id})
+                await customFetchGet({
+                    url: 'http://localhost:8000/api/messages/?chat_id=' + selected_id.toString(),
+                    callback_with_data: data => this.setState({messages: data.results}),
+                })
+            },
         })
     }
 
     render() {
-        if (this.state.chats === undefined) {
+        console.log(this.state)
+        if ((this.state.chats === undefined) || (this.state.messages === undefined)) {
             return null
         }
 
@@ -38,6 +47,17 @@ class Chat extends React.Component {
             )
         )
 
+        const messages = this.state.messages.map(message => {
+            const is_owner = message.created_by == Cookies.get('user_pk')
+            return (
+                <div className={'d-flex flex-row mb-2 justify-content-' + (is_owner ? 'end': 'start')}>
+                    <div className="p-3" style={{borderRadius: '15px', backgroundColor: (is_owner ? '#f6f6f6' : '#f0f2ff')}} >
+                        <p className="small mb-0">{message.text}</p>
+                    </div>
+                </div>
+            )
+        })
+
         return (
             <Container>
                 <class className="row" style={{paddingTop: '20px'}}>
@@ -48,36 +68,12 @@ class Chat extends React.Component {
                     <div className="col-7">
                         <div className="card" id="chat1" style={{borderRadius: '15px'}}>
                             <div className="card-body">
-
-                                <div className="d-flex flex-row justify-content-start mb-2">
-                                    <div className="p-3" style={{borderRadius: '15px', backgroundColor: '#f0f2ff'}}>
-                                        <p className="small mb-0">Hello and thank you for. Please click the video below.</p>
-                                    </div>
-                                </div>
-
-                                <div className="d-flex flex-row justify-content-end mb-2">
-                                    <div className="p-3" style={{borderRadius: '15px', backgroundColor: '#f6f6f6'}} >
-                                        <p className="small mb-0">Hello and click the video below.</p>
-                                    </div>
-                                </div>
-
-                                <div className="d-flex flex-row justify-content-start mb-2">
-                                    <div className="p-3" style={{borderRadius: '15px', backgroundColor: '#f0f2ff'}}>
-                                        <p className="small mb-0">Hello and for visiting MDBootstrap. Please click the video below.</p>
-                                    </div>
-                                </div>
-
-                                <div className="d-flex flex-row justify-content-end mb-2">
-                                    <div className="p-3" style={{borderRadius: '15px', backgroundColor: '#f6f6f6'}} >
-                                        <p className="small mb-0">Hello and thank you for visiting MDBootstrap. Please click the video below.</p>
-                                    </div>
-                                </div>
+                                {messages}
 
                                 <div className="form-outline">
                                     <textarea className="form-control" id="textAreaExample" rows="2" />
                                 </div>
-
-                          </div>
+                            </div>
                         </div>
                         <div className="col-2"></div>
                     </div>
