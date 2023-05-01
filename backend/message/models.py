@@ -1,10 +1,12 @@
 from django.db import models
 from person.models import Person
+from core.models import null_and_blank
 
 
 class Chat(models.Model):
     name = models.CharField(max_length=64, null=True, blank=True)
     participants = models.ManyToManyField(Person, related_name='chats')
+    last_message = models.ForeignKey('message.Message', on_delete=models.SET_NULL, **null_and_blank, related_name='chat_for_last')
 
     def __str__(self):
         return f'Chat: {self.name}'
@@ -19,3 +21,12 @@ class Message(models.Model):
 
     def __str__(self):
         return f'Message of text: {self.text}'
+
+    class MessageManager(models.Manager):
+        def create(self, chat: Chat, **kwargs):
+            message = super().create(chat=chat, **kwargs)
+            chat.last_message = message
+            chat.save(update_fields=('last_message',))
+            return message
+
+    objects = MessageManager()

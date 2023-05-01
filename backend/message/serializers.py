@@ -21,6 +21,8 @@ class MessageCreateSerializer(serializers.ModelSerializer):
 
 
 class ChatListSerializer(serializers.ModelSerializer):
+    last_message = MessageListSerializer()
+
     class Meta:
         model = Chat
-        fields = ('pk', 'name', 'participants')
+        fields = ('pk', 'name', 'participants', 'last_message')

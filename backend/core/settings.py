@@ -111,6 +111,7 @@ DATABASES = {
         'CONN_MAX_AGE': 600,
     }
 }
+ATOMIC_REQUESTS = True
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

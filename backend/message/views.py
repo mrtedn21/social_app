@@ -12,7 +12,7 @@ class ChatViewSet(viewsets.ModelViewSet):
     serializer_class = ChatListSerializer
 
     def get_queryset(self):
-        return Chat.objects.filter(participants__in=(self.request.user.person,))
+        return Chat.objects.filter(participants__in=(self.request.user.person,)).order_by('-last_message__date_time')
 
 
 class MessageViewSet(viewsets.ModelViewSet):
