@@ -1,7 +1,7 @@
 import React from 'react';
 import Container from "./Container";
 import withRouter from "./WithRouter";
-import {customFetchGet} from "./utils/customFetch";
+import {customFetchGet, customFetchPost} from "./utils/customFetch";
 import Cookies from "js-cookie";
 
 
@@ -9,7 +9,15 @@ class Chat extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {chats: undefined, selected_chat_id: undefined, messages: undefined}
+        this.text_input_handle =this.text_input_handle.bind(this)
+        this.text_key_pressed =this.text_key_pressed.bind(this)
+
+        this.state = {
+            chats: undefined,
+            selected_chat_id: undefined,
+            messages: undefined,
+            new_message_text: undefined,
+        }
     }
 
     async componentDidMount() {
@@ -26,8 +34,35 @@ class Chat extends React.Component {
         })
     }
 
+    text_input_handle(event) {
+        this.setState({new_message_text: event.target.value})
+    }
+
+    async text_key_pressed(event) {
+        if (event.key === 'Enter') {
+            if (event.ctrlKey) {
+                const old_value = event.target.value
+                const new_value = old_value + '\n'
+
+                event.target.value = new_value
+                this.setState({new_message_text: new_value})
+            }
+            else {
+                event.preventDefault()
+                let formData = new FormData()
+                formData.append('text', this.state.new_message_text)
+                formData.append('chat', this.state.selected_chat_id)
+
+                await customFetchPost({
+                    url: 'http://localhost:8000/api/messages/',
+                    callback_with_data: data => window.location.reload(),
+                    body: formData,
+                })
+            }
+        }
+    }
+
     render() {
-        console.log(this.state)
         if ((this.state.chats === undefined) || (this.state.messages === undefined)) {
             return null
         }
@@ -71,7 +106,7 @@ class Chat extends React.Component {
                                 {messages}
 
                                 <div className="form-outline">
-                                    <textarea className="form-control" id="textAreaExample" rows="2" />
+                                    <textarea autoFocus={true} className="form-control" id="textAreaExample" rows="2" onInput={this.text_input_handle} onKeyPress={this.text_key_pressed}/>
                                 </div>
                             </div>
                         </div>
