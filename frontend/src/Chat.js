@@ -88,7 +88,11 @@ class Chat extends React.Component {
         }
 
         const chats = this.state.chats.map(chat => (
-            <div className="card" id="chat1" style={{borderRadius: '15px', marginBottom: '10px'}}>
+            <div className="card" id="chat1" style={{
+                borderRadius: '15px',
+                marginBottom: '10px',
+                backgroundColor: chat.pk == this.state.selected_chat_id ? '#e6efff' : 'white'
+            }}>
                 <div className="card-body" style={{padding: '12px'}}>
                     <div style={{display: 'flex'}}>
                         <img height="60px" style={{display: 'inline-block'}} className="rounded" src="https://social-bucket-mrtedn.storage.yandexcloud.net/social-bucket-mrtedn/CACHE/images/person_avatars/oslo/dabb3f2f563b7dd09dbf9bbce09fb982.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YCAJENz7a58AelGO9p87eZn75%2F20230425%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230425T052828Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=ba49b224f975c9fe199a16ed8d0fe08735a7b4b1d44fb3894fbc08cd63e5030f" alt=""/>
