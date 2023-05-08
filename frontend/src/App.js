@@ -24,6 +24,7 @@ const router = createBrowserRouter([
     {path: '/register', element: <Register />},
     {path: '/register/submit', element: <RegisterSubmit />},
     {path: '/settings', element: <Settings />},
+    {path: '/chat/', element: <Chat />},
     {path: '/chat/:pk', element: <Chat />},
 ])
 

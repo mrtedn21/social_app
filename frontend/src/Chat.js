@@ -14,8 +14,9 @@ class Chat extends React.Component {
         this.text_key_pressed =this.text_key_pressed.bind(this)
         this.set_chat =this.set_chat.bind(this)
         this.scrollToBottom = this.scrollToBottom.bind(this)
-        this.messages_list_container = React.createRef()
+        this.display_chat_name = this.display_chat_name.bind(this)
 
+        this.messages_list_container = React.createRef()
         this.state = {
             chats: undefined,
             selected_chat_id: undefined,
@@ -24,13 +25,57 @@ class Chat extends React.Component {
         }
     }
 
+    search_direct_chat_from_link(chat, direct_person_pk) {
+        if (chat.type !== 'direct') {
+            return false
+        }
+        if ((chat.first_person.pk == direct_person_pk) || (chat.second_person.pk == direct_person_pk)) {
+            return true
+        }
+    }
+
     async componentDidMount() {
+        const params = new Proxy(new URLSearchParams(window.location.search), {
+            get: (searchParams, prop) => searchParams.get(prop),
+        });
+
         await customFetchGet({
             url: 'http://localhost:8000/api/chats/',
             callback_with_data: async data => {
-                const selected_id = data.results[0].pk
-                this.setState({chats: data.results})
-                await this.set_chat(this.props.params.pk)
+                let results = data.results
+                const first_id = results[0].pk
+
+                const direct_chats_from_link = results.filter(chat => this.search_direct_chat_from_link(chat, params.direct_person_pk))
+                let direct_chat_pk_from_link = undefined
+                if ((direct_chats_from_link) && (direct_chats_from_link[0])) {
+                    direct_chat_pk_from_link = direct_chats_from_link[0].pk
+                    await this.set_chat(direct_chat_pk_from_link)
+                } else {
+                    if (params.direct_person_pk) {
+                        await customFetchGet({
+                            url: 'http://localhost:8000/api/persons/' + params.direct_person_pk,
+                            callback_with_data: async data => {
+                                results.splice(0, 0, {
+                                    pk: 0,
+                                    type: "direct",
+                                    first_person: {
+                                        pk: Cookies.get('user_pk'),
+                                    },
+                                    second_person: {
+                                        pk: data.pk,
+                                        avatar_thumbnail: data.avatar_thumbnail,
+                                        first_name: data.first_name,
+                                        last_name: data.last_name,
+                                    }
+                                })
+                            }
+                        })
+                        await this.set_chat(0)
+                    } else {
+                        await this.set_chat(this.props.params.pk || first_id)
+                    }
+                }
+                this.setState({chats: results})
             },
         })
     }
@@ -47,10 +92,13 @@ class Chat extends React.Component {
     }
 
     async set_chat(chat_id) {
-        await customFetchGet({
-            url: 'http://localhost:8000/api/messages/?chat_id=' + chat_id.toString(),
-            callback_with_data: data => this.setState({messages: data.results}),
-        })
+        if (chat_id !== 0) {
+            await customFetchGet({
+                url: 'http://localhost:8000/api/messages/?chat_id=' + chat_id.toString(),
+                callback_with_data: data => this.setState({messages: data.results}),
+            })
+        }
+
         this.setState({selected_chat_id: chat_id})
         window.history.replaceState(null, 'React App', '/chat/' + chat_id.toString())
     }
@@ -72,7 +120,12 @@ class Chat extends React.Component {
                 event.preventDefault()
                 let formData = new FormData()
                 formData.append('text', this.state.new_message_text)
-                formData.append('chat', this.state.selected_chat_id)
+                if (this.state.selected_chat_id !== 0) {
+                    formData.append('chat', this.state.selected_chat_id)
+                } else {
+                    let chats = this.state.chats.filter(chat => chat.pk == this.state.selected_chat_id)
+                    formData.append('target_person', chats[0].second_person.pk)
+                }
 
                 await customFetchPost({
                     url: 'http://localhost:8000/api/messages/',
@@ -83,8 +136,32 @@ class Chat extends React.Component {
         }
     }
 
+    display_chat_name(chat) {
+        if (chat.type === 'group') {
+            return chat.name
+        }
+        if (chat.first_person.pk == Cookies.get('user_pk')) {
+            return chat.second_person.last_name + ' ' + chat.second_person.first_name
+        }
+        if (chat.second_person.pk == Cookies.get('user_pk')) {
+            return chat.first_person.last_name + ' ' + chat.first_person.first_name
+        }
+    }
+
+    display_thumbnail(chat) {
+        if (chat.type === 'group') {
+            return ''
+        }
+        if (chat.first_person.pk == Cookies.get('user_pk')) {
+            return chat.second_person.avatar_thumbnail
+        }
+        if (chat.second_person.pk == Cookies.get('user_pk')) {
+            return chat.first_person.avatar_thumbnail
+        }
+    }
+
     render() {
-        if ((this.state.chats === undefined) || (this.state.messages === undefined)) {
+        if (this.state.chats === undefined) {
             return null
         }
 
@@ -96,10 +173,10 @@ class Chat extends React.Component {
             }}>
                 <div className="card-body" style={{padding: '12px'}}>
                     <div style={{display: 'flex'}}>
-                        <img height="60px" style={{display: 'inline-block'}} className="rounded" src="https://social-bucket-mrtedn.storage.yandexcloud.net/social-bucket-mrtedn/CACHE/images/person_avatars/oslo/dabb3f2f563b7dd09dbf9bbce09fb982.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YCAJENz7a58AelGO9p87eZn75%2F20230425%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230425T052828Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=ba49b224f975c9fe199a16ed8d0fe08735a7b4b1d44fb3894fbc08cd63e5030f" alt=""/>
+                        <img height="60px" style={{display: 'inline-block'}} className="rounded" src={this.display_thumbnail(chat)} alt=""/>
                         <div style={{marginLeft: '9px'}}>
-                            <p style={{marginBottom: '5px', fontWeight: '500', cursor: 'pointer'}} onClick={async () => this.set_chat(chat.pk)}>{chat.name}</p>
-                            <p style={{marginBottom: '5px', fontWeight: '300'}}>{chat.last_message.text}</p>
+                            <p style={{marginBottom: '5px', fontWeight: '500', cursor: 'pointer'}} onClick={async () => this.set_chat(chat.pk)}>{this.display_chat_name(chat)}</p>
+                            <p style={{marginBottom: '5px', fontWeight: '300'}}>{chat.last_message?.text}</p>
                         </div>
                     </div>
                 </div>
@@ -107,16 +184,19 @@ class Chat extends React.Component {
             )
         )
 
-        const messages = this.state.messages.map(message => {
-            const is_owner = message.created_by == Cookies.get('user_pk')
-            return (
-                <div className={'d-flex flex-row mb-2 justify-content-' + (is_owner ? 'end': 'start')}>
-                    <div className="p-3" style={{borderRadius: '15px', backgroundColor: (is_owner ? '#f6f6f6' : '#f0f2ff')}} >
-                        <p className="small mb-0">{message.text}</p>
+        let messages = []
+        if (this.state.messages) {
+            messages = this.state.messages.map(message => {
+                const is_owner = message.created_by == Cookies.get('user_pk')
+                return (
+                    <div className={'d-flex flex-row mb-2 justify-content-' + (is_owner ? 'end': 'start')}>
+                        <div className="p-3" style={{borderRadius: '15px', backgroundColor: (is_owner ? '#f6f6f6' : '#f0f2ff')}} >
+                            <p className="small mb-0">{message.text}</p>
+                        </div>
                     </div>
-                </div>
-            )
-        })
+                )
+            })
+        }
 
         return (
             <Container>

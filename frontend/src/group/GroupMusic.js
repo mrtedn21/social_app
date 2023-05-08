@@ -95,7 +95,7 @@ class GroupMusic extends React.Component {
                         <label className="form-label">File</label>
                         <input type="file" name="file" className="form-control" accept="audio/*" onChange={this.inputFileHandle}/>
                     </div>
-                    <input type="button" value="Add video" className="btn btn-primary" onClick={this.songUpload} style={{marginBottom: '30px'}}/>
+                    <input type="button" value="Add song" className="btn btn-primary" onClick={this.songUpload} style={{marginBottom: '30px'}}/>
                 </form>
                 <div className="row">
                     {this.props.music.map(song =>

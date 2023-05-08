@@ -10,7 +10,7 @@ class Chat(models.Model):
         SELF = 'self'
 
     name = models.CharField(max_length=64, **null_and_blank)
-    participants = models.ManyToManyField(Person, related_name='chats')
+    participants = models.ManyToManyField(Person, related_name='chats', **null_and_blank)
     last_message = models.ForeignKey('message.Message', on_delete=models.SET_NULL, related_name='chat_for_last', **null_and_blank)
     type = models.CharField(max_length=16, choices=Types.choices, default=Types.DIRECT)
     first_person = models.ForeignKey(Person, on_delete=models.CASCADE,  related_name='first_person_chat', **null_and_blank)

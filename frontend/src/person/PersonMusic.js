@@ -94,7 +94,7 @@ class PersonMusic extends React.Component {
                             <input type="file" name="file" className="form-control" accept="audio/*"
                                    onChange={this.inputFileHandle}/>
                         </div>
-                        <input type="button" value="Add video" className="btn btn-primary" onClick={this.songUpload}
+                        <input type="button" value="Add song" className="btn btn-primary" onClick={this.songUpload}
                                style={{marginBottom: '30px'}}/>
                     </form>
                     :

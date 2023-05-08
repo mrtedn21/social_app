@@ -17,7 +17,6 @@ class PersonList extends React.Component {
             },
         }
 
-        this.selectThemeHandle = this.selectThemeHandle.bind(this)
         this.clearFilters = this.clearFilters.bind(this)
         this.onSearchEnter = this.onSearchEnter.bind(this)
         this.inputFilterHandle = this.inputFilterHandle.bind(this)
@@ -48,12 +47,6 @@ class PersonList extends React.Component {
             url: 'http://localhost:8000/api/persons/?' + new URLSearchParams(filters),
             callback_with_data: data => this.setState({persons: data.results}),
         })
-    }
-
-    async selectThemeHandle(event) {
-        //await fetch('http://localhost:8000/api/persons/?theme_slug=' + event.target.value)
-        //    .then(response => response.status === 200 ? response.json() : undefined)
-        //    .then(data => this.setState({persons: data.results}))
     }
 
     clearFilters(event) {
@@ -88,7 +81,7 @@ class PersonList extends React.Component {
                         </div>
                     </div>
                     <div className="col-md-3">
-                        <input type="button" value="Following" className="btn btn-primary" style={{marginTop: '10px', marginRight: '10px', float: 'right'}}/>
+                        <a href={'/chat/?direct_person_pk=' + person.pk} type="button" className="btn btn-primary" style={{marginTop: '10px', marginRight: '10px', float: 'right'}}>Open chat</a>
                     </div>
                 </div>
             </div>

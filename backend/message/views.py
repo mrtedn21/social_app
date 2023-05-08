@@ -7,6 +7,7 @@ from message.serializers import (
 from rest_framework import viewsets
 from rest_framework.exceptions import ValidationError
 from django.db.models import Q
+from person.models import Person
 
 
 class ChatViewSet(viewsets.ModelViewSet):
@@ -35,4 +36,10 @@ class MessageViewSet(viewsets.ModelViewSet):
         return Message.objects.filter(chat_id=chat_id)
 
     def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user.person)
+        chat_pk = self.request.data.get('chat')
+        if chat_pk:
+            chat = Chat.objects.get(pk=int(chat_pk))
+        else:
+            target_person = Person.objects.get(pk=int(self.request.data['target_person']))
+            chat = Chat.objects.create(first_person=self.request.user.person, second_person=target_person)
+        serializer.save(created_by=self.request.user.person, chat=chat)
