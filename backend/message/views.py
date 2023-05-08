@@ -6,13 +6,18 @@ from message.serializers import (
 )
 from rest_framework import viewsets
 from rest_framework.exceptions import ValidationError
+from django.db.models import Q
 
 
 class ChatViewSet(viewsets.ModelViewSet):
     serializer_class = ChatListSerializer
 
     def get_queryset(self):
-        return Chat.objects.filter(participants__in=(self.request.user.person,)).order_by('-last_message__date_time')
+        return Chat.objects.filter(
+            Q(participants__in=(self.request.user.person,)) |
+            Q(first_person=self.request.user.person) |
+            Q(second_person=self.request.user.person)
+        ).order_by('-last_message__date_time')
 
 
 class MessageViewSet(viewsets.ModelViewSet):

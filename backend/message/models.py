@@ -4,12 +4,17 @@ from core.models import null_and_blank
 
 
 class Chat(models.Model):
-    name = models.CharField(max_length=64, null=True, blank=True)
-    participants = models.ManyToManyField(Person, related_name='chats')
-    last_message = models.ForeignKey('message.Message', on_delete=models.SET_NULL, **null_and_blank, related_name='chat_for_last')
+    class Types(models.TextChoices):
+        DIRECT = 'direct'
+        GROUP = 'group'
+        SELF = 'self'
 
-    def __str__(self):
-        return f'Chat: {self.name}'
+    name = models.CharField(max_length=64, **null_and_blank)
+    participants = models.ManyToManyField(Person, related_name='chats')
+    last_message = models.ForeignKey('message.Message', on_delete=models.SET_NULL, related_name='chat_for_last', **null_and_blank)
+    type = models.CharField(max_length=16, choices=Types.choices, default=Types.DIRECT)
+    first_person = models.ForeignKey(Person, on_delete=models.CASCADE,  related_name='first_person_chat', **null_and_blank)
+    second_person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='second_person_chat', **null_and_blank)
 
 
 class Message(models.Model):

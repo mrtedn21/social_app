@@ -25,4 +25,4 @@ class ChatListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Chat
-        fields = ('pk', 'name', 'participants', 'last_message')
+        fields = ('pk', 'name', 'participants', 'last_message', 'type')
