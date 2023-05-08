@@ -6,9 +6,9 @@ from person.models import Person
 
 class BaseVideo(models.Model, metaclass=MultiImageMeta):
     video = models.FileField(upload_to='videos')
-    preview = models.ImageField(upload_to='video_previews')
-    name = models.TextField(blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
+    preview = models.ImageField(upload_to='video_previews', **null_and_blank)
+    name = models.TextField(**null_and_blank)
+    description = models.TextField(**null_and_blank)
     date_time = models.DateTimeField(auto_now_add=True)
 
     class Meta:
