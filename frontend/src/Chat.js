@@ -30,7 +30,7 @@ class Chat extends React.Component {
             callback_with_data: async data => {
                 const selected_id = data.results[0].pk
                 this.setState({chats: data.results})
-                await this.set_chat(selected_id)
+                await this.set_chat(this.props.params.pk)
             },
         })
     }
@@ -52,6 +52,7 @@ class Chat extends React.Component {
             callback_with_data: data => this.setState({messages: data.results}),
         })
         this.setState({selected_chat_id: chat_id})
+        window.history.replaceState(null, 'React App', '/chat/' + chat_id.toString())
     }
 
     text_input_handle(event) {
