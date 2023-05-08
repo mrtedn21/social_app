@@ -3,6 +3,7 @@ import Container from "./Container";
 import withRouter from "./WithRouter";
 import {customFetchGet, customFetchPost} from "./utils/customFetch";
 import Cookies from "js-cookie";
+import './utils/Outline.css'
 
 
 class Chat extends React.Component {
@@ -12,6 +13,8 @@ class Chat extends React.Component {
         this.text_input_handle = this.text_input_handle.bind(this)
         this.text_key_pressed =this.text_key_pressed.bind(this)
         this.set_chat =this.set_chat.bind(this)
+        this.scrollToBottom = this.scrollToBottom.bind(this)
+        this.messages_list_container = React.createRef()
 
         this.state = {
             chats: undefined,
@@ -30,6 +33,17 @@ class Chat extends React.Component {
                 await this.set_chat(selected_id)
             },
         })
+    }
+
+    componentDidUpdate(prevProps, prevState, snapShot) {
+        this.scrollToBottom()
+    }
+
+    scrollToBottom() {
+        const messages_list = this.messages_list_container.current
+        if (messages_list) {
+            messages_list.scrollTop = messages_list.scrollHeight
+        }
     }
 
     async set_chat(chat_id) {
@@ -109,10 +123,12 @@ class Chat extends React.Component {
                     <div className="col-7">
                         <div className="card" id="chat1" style={{borderRadius: '15px'}}>
                             <div className="card-body">
-                                {messages}
-
+                                <div ref={this.messages_list_container} style={{height: '600px', overflow: 'auto', marginBottom: '10px'}}>
+                                    {messages}
+                                </div>
                                 <div className="form-outline">
-                                    <textarea autoFocus={true} className="form-control" id="textAreaExample" rows="2" onInput={this.text_input_handle} onKeyPress={this.text_key_pressed}/>
+                                    <textarea autoFocus={true} className="form-control without_outline" id="textAreaExample"
+                                              rows="2" onInput={this.text_input_handle} onKeyPress={this.text_key_pressed}/>
                                 </div>
                             </div>
                         </div>

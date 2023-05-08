@@ -1,0 +1,10 @@
+.without_outline {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #ced4da;
+}
+.without_outline:focus {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #ced4da;
+}
