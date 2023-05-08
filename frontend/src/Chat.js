@@ -59,7 +59,7 @@ class Chat extends React.Component {
                                     pk: 0,
                                     type: "direct",
                                     first_person: {
-                                        pk: Cookies.get('user_pk'),
+                                        pk: Cookies.get('person_pk'),
                                     },
                                     second_person: {
                                         pk: data.pk,
@@ -140,10 +140,10 @@ class Chat extends React.Component {
         if (chat.type === 'group') {
             return chat.name
         }
-        if (chat.first_person.pk == Cookies.get('user_pk')) {
+        if (chat.first_person.pk == Cookies.get('person_pk')) {
             return chat.second_person.last_name + ' ' + chat.second_person.first_name
         }
-        if (chat.second_person.pk == Cookies.get('user_pk')) {
+        if (chat.second_person.pk == Cookies.get('person_pk')) {
             return chat.first_person.last_name + ' ' + chat.first_person.first_name
         }
     }
@@ -152,10 +152,10 @@ class Chat extends React.Component {
         if (chat.type === 'group') {
             return ''
         }
-        if (chat.first_person.pk == Cookies.get('user_pk')) {
+        if (chat.first_person.pk == Cookies.get('person_pk')) {
             return chat.second_person.avatar_thumbnail
         }
-        if (chat.second_person.pk == Cookies.get('user_pk')) {
+        if (chat.second_person.pk == Cookies.get('person_pk')) {
             return chat.first_person.avatar_thumbnail
         }
     }
@@ -187,7 +187,7 @@ class Chat extends React.Component {
         let messages = []
         if (this.state.messages) {
             messages = this.state.messages.map(message => {
-                const is_owner = message.created_by == Cookies.get('user_pk')
+                const is_owner = message.created_by == Cookies.get('person_pk')
                 return (
                     <div className={'d-flex flex-row mb-2 justify-content-' + (is_owner ? 'end': 'start')}>
                         <div className="p-3" style={{borderRadius: '15px', backgroundColor: (is_owner ? '#f6f6f6' : '#f0f2ff')}} >

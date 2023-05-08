@@ -17,7 +17,6 @@ class Settings extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            person_pk: undefined,
             initial_settings: undefined,
             concrete_settings: undefined,
             cities_for_select: undefined,
@@ -44,7 +43,7 @@ class Settings extends React.Component {
             callback_with_data: async (data) => {
                 this.setState({initial_settings: data})
                 await customFetchGet({
-                    url: 'http://localhost:8000/api/persons/' + Cookies.get('user_pk') + '/',
+                    url: 'http://localhost:8000/api/persons/' + Cookies.get('person_pk') + '/',
                     callback_with_data: (data) => this.setState({
                         concrete_settings: data,
                         cities_for_select: this.state.initial_settings.countries.filter(country => country.pk.toString() === data.city.country_pk)[0].cities
@@ -83,7 +82,7 @@ class Settings extends React.Component {
         if (this.state.languages) {requestData['languages'] = this.state.languages}
 
         await customFetchPatch({
-            url: 'http://localhost:8000/api/persons/' + this.state.person_pk + '/',
+            url: 'http://localhost:8000/api/persons/' + Cookies.get('person_pk') + '/',
             callback_with_data: (data) => window.location.reload(),
             body: JSON.stringify(requestData),
             content_type: 'application/json',
