@@ -2,6 +2,7 @@ import React from 'react';
 import {
     createBrowserRouter,
     RouterProvider,
+    Navigate,
 } from "react-router-dom"
 
 import GroupList from "./group/GroupList"
@@ -17,6 +18,7 @@ import Musiclist from "./Musiclist";
 
 
 const router = createBrowserRouter([
+    {path: '/', element: <Navigate to='persons/' />},
     {path: '/persons/:pk', element: <Person />},
     {path: '/persons/', element: <PersonList />},
     {path: '/music/', element: <Musiclist />},
