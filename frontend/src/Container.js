@@ -12,7 +12,7 @@ class Container extends React.Component {
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item"><a className="nav-link active" href="/chat">Messages</a></li>
                                 <li className="nav-item"><a className="nav-link active" href="#">News</a></li>
-                                <li className="nav-item"><a className="nav-link active" href="#">Music</a></li>
+                                <li className="nav-item"><a className="nav-link active" href="/music/">Music</a></li>
                                 <li className="nav-item"><a className="nav-link active" href="/groups/">Groups</a></li>
                                 <li className="nav-item"><a className="nav-link active" href="/persons">People</a></li>
                                 <li className="nav-item"><a className="nav-link active" href="/settings/">Settings</a></li>

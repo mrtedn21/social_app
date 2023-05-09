@@ -13,11 +13,13 @@ import RegisterSubmit from "./auth/RegisterSubmit";
 import Settings from "./Settings";
 import PersonList from "./person/PersonList";
 import Chat from "./Chat"
+import Musiclist from "./Musiclist";
 
 
 const router = createBrowserRouter([
     {path: '/persons/:pk', element: <Person />},
     {path: '/persons/', element: <PersonList />},
+    {path: '/music/', element: <Musiclist />},
     {path: '/groups', element: <GroupList />},
     {path: '/groups/:slug', element: <Group />},
     {path: '/login', element: <Login />},
