@@ -31,7 +31,7 @@ class PersonPosts extends React.Component {
                     <div className="card-body">
                         <div className="row">
                             <div className="col-10">
-                                <p className="card-text" style={{textAlign: 'left'}}>{post.text}</p>
+                                <p className="card-text" style={{textAlign: 'left'}}  dangerouslySetInnerHTML={{__html: post.text}}></p>
                             </div>
                             <div className="col-2">
                                 {this.props.can_edit ?
