@@ -3,12 +3,14 @@ from music.serializers import (
     GroupSongCreateSerializer,
     GroupSongListSerializer,
     PersonSongListSerializer,
+    SongSerializer,
 )
 from music.tasks import fill_song_fields_by_tags
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED
-from music.filters import GroupSongFilter, PersonSongFilter
+from music.filters import CommonSongFilter, GroupSongFilter, PersonSongFilter
+from music.models import Song
 
 
 class PersonSongViewSet(viewsets.ModelViewSet):
@@ -38,3 +40,9 @@ class GroupSongViewSet(viewsets.ModelViewSet):
             return GroupSongCreateSerializer
         else:
             return GroupSongListSerializer
+
+
+class CommonMusicViewSet(viewsets.ModelViewSet):
+    queryset = Song.objects.all().prefetch_related('album', 'artist')
+    serializer_class = SongSerializer
+    filterset_class = CommonSongFilter

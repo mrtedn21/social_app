@@ -1,5 +1,5 @@
 from django_filters.rest_framework import FilterSet
-from music.models import GroupSong, PersonSong
+from music.models import GroupSong, PersonSong, Song
 from django_filters import filters
 
 
@@ -15,3 +15,15 @@ class GroupSongFilter(FilterSet):
     class Meta:
         model = GroupSong
         fields = ('group_slug',)
+
+
+class CommonSongFilter(FilterSet):
+    title = filters.CharFilter(field_name='group__slug', lookup_expr='icontains')
+    artist = filters.CharFilter(field_name='artist__name', lookup_expr='icontains')
+    album = filters.CharFilter(field_name='album__name', lookup_expr='icontains')
+    year_lte = filters.CharFilter(field_name='album__name', lookup_expr='lte')
+    year_gte = filters.CharFilter(field_name='album__name', lookup_expr='gte')
+
+    class Meta:
+        model = Song
+        fields = ('title', 'artist', 'album', 'year_lte', 'year_gte')
