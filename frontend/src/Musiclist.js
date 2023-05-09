@@ -95,15 +95,6 @@ class MusicList extends React.Component {
                             <input type="input" name="album" onInput={this.inputFilterHandle} className="form-control" id="city_filterwer"/>
                         </div>
 
-                        <div className="mb-3">
-                            <label htmlFor="age_gt_filter" className="form-label">Год выпуска, от</label>
-                            <input type="input" name="year_gte" onInput={this.inputFilterHandle} className="form-control" id="age_gt_filter"/>
-                        </div>
-
-                        <div className="mb-3">
-                            <label htmlFor="age_lt_filter" className="form-label">Год выпуска, до</label>
-                            <input type="input" name="year_lte" onInput={this.inputFilterHandle} className="form-control" id="age_lt_filter"/>
-                        </div>
 
                         <input type="button" className="btn btn-outline-primary" value="Применить фильтры" style={{marginTop: '10px'}} onClick={this.supplyFilters}/>
                         <input type="button" className="btn btn-outline-danger" value="Очистить фильтры" style={{marginTop: '10px'}} onClick={this.clearFilters}/>

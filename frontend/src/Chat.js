@@ -176,7 +176,7 @@ class Chat extends React.Component {
                         <img height="60px" style={{display: 'inline-block'}} className="rounded" src={this.display_thumbnail(chat)} alt=""/>
                         <div style={{marginLeft: '9px'}}>
                             <p style={{marginBottom: '5px', fontWeight: '500', cursor: 'pointer'}} onClick={async () => this.set_chat(chat.pk)}>{this.display_chat_name(chat)}</p>
-                            <p style={{marginBottom: '5px', fontWeight: '300'}}>{chat.last_message?.text}</p>
+                            <p style={{marginBottom: '5px', fontWeight: '300'}}>{chat.last_message?.text.slice(0, 20)}...</p>
                         </div>
                     </div>
                 </div>

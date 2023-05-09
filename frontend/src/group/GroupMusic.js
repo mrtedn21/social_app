@@ -61,7 +61,7 @@ class GroupMusic extends React.Component {
                 <div className="row">
                     {this.props.music.map(song =>
                         <div className="col-12">
-                            <p style={{float: 'left', marginBottom: 0, marginTop: '5px'}}>{song.artist} {song.title}</p>
+                            <p style={{float: 'left', marginBottom: 0, marginTop: '5px'}}>{song.artist} - {song.title}</p>
                             <audio controls={true} src={song.file} key={song.pk.toString()} style={{width: '600px'}}/>
                         </div>
                     )}

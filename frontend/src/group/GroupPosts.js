@@ -34,12 +34,6 @@ class GroupPosts extends React.Component {
                                 <p className="card-text" style={{textAlign: 'left'}}  dangerouslySetInnerHTML={{__html: post.text}}></p>
                             </div>
                             <div className="col-2">
-                                <FaTrash
-                                    style={{position: 'relative', top: '-6px', right: '-20px'}}
-                                    onMouseOver={({target})=>target.style.color="red"}
-                                    onMouseOut={({target})=>target.style.color="black"}
-                                    onClick={() => this.deletePost(post.pk)}
-                                />
                             </div>
                         </div>
                         <div className="row">
