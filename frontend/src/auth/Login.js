@@ -39,7 +39,7 @@ class Login extends React.Component {
                     return response.json()
                 }
                 else {
-                    this.setState({error: 'Incorrect username or password'})
+                    this.setState({error: 'Неправильный логин или пароль'})
                 }
             })
             .then(data => {
@@ -55,22 +55,22 @@ class Login extends React.Component {
                 <div className="row" style={{marginTop: '15px'}}>
                     <div className="col-4"></div>
                     <div className="col-3">
-                        <h2 className="h2">Authorization page</h2>
+                        <h2 className="h2">Авторизация</h2>
                         { this.state.error === '' ? null : <p style={{color: 'red'}}>{this.state.error}</p>}
 
                         <div className="mb-3">
-                            <label htmlFor="exampleFormControlInput1" className="form-label">Username</label>
+                            <label htmlFor="exampleFormControlInput1" className="form-label">Логин</label>
                             <input type="username" name="username" className="form-control" id="exampleFormControlInput1" onChange={this.inputHandle}/>
                         </div>
 
                         <div className="mb-3">
-                            <label htmlFor="password_id" className="form-label">Password</label>
+                            <label htmlFor="password_id" className="form-label">Пароль</label>
                             <input type="password" name="password" className="form-control" id="password_id" onChange={this.inputHandle}/>
                         </div>
 
                         <div style={{display: 'flex', justifyContent: 'space-around'}}>
-                            <input type="submit" onClick={this.clickHandle} value="Login" className="btn btn-primary" />
-                            <a href="register" className="btn btn-primary" >Register</a>
+                            <input type="submit" onClick={this.clickHandle} value="Вход" className="btn btn-primary" />
+                            <a href="register" className="btn btn-primary" >Регистрация</a>
                         </div>
                     </div>
                     <div className="col-5"></div>

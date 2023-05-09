@@ -82,7 +82,13 @@ class Group extends React.Component {
             } else {
                 className = 'nav-link'
             }
-            return <Tab className={className} style={{cursor: 'pointer', userSelect: 'none'}}>{tab.name}</Tab>
+
+            let tab_name
+            if (tab.name == 'Posts') {tab_name = 'Посты'}
+            if (tab.name == 'Photos') {tab_name = 'Фото'}
+            if (tab.name == 'Video') {tab_name = 'Видео'}
+            if (tab.name == 'Music') {tab_name = 'Музыка'}
+            return <Tab className={className} style={{cursor: 'pointer', userSelect: 'none'}}>{tab_name}</Tab>
         })
 
         return (

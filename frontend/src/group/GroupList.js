@@ -85,14 +85,14 @@ class GroupList extends React.Component {
                 <div className="row" style={{marginTop: '15px'}}>
                     <div className="col-3"></div>
                     <div className="col-5">
-                        <input type="text" value={this.state.first_name} className="form-control" placeholder="Search"
+                        <input type="text" value={this.state.first_name} className="form-control" placeholder="Поиск"
                                name="search" onChange={this.inputHandle} style={{margin: '15px 0'}} onKeyPress={this.onSearchEnter}/>
                         {groups}
                     </div>
                     <div className="col-2" style={{marginTop: '15px'}}>
-                        <div>Theme filters</div>
+                        <div>Фильтры по теме</div>
                         {theme_filters}
-                        <input type="button" className="btn btn-outline-danger" value="Clear filters"
+                        <input type="button" className="btn btn-outline-danger" value="Очистить фильтры"
                                style={{marginTop: '10px'}} onClick={this.clearFilters}/>
                     </div>
                     <div className="col-2"></div>

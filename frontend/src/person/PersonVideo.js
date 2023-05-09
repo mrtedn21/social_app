@@ -105,22 +105,22 @@ class PersonVideo extends React.Component {
                 { this.props.can_edit ?
                     <form style={{textAlign: 'left'}}>
                         <div style={{marginBottom: '10px'}}>
-                            <label className="form-label">Name</label>
+                            <label className="form-label">Имя</label>
                             <input type="text" name="name" className="form-control" onChange={this.inputHandle}/>
                         </div>
                         <div style={{marginBottom: '10px'}}>
-                            <label className="form-label">Description</label>
+                            <label className="form-label">Описание</label>
                             <input type="text" name="description" className="form-control" onChange={this.inputHandle}/>
                         </div>
                         <div style={{marginBottom: '10px'}}>
-                            <label className="form-label">Preview</label>
+                            <label className="form-label">Превью</label>
                             <input type="file" name="preview" onChange={this.inputFileHandle} className="form-control"/>
                         </div>
                         <div style={{marginBottom: '10px'}}>
-                            <label className="form-label">Video</label>
+                            <label className="form-label">Файл</label>
                             <input type="file" name="video" className="form-control" accept="video/*" onChange={this.inputFileHandle}/>
                         </div>
-                        <input type="button" value="Add video" className="btn btn-primary" onClick={this.videoUpload} style={{marginBottom: '30px'}}/>
+                        <input type="button" value="Добавить видео" className="btn btn-primary" onClick={this.videoUpload} style={{marginBottom: '30px'}}/>
                     </form>
                     :
                     null

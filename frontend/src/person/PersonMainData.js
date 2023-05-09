@@ -21,19 +21,19 @@ class PersonMainData extends React.Component {
                         <table className="table">
                             <tbody>
                                 <tr>
-                                    <td>Name</td>
+                                    <td>Имя</td>
                                     <td>{this.props.person.first_name} {this.props.person.last_name}</td>
                                 </tr>
                                 <tr>
-                                    <td>Birthday</td>
+                                    <td>Дата рождения</td>
                                     <td>{this.format_date()}</td>
                                 </tr>
                                 <tr>
-                                    <td>City</td>
+                                    <td>Город</td>
                                     <td>{this.props.person.city.country}, {this.props.person.city.name}</td>
                                 </tr>
                                 <tr>
-                                    <td>Languages</td>
+                                    <td>Языки</td>
                                     <td>{this.props.person.languages.map(language => language.name).join(', ')}</td>
                                 </tr>
                             </tbody>

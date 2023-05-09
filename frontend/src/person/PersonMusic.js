@@ -33,26 +33,6 @@ class PersonMusic extends React.Component {
         })
     }
 
-    //async musicUpload(event) {
-    //    const request_url = 'http://localhost:8000/api/song/'
-    //    const regExp = /token=(\w{40})/g;
-    //    const token = regExp.exec(document.cookie)[1]
-    //    const requestData = {
-    //        file: await toBase64(event.target.files[0]),
-    //    }
-
-    //    await fetch(request_url, {
-    //        method: 'POST',
-    //        body: JSON.stringify(requestData),
-    //        headers: {
-    //            'Content-Type': 'application/json',
-    //            'Authorization': 'Token ' + token,
-    //        },
-    //    })
-    //        .then(response => response.json())
-    //        .then(data => console.log(data))
-    //}
-
     async songUpload(event) {
         const request_url = 'http://localhost:8000/api/person_music/'
 
@@ -78,23 +58,23 @@ class PersonMusic extends React.Component {
                 {this.props.can_edit ?
                     <form style={{textAlign: 'left'}}>
                         <div style={{marginBottom: '10px'}}>
-                            <label className="form-label">Artist</label>
+                            <label className="form-label">Артист</label>
                             <input type="text" name="artist" className="form-control" onChange={this.inputHandle}/>
                         </div>
                         <div style={{marginBottom: '10px'}}>
-                            <label className="form-label">Album</label>
+                            <label className="form-label">Альбом</label>
                             <input type="text" name="album" className="form-control" onChange={this.inputHandle}/>
                         </div>
                         <div style={{marginBottom: '10px'}}>
-                            <label className="form-label">Title</label>
+                            <label className="form-label">Заголовок</label>
                             <input type="text" name="title" className="form-control" onChange={this.inputHandle}/>
                         </div>
                         <div style={{marginBottom: '10px'}}>
-                            <label className="form-label">File</label>
+                            <label className="form-label">Файл</label>
                             <input type="file" name="file" className="form-control" accept="audio/*"
                                    onChange={this.inputFileHandle}/>
                         </div>
-                        <input type="button" value="Add song" className="btn btn-primary" onClick={this.songUpload}
+                        <input type="button" value="Добавить песню" className="btn btn-primary" onClick={this.songUpload}
                                style={{marginBottom: '30px'}}/>
                     </form>
                     :

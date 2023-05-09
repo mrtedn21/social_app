@@ -110,14 +110,14 @@ class PersonPhotos extends React.Component {
                 {this.props.can_edit ?
                     <form style={{textAlign: 'left'}}>
                         <div style={{marginBottom: '10px'}}>
-                            <label className="form-label">Image</label>
+                            <label className="form-label">Фотография</label>
                             <input type="file" name="image" onChange={this.changeImage} className="form-control"/>
                         </div>
                         <div style={{marginBottom: '10px'}}>
-                            <label className="form-label">Description</label>
+                            <label className="form-label">Описание</label>
                             <input type="text" name="description" className="form-control" onChange={this.inputHandle}/>
                         </div>
-                        <input type="button" value="Add photo" className="btn btn-primary" onClick={this.photoUpload}
+                        <input type="button" value="Добавить фото" className="btn btn-primary" onClick={this.photoUpload}
                                style={{marginBottom: '30px'}}/>
                     </form>
                     :

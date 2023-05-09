@@ -34,26 +34,6 @@ class GroupMusic extends React.Component {
         })
     }
 
-    //async musicUpload(event) {
-    //    const request_url = 'http://localhost:8000/api/song/'
-    //    const regExp = /token=(\w{40})/g;
-    //    const token = regExp.exec(document.cookie)[1]
-    //    const requestData = {
-    //        file: await toBase64(event.target.files[0]),
-    //    }
-
-    //    await fetch(request_url, {
-    //        method: 'POST',
-    //        body: JSON.stringify(requestData),
-    //        headers: {
-    //            'Content-Type': 'application/json',
-    //            'Authorization': 'Token ' + token,
-    //        },
-    //    })
-    //        .then(response => response.json())
-    //        .then(data => console.log(data))
-    //}
-
     async songUpload(event) {
         console.log(this.state)
         const request_url = 'http://localhost:8000/api/group_music/'

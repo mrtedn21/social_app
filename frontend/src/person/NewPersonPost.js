@@ -34,7 +34,7 @@ class PersonPost extends React.Component {
             <form>
                 <textarea name="text" onChange={this.inputHandle} value={this.state.text} style={{marginBottom: '5px'}} className="form-control" aria-label="With textarea" />
                 <div style={{textAlign: 'left'}}>
-                    <input type="button" className="btn btn-primary" onClick={this.createPost} value="Add post" />
+                    <input type="button" className="btn btn-primary" onClick={this.createPost} value="Добавить пост" />
                 </div>
             </form>
         )

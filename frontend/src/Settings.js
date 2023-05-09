@@ -106,23 +106,23 @@ class Settings extends React.Component {
                     <div className="col-4"></div>
                     <div className="col-4">
                         <div style={{marginBottom: '13px'}}>
-                            <label className="form-label">Avatar</label>
+                            <label className="form-label">Фото профиля</label>
                             <input type="file" className="form-control" name="avatar" onChange={this.updateAvatar}/>
                             <img src={this.state.concrete_settings.avatar_thumbnail} id="person-avatar"
                                  alt="Avatar" style={{width: '200px', marginBottom: '10px', borderRadius: '10px'}}/>
                         </div>
                         <div style={{marginBottom: '13px'}}>
-                            <label className="form-label">First name</label>
+                            <label className="form-label">Имя</label>
                             <input type="text" value={this.state.first_name} defaultValue={this.state.concrete_settings.first_name} className="form-control"
                                    name="first_name" onChange={this.inputHandle}/>
                         </div>
                         <div style={{marginBottom: '13px'}}>
-                            <label className="form-label">Last name</label>
+                            <label className="form-label">Фамилия</label>
                             <input type="text" value={this.state.last_name} defaultValue={this.state.concrete_settings.last_name} className="form-control"
                                    name="last_name" onChange={this.inputHandle}/>
                         </div>
                         <div style={{marginBottom: '13px'}}>
-                            <label className="form-label">Gender</label>
+                            <label className="form-label">Пол</label>
                             <select className="form-control"
                                     value={this.state.gender} defaultValue={this.state.concrete_settings.gender.pk} name="gender" onChange={this.inputHandle}>
                                 {this.state.initial_settings.genders.map(
@@ -132,7 +132,7 @@ class Settings extends React.Component {
                             </select>
                         </div>
                         <div style={{marginBottom: '13px'}}>
-                            <label className="form-label">Country</label>
+                            <label className="form-label">Страна</label>
                             <select className="form-control" onChange={event => {this.inputHandle(event); this.changeCountry(event) }}
                                     value={this.state.country} defaultValue={this.state.concrete_settings.city.country_pk} name="country">
                                 {this.state.initial_settings.countries.map(
@@ -142,7 +142,7 @@ class Settings extends React.Component {
                             </select>
                         </div>
                         <div style={{marginBottom: '13px'}}>
-                            <label className="form-label">City</label>
+                            <label className="form-label">Город</label>
                             <select className="form-control"
                                     defaultValue={this.state.city || this.state.concrete_settings.city.pk} name="city" onChange={this.inputHandle}>
                                 {this.state.cities_for_select.map(
@@ -152,7 +152,7 @@ class Settings extends React.Component {
                             </select>
                         </div>
                         <div style={{marginBottom: '13px'}}>
-                            <label className="form-label">Languages</label>
+                            <label className="form-label">Языки</label>
                             <select name="languages" className="form-control" defaultValue={this.state.concrete_settings.languages.map(language => language.pk)}
                                     onChange={this.multipleSelectHandle} multiple value={this.state.languages}>
                                 {this.state.initial_settings.languages.map(
@@ -162,7 +162,7 @@ class Settings extends React.Component {
                             </select>
                         </div>
                         <div>
-                            <input type="button" value="Save settings" className="btn btn-primary" onClick={this.updateSettings}/>
+                            <input type="button" value="Сохранить настройки" className="btn btn-primary" onClick={this.updateSettings}/>
                         </div>
                     </div>
                     <div className="col-4"></div>
