@@ -11,7 +11,6 @@ class Container extends React.Component {
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item"><a className="nav-link active" href="/chat">Messages</a></li>
-                                <li className="nav-item"><a className="nav-link active" href="#">News</a></li>
                                 <li className="nav-item"><a className="nav-link active" href="/music/">Music</a></li>
                                 <li className="nav-item"><a className="nav-link active" href="/groups/">Groups</a></li>
                                 <li className="nav-item"><a className="nav-link active" href="/persons">People</a></li>

@@ -61,7 +61,7 @@ class MusicList extends React.Component {
         console.log('i go next in render')
 
         const music = this.state.music.map(song =>
-            <div>
+            <div style={{marginBottom: '10px'}}>
                 <p style={{float: 'left', marginBottom: 0, marginTop: '5px'}}>{song.artist.name} {song.title}</p>
                 <audio controls={true} src={song.file} key={song.pk.toString()} style={{width: '500px'}}/>
             </div>

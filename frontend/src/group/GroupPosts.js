@@ -44,8 +44,6 @@ class GroupPosts extends React.Component {
                         </div>
                         <div className="row">
                             <div className="col-2" style={{textAlign: 'left'}}>
-                                {/*<span>{post.likes_count}</span>*/}
-                                {/*<FaHeart style={{marginLeft: '4px'}}/>*/}
                             </div>
                             <div className="col-7"></div>
                             <div className="col-3">

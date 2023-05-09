@@ -42,7 +42,7 @@ class PhotoFull extends React.Component {
             <div onClick={this.changeVisible} style={{position: 'fixed', backdropFilter: 'blur(3px)', background: 'rgba(190, 190, 190, 0.69)', top: 0, bottom: 0, left: 0, right: 0}}>
                 <img onClick={(event) => event.stopPropagation()} style={{position: 'fixed', top: '100px', left: '400px'}} src={this.props.src} alt="image"/>
                 <FaTrash
-                    style={{position: 'fixed', top: '90px', left: '390px'}}
+                    style={{position: 'fixed', top: '80px', left: '399px'}}
                     onMouseOver={({target})=>target.style.color="red"}
                     onMouseOut={({target})=>target.style.color="black"}
                     onClick={() => this.deletePhoto(this.props.pk)}
@@ -107,17 +107,6 @@ class GroupPhotos extends React.Component {
         console.log(this.state)
         return (
             <div>
-                <form style={{textAlign: 'left'}}>
-                    <div style={{marginBottom: '10px'}}>
-                        <label className="form-label">Image</label>
-                        <input type="file" name="image" onChange={this.changeImage} className="form-control"/>
-                    </div>
-                    <div style={{marginBottom: '10px'}}>
-                        <label className="form-label">Description</label>
-                        <input type="text" name="description" className="form-control" onChange={this.inputHandle}/>
-                    </div>
-                    <input type="button" value="Add photo" className="btn btn-primary" onClick={this.photoUpload} style={{marginBottom: '30px'}}/>
-                </form>
                 <div className="row row-cols-3 g-1">
                     {this.props.photos.map(photo =>
                         <div className="col">

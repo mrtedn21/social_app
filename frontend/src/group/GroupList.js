@@ -63,11 +63,10 @@ class GroupList extends React.Component {
                         <div className="card-body" style={{'paddingRight': 0,'paddingLeft': 0}}>
                             <a href={group.slug} style={{marginBottom: '3px', color: 'black'}}>{group.name}</a>
                             <p style={{marginTop: '0', marginBottom: '0'}}>{group.theme_name}</p>
-                            <p style={{marginTop: '0', marginBottom: '0'}}>{group.followers_count} followers</p>
                         </div>
                     </div>
                     <div className="col-md-3">
-                        <input type="button" value="Following" className="btn btn-primary" style={{marginTop: '10px', marginRight: '10px', float: 'right'}}/>
+                        <a href={'/groups/' + group.slug } type="button" className="btn btn-primary" style={{marginTop: '10px', marginRight: '10px', float: 'right'}}>Open</a>
                     </div>
                 </div>
             </div>

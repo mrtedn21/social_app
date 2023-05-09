@@ -41,7 +41,7 @@ class PhotoFull extends React.Component {
                 <img onClick={(event) => event.stopPropagation()} style={{position: 'fixed', top: '100px', left: '400px'}} src={this.props.src} alt="image"/>
                 { this.props.can_edit ?
                     <FaTrash
-                        style={{position: 'fixed', top: '90px', left: '390px'}}
+                        style={{position: 'fixed', top: '80px', left: '399px'}}
                         onMouseOver={({target})=>target.style.color="red"}
                         onMouseOut={({target})=>target.style.color="black"}
                         onClick={() => this.deletePhoto(this.props.pk)}

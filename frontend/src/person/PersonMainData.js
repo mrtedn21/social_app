@@ -40,10 +40,7 @@ class PersonMainData extends React.Component {
                         </table>
                         {this.props.can_edit !== true ?
                             <div>
-                                <input type="button" className="btn btn-primary" value="Open chat"
-                                       style={{margin: '5px'}}/>
-                                <input type="button" className="btn btn-primary" value="Follow"
-                                       style={{margin: '5px'}}/>
+                                <a href={'/chat/?direct_person_pk=' + this.props.person.pk} type="button" className="btn btn-primary" style={{margin: '5px'}}>Open chat</a>
                             </div>
                             :
                             null

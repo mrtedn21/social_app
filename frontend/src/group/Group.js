@@ -102,7 +102,6 @@ class Group extends React.Component {
                                     </TabList>
                                     <div className="card-body">
                                         <TabPanel>
-                                            <NewGroupPost />
                                             <GroupPosts posts={this.state.posts}/>
                                         </TabPanel>
                                         <TabPanel>

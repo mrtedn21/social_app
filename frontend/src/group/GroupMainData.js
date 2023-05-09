@@ -26,25 +26,13 @@ class GroupMainData extends React.Component {
                                 </tr>
                                 <tr>
                                     <td>Theme</td>
-                                    <td>{this.props.group.theme}</td>
-                                </tr>
-                                <tr>
-                                    <td>Short description</td>
-                                    <td>{this.props.group.short_description}</td>
-                                </tr>
-                                <tr>
-                                    <td>Long description</td>
-                                    <td>{this.props.group.long_description}</td>
-                                </tr>
-                                <tr>
-                                    <td>Followers count</td>
-                                    <td>{this.props.group.followers_count}</td>
+                                    <td>{this.props.group.theme_name}</td>
                                 </tr>
                             </tbody>
                         </table>
                         <div>
-                            <input type="button" className="btn btn-primary" value="Open chat" style={{margin: '5px'}}/>
-                            <input type="button" className="btn btn-primary" value="Follow" style={{margin: '5px'}}/>
+                            {/*<input type="button" className="btn btn-primary" value="Open chat" style={{margin: '5px'}}/>*/}
+                            {/*<input type="button" className="btn btn-primary" value="Follow" style={{margin: '5px'}}/>*/}
                         </div>
                     </div>
                 </div>

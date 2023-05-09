@@ -78,25 +78,6 @@ class GroupMusic extends React.Component {
         }
         return (
             <div>
-                <form style={{textAlign: 'left'}}>
-                    <div style={{marginBottom: '10px'}}>
-                        <label className="form-label">Artist</label>
-                        <input type="text" name="artist" className="form-control" onChange={this.inputHandle}/>
-                    </div>
-                    <div style={{marginBottom: '10px'}}>
-                        <label className="form-label">Album</label>
-                        <input type="text" name="album" className="form-control" onChange={this.inputHandle}/>
-                    </div>
-                    <div style={{marginBottom: '10px'}}>
-                        <label className="form-label">Title</label>
-                        <input type="text" name="title" className="form-control" onChange={this.inputHandle}/>
-                    </div>
-                    <div style={{marginBottom: '10px'}}>
-                        <label className="form-label">File</label>
-                        <input type="file" name="file" className="form-control" accept="audio/*" onChange={this.inputFileHandle}/>
-                    </div>
-                    <input type="button" value="Add song" className="btn btn-primary" onClick={this.songUpload} style={{marginBottom: '30px'}}/>
-                </form>
                 <div className="row">
                     {this.props.music.map(song =>
                         <div className="col-12">
