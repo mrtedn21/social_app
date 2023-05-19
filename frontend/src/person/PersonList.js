@@ -77,7 +77,7 @@ class PersonList extends React.Component {
                         <div className="card-body" style={{'paddingRight': 0,'paddingLeft': 0}}>
                             <a href={'persons/' + person.pk} style={{marginBottom: '3px', color: 'black'}}>{person.first_name} {person.last_name}</a>
                             <p style={{marginTop: '0', marginBottom: '0'}}>{person.city.name}, {person.city.country}</p>
-                            <p style={{marginTop: '0', marginBottom: '0'}}>Возраст: {person.age} years</p>
+                            <p style={{marginTop: '0', marginBottom: '0'}}>Возраст: {person.age}</p>
                         </div>
                     </div>
                     <div className="col-md-3">
