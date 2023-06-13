@@ -13,7 +13,7 @@ class PersonPosts extends React.Component {
     }
 
     async deletePost(post_pk) {
-        const tab_request_url = 'http://localhost:8000/api/person_posts/' + post_pk + '/';
+        const tab_request_url = 'http://90.189.172.136:8000/api/person_posts/' + post_pk + '/';
 
         await customFetchDelete({
             url: tab_request_url,

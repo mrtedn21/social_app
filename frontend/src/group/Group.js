@@ -44,7 +44,7 @@ class Group extends React.Component {
             return;
         }
 
-        const tab_request_url = 'http://localhost:8000/api/' + selectedTab.partUrl + '?group_slug=' + this.props.params.slug;
+        const tab_request_url = 'http://90.189.172.136:8000/api/' + selectedTab.partUrl + '?group_slug=' + this.props.params.slug;
         await customFetchGet({
             url: tab_request_url,
             callback_with_data: data => this.setState({[selectedTab.name.toLowerCase()]: data.results}),
@@ -52,7 +52,7 @@ class Group extends React.Component {
     }
 
     async componentDidMount() {
-        const group_request_url = 'http://localhost:8000/api/groups/' + this.props.params.slug;
+        const group_request_url = 'http://90.189.172.136:8000/api/groups/' + this.props.params.slug;
 
         await customFetchGet({
             url: group_request_url,

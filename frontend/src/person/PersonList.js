@@ -33,7 +33,7 @@ class PersonList extends React.Component {
 
     async componentDidMount() {
         await customFetchGet({
-            url: 'http://localhost:8000/api/persons/',
+            url: 'http://90.189.172.136:8000/api/persons/',
             callback_with_data: (data) => this.setState({persons: data.results})
         })
     }
@@ -44,7 +44,7 @@ class PersonList extends React.Component {
         filters = Object.fromEntries(Object.entries(filters).filter(([filter_name, filter_value]) => filter_value !== undefined));
 
         await customFetchGet({
-            url: 'http://localhost:8000/api/persons/?' + new URLSearchParams(filters),
+            url: 'http://90.189.172.136:8000/api/persons/?' + new URLSearchParams(filters),
             callback_with_data: data => this.setState({persons: data.results}),
         })
     }
@@ -56,7 +56,7 @@ class PersonList extends React.Component {
     async onSearchEnter(event) {
         if (event.key === 'Enter') {
             await customFetchGet({
-                url: 'http://localhost:8000/api/persons/?search_by_name=' + event.target.value,
+                url: 'http://90.189.172.136:8000/api/persons/?search_by_name=' + event.target.value,
                 callback_with_data: data => this.setState({persons: data.results}),
             })
         }

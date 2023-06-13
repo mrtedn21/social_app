@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-j*&gc5c+t&iio*xlp2w$r3h8k0n^t04f-^qn29kgk_0uhcro*1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['90.189.172.136', 'localhost']
 
 # Application definition
 
@@ -196,7 +196,12 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 1024**3 * 10
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 GOOGLE_SEARCH_ENGINE_ID = os.getenv('GOOGLE_SEARCH_ENGINE_ID')
 
-CORS_ALLOWED_ORIGINS = ['http://localhost:8000', 'http://localhost:3000']
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8000',
+    'http://localhost:3000',
+    'http://90.189.172.136:8000',
+    'http://90.189.172.136:3000',
+]
 
 # yandex object storage
 DEFAULT_FILE_STORAGE = "django_s3_storage.storage.S3Storage"

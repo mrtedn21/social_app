@@ -18,7 +18,7 @@ import Musiclist from "./Musiclist";
 
 
 const router = createBrowserRouter([
-    {path: '/', element: <Navigate to='persons/' />},
+    {path: '/', element: <Navigate to='login/' />},
     {path: '/persons/:pk', element: <Person />},
     {path: '/persons/', element: <PersonList />},
     {path: '/music/', element: <Musiclist />},

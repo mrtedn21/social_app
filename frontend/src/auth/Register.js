@@ -26,7 +26,7 @@ class Login extends React.Component {
 
     async clickHandle(event) {
         event.preventDefault()
-        await fetch('http://localhost:8000/api/register/', {
+        await fetch('http://90.189.172.136:8000/api/register/', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

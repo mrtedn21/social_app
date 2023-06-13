@@ -16,7 +16,7 @@ RUN apk add --no-cache --virtual build-deps \
     make gcc g++ `# для сборки пакетов` \
     postgresql-dev `# для psycopg2` \
     libjpeg-turbo-dev zlib-dev libffi-dev cairo-dev libwebp-dev `# для pillow`
-RUN curl –proto ‘=https’ –tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+RUN curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh -s -- -y
 RUN pip3 install poetry==1.1.6 \
     && poetry install --no-root --no-interaction --no-ansi
 COPY ./ ./

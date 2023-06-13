@@ -34,7 +34,7 @@ class PersonMusic extends React.Component {
     }
 
     async songUpload(event) {
-        const request_url = 'http://localhost:8000/api/person_music/'
+        const request_url = 'http://90.189.172.136:8000/api/person_music/'
 
         let formData = new FormData()
         formData.append('artist', this.state.artist)

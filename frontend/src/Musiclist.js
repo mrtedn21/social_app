@@ -33,7 +33,7 @@ class MusicList extends React.Component {
 
     async componentDidMount() {
         await customFetchGet({
-            url: 'http://localhost:8000/api/common_music/',
+            url: 'http://90.189.172.136:8000/api/common_music/',
             callback_with_data: (data) => this.setState({music: data.results})
         })
     }
@@ -44,7 +44,7 @@ class MusicList extends React.Component {
         filters = Object.fromEntries(Object.entries(filters).filter(([filter_name, filter_value]) => filter_value !== undefined));
 
         await customFetchGet({
-            url: 'http://localhost:8000/api/common_music/?' + new URLSearchParams(filters),
+            url: 'http://90.189.172.136:8000/api/common_music/?' + new URLSearchParams(filters),
             callback_with_data: data => this.setState({music: data.results}),
         })
     }
@@ -54,11 +54,9 @@ class MusicList extends React.Component {
     }
 
     render() {
-        console.log('i am in begin render')
         if (this.state.music === undefined) {
             return null;
         }
-        console.log('i go next in render')
 
         const music = this.state.music.map(song =>
             <div style={{marginBottom: '10px'}}>
@@ -66,10 +64,7 @@ class MusicList extends React.Component {
                 <audio controls={true} src={song.file} key={song.pk.toString()} style={{width: '500px'}}/>
             </div>
         )
-        console.log('music')
-        console.log(music)
-        console.log('state')
-        console.log(this.state)
+
 
         return (
             <Container>

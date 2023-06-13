@@ -13,7 +13,7 @@ class RegisterSubmit extends React.Component {
         const url_param = new URLSearchParams(parameters)
         const id = url_param.get('id')
 
-        const request_url = 'http://localhost:8000/api/register/submit/'+ id + '/';
+        const request_url = 'http://90.189.172.136:8000/api/register/submit/'+ id + '/';
         console.log(request_url)
         await fetch(request_url)
             .then(response => {

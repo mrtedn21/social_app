@@ -40,7 +40,7 @@ class Chat extends React.Component {
         });
 
         await customFetchGet({
-            url: 'http://localhost:8000/api/chats/',
+            url: 'http://90.189.172.136:8000/api/chats/',
             callback_with_data: async data => {
                 let results = data.results
                 const first_id = results[0].pk
@@ -53,7 +53,7 @@ class Chat extends React.Component {
                 } else {
                     if (params.direct_person_pk) {
                         await customFetchGet({
-                            url: 'http://localhost:8000/api/persons/' + params.direct_person_pk,
+                            url: 'http://90.189.172.136:8000/api/persons/' + params.direct_person_pk,
                             callback_with_data: async data => {
                                 results.splice(0, 0, {
                                     pk: 0,
@@ -94,7 +94,7 @@ class Chat extends React.Component {
     async set_chat(chat_id) {
         if (chat_id !== 0) {
             await customFetchGet({
-                url: 'http://localhost:8000/api/messages/?chat_id=' + chat_id.toString(),
+                url: 'http://90.189.172.136:8000/api/messages/?chat_id=' + chat_id.toString(),
                 callback_with_data: data => this.setState({messages: data.results}),
             })
         }
@@ -128,7 +128,7 @@ class Chat extends React.Component {
                 }
 
                 await customFetchPost({
-                    url: 'http://localhost:8000/api/messages/',
+                    url: 'http://90.189.172.136:8000/api/messages/',
                     callback_with_data: data => window.location.reload(),
                     body: formData,
                 })
@@ -169,7 +169,8 @@ class Chat extends React.Component {
             <div className="card" id="chat1" style={{
                 borderRadius: '15px',
                 marginBottom: '10px',
-                backgroundColor: chat.pk == this.state.selected_chat_id ? '#e6efff' : 'white'
+                backgroundColor: chat.pk == this.state.selected_chat_id ? '#e6efff' : 'white',
+                border: '1px black solid',
             }}>
                 <div className="card-body" style={{padding: '12px'}}>
                     <div style={{display: 'flex'}}>
@@ -206,13 +207,13 @@ class Chat extends React.Component {
                         {chats}
                     </div>
                     <div className="col-7">
-                        <div className="card" id="chat1" style={{borderRadius: '15px'}}>
+                        <div className="card" id="chat1" style={{borderRadius: '15px', border: '1px black solid'}}>
                             <div className="card-body">
                                 <div ref={this.messages_list_container} style={{height: '600px', overflow: 'auto', marginBottom: '10px'}}>
                                     {messages}
                                 </div>
                                 <div className="form-outline">
-                                    <textarea autoFocus={true} className="form-control without_outline" id="textAreaExample"
+                                    <textarea autoFocus={true} className="form-control without_outline" id="textAreaExample" style={{border: '1px black solid'}}
                                               rows="2" onInput={this.text_input_handle} onKeyPress={this.text_key_pressed}/>
                                 </div>
                             </div>

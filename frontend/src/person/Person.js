@@ -52,7 +52,7 @@ class Person extends React.Component {
             return;
         }
 
-        const tab_request_url = 'http://localhost:8000/api/' + selectedTab.partUrl + '?person_id=' + this.props.params.pk;
+        const tab_request_url = 'http://90.189.172.136:8000/api/' + selectedTab.partUrl + '?person_id=' + this.props.params.pk;
 
         await customFetchGet({
             url: tab_request_url,
@@ -61,7 +61,7 @@ class Person extends React.Component {
     }
 
     async componentDidMount() {
-        const person_request_url = 'http://localhost:8000/api/persons/' + this.props.params.pk;
+        const person_request_url = 'http://90.189.172.136:8000/api/persons/' + this.props.params.pk;
         await customFetchGet({
             url: person_request_url,
             callback_with_data: data => this.setState({person: data}),

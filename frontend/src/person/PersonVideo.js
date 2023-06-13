@@ -16,7 +16,7 @@ class VideoFull extends React.Component {
     }
 
     async deleteVideo(video_pk) {
-        const tab_request_url = 'http://localhost:8000/api/person_videos/' + video_pk + '/';
+        const tab_request_url = 'http://90.189.172.136:8000/api/person_videos/' + video_pk + '/';
         await customFetchDelete({
             url: tab_request_url,
             callback_with_data: data => window.location.reload(),
@@ -73,7 +73,7 @@ class PersonVideo extends React.Component {
     }
 
     async videoUpload(event) {
-        const request_url = 'http://localhost:8000/api/person_videos/'
+        const request_url = 'http://90.189.172.136:8000/api/person_videos/'
 
         let formData = new FormData()
         formData.append('description', this.state.description)

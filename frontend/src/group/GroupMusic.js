@@ -36,7 +36,7 @@ class GroupMusic extends React.Component {
 
     async songUpload(event) {
         console.log(this.state)
-        const request_url = 'http://localhost:8000/api/group_music/'
+        const request_url = 'http://90.189.172.136:8000/api/group_music/'
 
         let formData = new FormData()
         formData.append('artist', this.state.artist)

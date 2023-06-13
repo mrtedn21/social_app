@@ -19,18 +19,18 @@ class GroupList extends React.Component {
 
     async componentDidMount() {
         await customFetchGet({
-            url: 'http://localhost:8000/api/groups/',
+            url: 'http://90.189.172.136:8000/api/groups/',
             callback_with_data: data => this.setState({groups: data.results}),
         })
         await customFetchGet({
-            url: 'http://localhost:8000/api/groups/specs/',
+            url: 'http://90.189.172.136:8000/api/groups/specs/',
             callback_with_data: data => this.setState({specs: data}),
         })
     }
 
     async selectThemeHandle(event) {
         await customFetchGet({
-            url: 'http://localhost:8000/api/groups/?theme_slug=' + event.target.value,
+            url: 'http://90.189.172.136:8000/api/groups/?theme_slug=' + event.target.value,
             callback_with_data: data => this.setState({groups: data.results}),
         })
     }
@@ -42,7 +42,7 @@ class GroupList extends React.Component {
     async onSearchEnter(event) {
         if (event.key === 'Enter') {
             await customFetchGet({
-                url: 'http://localhost:8000/api/groups/?name_like=' + event.target.value,
+                url: 'http://90.189.172.136:8000/api/groups/?name_like=' + event.target.value,
                 callback_with_data: data => this.setState({groups: data.results}),
             })
         }
@@ -66,7 +66,7 @@ class GroupList extends React.Component {
                         </div>
                     </div>
                     <div className="col-md-3">
-                        <a href={'/groups/' + group.slug } type="button" className="btn btn-primary" style={{marginTop: '10px', marginRight: '10px', float: 'right'}}>Open</a>
+                        <a href={'/groups/' + group.slug } type="button" className="btn btn-primary" style={{marginTop: '10px', marginRight: '10px', float: 'right'}}>Открыть</a>
                     </div>
                 </div>
             </div>

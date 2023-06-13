@@ -24,7 +24,7 @@ class PhotoFull extends React.Component {
     }
 
     async deletePhoto(photo_pk) {
-        const tab_request_url = 'http://localhost:8000/api/person_photos/' + photo_pk + '/';
+        const tab_request_url = 'http://90.189.172.136:8000/api/person_photos/' + photo_pk + '/';
         await customFetchDelete({
             url: tab_request_url,
             callback_with_data: data => window.location.reload(),
@@ -79,7 +79,7 @@ class PersonPhotos extends React.Component {
     }
 
     async photoUpload(event) {
-        const request_url = 'http://localhost:8000/api/person_photos/'
+        const request_url = 'http://90.189.172.136:8000/api/person_photos/'
         const requestData = {
             image: await toBase64(this.state.image),
             description: this.state.description,
